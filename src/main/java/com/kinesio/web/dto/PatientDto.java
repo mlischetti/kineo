@@ -1,20 +1,34 @@
-package com.kinesio.web.request.patient;
+package com.kinesio.web.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.hibernate.validator.constraints.NotBlank;
+import com.kinesio.model.Patient;
 
 /**
  * Created by mlischetti on 12/7/15.
  */
-public class UpdatePatientRequest {
+public class PatientDto {
 
-    @NotBlank
+    private Long id;
+
     @JsonProperty(value = "first_name")
     private String firstName;
 
-    @NotBlank
     @JsonProperty(value = "last_name")
     private String lastName;
+
+    public PatientDto(Patient patient) {
+        this.id = patient.getId();
+        this.firstName = patient.getFirstName();
+        this.lastName = patient.getLastName();
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String getFirstName() {
         return firstName;

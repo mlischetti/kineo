@@ -2,12 +2,10 @@ package com.kinesio.web.controller;
 
 import com.kinesio.model.Doctor;
 import com.kinesio.service.internal.DoctorService;
+import com.kinesio.web.dto.DoctorDto;
 import com.kinesio.web.exception.EntityNotFoundException;
-import com.kinesio.web.request.doctor.NewDoctorRequest;
-import com.kinesio.web.request.doctor.UpdateDoctorRequest;
-import com.kinesio.web.response.doctor.GetDoctorResponse;
-import com.kinesio.web.response.doctor.NewDoctorResponse;
-import com.kinesio.web.response.doctor.UpdateDoctorResponse;
+import com.kinesio.web.request.doctor.DoctorRequest;
+import com.kinesio.web.response.doctor.DoctorResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,50 +30,50 @@ public class DoctorController {
         this.doctorService = doctorService;
     }
 
-    @RequestMapping(value = "/doctors/{doctor_id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public GetDoctorResponse getDoctor(@PathVariable("doctor_id") Long doctorId) {
+    @RequestMapping(value = "/doctors/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public DoctorDto getDoctor(@PathVariable("id") Long id) {
 
-        LOGGER.debug("Retrieving data for doctor: {}", doctorId);
-        Doctor doctor = doctorService.findById(doctorId);
+        LOGGER.debug("Retrieving doctor: {}", id);
+        Doctor doctor = doctorService.findById(id);
         if (doctor == null) {
-            LOGGER.debug("Could not found doctor: {}", doctorId);
-            EntityNotFoundException exception = new EntityNotFoundException("doctor");
-            exception.setSearchMessage("doctor_id = " + doctorId);
+            LOGGER.debug("Could not found doctor: {}", id);
+            EntityNotFoundException exception = new EntityNotFoundException(Doctor.ENTITY);
+            exception.setSearchMessage("id = " + id);
             throw exception;
         }
-        return new GetDoctorResponse(doctor);
+        return new DoctorDto(doctor);
     }
 
     @RequestMapping(value = "/doctors", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public NewDoctorResponse newDoctor(@Valid @RequestBody NewDoctorRequest doctorRequest) {
+    public DoctorResponse createDoctor(@Valid @RequestBody DoctorRequest doctorRequest) {
         LOGGER.debug("Creating doctor...");
         Doctor doctor = new Doctor();
         doctor.setFirstName(doctorRequest.getFirstName());
         doctor.setLastName(doctorRequest.getLastName());
-        doctor = doctorService.save(doctor);
+        doctorService.save(doctor);
         LOGGER.debug("Created doctor: {}", doctor.getId());
-        return new NewDoctorResponse(doctor.getId());
+        return new DoctorResponse(doctor.getId());
     }
 
-    @RequestMapping(value = "/doctors/{doctor_id}", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE,
+    @RequestMapping(value = "/doctors/{id}", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public UpdateDoctorResponse updateDoctor(@PathVariable("doctor_id") Long doctorId,
-                                             @Valid @RequestBody UpdateDoctorRequest doctorRequest) {
-        LOGGER.debug("Updating doctor: {}", doctorId);
-        Doctor doctor = doctorService.findById(doctorId);
+    public DoctorResponse updateDoctor(@PathVariable("id") Long id,
+                                       @Valid @RequestBody DoctorRequest doctorRequest) {
+        LOGGER.debug("Updating doctor: {}", id);
+        Doctor doctor = doctorService.findById(id);
         if (doctor == null) {
-            LOGGER.debug("Could not found doctor: {}", doctorId);
-            EntityNotFoundException exception = new EntityNotFoundException("doctor");
-            exception.setSearchMessage("doctor_id = " + doctorId);
+            LOGGER.debug("Could not found doctor: {}", id);
+            EntityNotFoundException exception = new EntityNotFoundException(Doctor.ENTITY);
+            exception.setSearchMessage("id = " + id);
             throw exception;
         }
         doctor.setFirstName(doctorRequest.getFirstName());
         doctor.setLastName(doctorRequest.getLastName());
         doctorService.save(doctor);
 
-        LOGGER.debug("Updated doctor: {}", doctorId);
-        return new UpdateDoctorResponse(doctor.getId());
+        LOGGER.debug("Updated doctor: {}", id);
+        return new DoctorResponse(id);
     }
 
 }

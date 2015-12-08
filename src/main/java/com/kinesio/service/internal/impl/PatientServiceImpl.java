@@ -27,7 +27,7 @@ public class PatientServiceImpl implements PatientService {
 
     @Transactional
     @Override
-    public Patient save(Patient patient) {
-        return patientRepository.save(patient);
+    public void save(Patient patient) {
+        patientRepository.save(patient);
     }
 }

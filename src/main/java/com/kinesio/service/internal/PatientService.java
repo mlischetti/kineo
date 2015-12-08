@@ -9,5 +9,5 @@ public interface PatientService {
 
     Patient findById(Long id);
 
-    Patient save(Patient patient);
+    void save(Patient patient);
 }

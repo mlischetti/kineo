@@ -14,6 +14,8 @@ import javax.persistence.Table;
 @Table(name = "Doctor")
 public class Doctor extends BaseEntity {
 
+    public static final String ENTITY = "Doctor";
+
     @Column(name = "first_name")
     @NotEmpty
     private String firstName;

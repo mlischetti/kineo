@@ -2,9 +2,7 @@ package com.kinesio.model;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 /**
  * Created by mlischetti on 11/27/15.
@@ -13,7 +11,7 @@ import javax.persistence.Table;
 @Table(name = "Patient")
 public class Patient extends BaseEntity {
 
-    private static final long serialVersionUID = 1L;
+    public static final String ENTITY = "Patient";
 
     @Column(name = "first_name")
     @NotEmpty
@@ -22,6 +20,10 @@ public class Patient extends BaseEntity {
     @Column(name = "last_name")
     @NotEmpty
     private String lastName;
+
+    @OneToOne
+    @JoinColumn(name = "medical_insurance_id")
+    private MedicalInsurance medicalInsurance;
 
     public String getFirstName() {
         return firstName;

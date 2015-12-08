@@ -3,11 +3,11 @@ package com.kinesio.web.response.patient;
 /**
  * Created by mlischetti on 12/7/15.
  */
-public class UpdatePatientResponse {
+public class PatientResponse {
 
     private Long id;
 
-    public UpdatePatientResponse(Long id) {
+    public PatientResponse(Long id) {
         this.id = id;
     }
 

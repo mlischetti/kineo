@@ -1,34 +1,20 @@
-package com.kinesio.web.response.doctor;
+package com.kinesio.web.request.patient;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.kinesio.model.Doctor;
+import org.hibernate.validator.constraints.NotBlank;
 
 /**
- * Created by mlischetti on 11/29/15.
+ * Created by mlischetti on 12/7/15.
  */
-public class GetDoctorResponse {
+public class PatientRequest {
 
-    private Long id;
-
+    @NotBlank
     @JsonProperty(value = "first_name")
     private String firstName;
 
+    @NotBlank
     @JsonProperty(value = "last_name")
     private String lastName;
-
-    public GetDoctorResponse(Doctor doctor) {
-        this.id = doctor.getId();
-        this.firstName = doctor.getFirstName();
-        this.lastName = doctor.getLastName();
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public String getFirstName() {
         return firstName;

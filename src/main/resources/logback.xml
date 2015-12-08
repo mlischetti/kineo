@@ -4,17 +4,17 @@
 
     <conversionRule conversionWord="oneLineEx" converterClass="com.kinesio.util.logback.OneLineExceptionConverter" />
 
-    <appender name="Console" class="ch.qos.logback.core.ConsoleAppender">
+    <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
-            <pattern>%d %-4p [%X{uow}-%X{requestId}] [%t] [%X{group}] (%F:%L\) : %msg%n</pattern>
+            <pattern>%d %-4p [%t] [%X{group}] (%F:%L\) : %msg%n</pattern>
         </encoder>
     </appender>
 
-    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+    <appender name="file" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <file>/tmp/kinesio.log</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <!-- daily rollover -->
-            <fileNamePattern>notifier.%d{yyyy-MM-dd}.log</fileNamePattern>
+            <fileNamePattern>kinesio.%d{yyyy-MM-dd}.log</fileNamePattern>
 
             <!-- keep 30 days' worth of history -->
             <maxHistory>10</maxHistory>
@@ -24,11 +24,12 @@
         </encoder>
     </appender>
 
-    <logger name="org.springframework" level="WARN" />
-    <logger name="com.kinesio" level="DEBUG" />
+    <!--<logger name="org.hibernate" level="debug"/>
+    <logger name="org.springframework" level="warn"/> -->
+    <logger name="com.kinesio" level="debug"/>
 
-    <root level="INFO">
-        <appender-ref ref="Console" />
-        <appender-ref ref="FILE" />
+    <root level="info">
+        <appender-ref ref="console"/>
+        <appender-ref ref="file"/>
     </root>
 </configuration>

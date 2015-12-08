@@ -1,32 +1,45 @@
 package com.kinesio.repository.impl;
 
 import com.kinesio.repository.BaseRepository;
-import com.kinesio.repository.query.SqlQuery;
+import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
 
 /**
  * Created by mlischetti on 11/29/15.
  */
 public abstract class GenericRepository<T> implements BaseRepository<T> {
 
+    private static final String ID_FIELD = "id";
+
     private SessionFactory sessionFactory;
+
+    private final Class<T> entityType;
 
     @Autowired
     public GenericRepository(SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
+        Type t = this.getClass().getGenericSuperclass();
+        ParameterizedType pt = (ParameterizedType) t;
+        entityType = (Class) pt.getActualTypeArguments()[0];
     }
 
     protected Session getCurrentSession() {
         return this.sessionFactory.getCurrentSession();
     }
 
-    public <U> SqlQuery<U> sqlQuery(String query) {
-        return new SqlQuery<U>(this.getCurrentSession().createSQLQuery(query));
+    public T findById(Long id) {
+        Criteria criteria = this.getCurrentSession().createCriteria(entityType);
+        criteria.add(Restrictions.eq(ID_FIELD, id));
+        return (T) criteria.uniqueResult();
     }
 
-    public void save(T entity) {
+    public T save(T entity) {
         Session session = this.getCurrentSession();
         // If managed entity => within the session
         if (session.contains(entity)) {
@@ -36,6 +49,7 @@ public abstract class GenericRepository<T> implements BaseRepository<T> {
         }
         // Save or update the entity and attach it to the session
         session.saveOrUpdate(entity);
+        return entity;
     }
 
     public void remove(T entity) {

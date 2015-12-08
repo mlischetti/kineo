@@ -12,11 +12,12 @@
     <!-- Configurer that replaces ${...} placeholders with values from a properties file -->
     <context:property-placeholder location="classpath:config/environments/${env_system:dev}.properties"/>
 
+    <!--
     <bean id="dataSource" class="org.springframework.jdbc.datasource.LazyConnectionDataSourceProxy">
         <property name="targetDataSource" ref="hikariDataSource"/>
-    </bean>
-
-    <bean id="hikariDataSource" class="com.zaxxer.hikari.HikariDataSource" destroy-method="close">
+    </bean
+    -->
+    <bean id="dataSource" class="com.zaxxer.hikari.HikariDataSource" destroy-method="close">
         <constructor-arg name="configuration" ref="hikariConfiguration"/>
     </bean>
 

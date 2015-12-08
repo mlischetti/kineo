@@ -25,10 +25,6 @@ public abstract class BaseEntity {
         this.id = id;
     }
 
-    public boolean isNew() {
-        return (this.id == null);
-    }
-
     @Override
     public int hashCode() {
         final int prime = 31;

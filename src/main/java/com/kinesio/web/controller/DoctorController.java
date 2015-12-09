@@ -4,8 +4,12 @@ import com.kinesio.model.Doctor;
 import com.kinesio.service.internal.DoctorService;
 import com.kinesio.web.dto.DoctorDto;
 import com.kinesio.web.exception.EntityNotFoundException;
+import com.kinesio.web.exception.ValidationException;
 import com.kinesio.web.request.doctor.DoctorRequest;
+import com.kinesio.web.response.PaginationResponse;
+import com.kinesio.web.response.Paging;
 import com.kinesio.web.response.doctor.DoctorResponse;
+import org.apache.commons.collections.CollectionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +17,7 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
 /**
  * Created by mlischetti on 11/29/15.
@@ -22,6 +27,9 @@ import javax.validation.Valid;
 public class DoctorController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(DoctorController.class);
+
+    private static final Integer FIRST_RESULT = 0;
+    private static final Integer MAX_RESULT = 100;
 
     private final DoctorService doctorService;
 
@@ -42,6 +50,38 @@ public class DoctorController {
             throw exception;
         }
         return new DoctorDto(doctor);
+    }
+
+    @RequestMapping(value = "/doctors", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public PaginationResponse<DoctorDto> getDoctors(@RequestParam(value = "limit", required = false) Integer limit, @RequestParam(value = "offset", required = false) Integer offset) {
+        LOGGER.debug("Retrieving doctors...");
+        int fistResult = FIRST_RESULT;
+        if (offset != null) {
+            fistResult = offset;
+        }
+        int maxResult = MAX_RESULT;
+        if (limit != null) {
+            if (limit > MAX_RESULT) {
+                ValidationException exception = new ValidationException();
+                exception.errorField("limit", "Could not be greater than " + MAX_RESULT);
+                throw exception;
+            }
+            maxResult = limit;
+        }
+        LOGGER.debug("Retrieve doctors from:{}, limit:{}", fistResult, maxResult);
+        PaginationResponse<DoctorDto> response = new PaginationResponse<>();
+        List<Doctor> doctors = doctorService.find(fistResult, maxResult);
+        if (CollectionUtils.isNotEmpty(doctors)) {
+            for (Doctor doctor : doctors) {
+                response.addItem(new DoctorDto(doctor));
+            }
+        }
+        Paging paging = new Paging();
+        paging.setLimit(maxResult);
+        paging.setOffset(fistResult);
+        paging.setTotal(doctorService.count());
+        response.setPaging(paging);
+        return response;
     }
 
     @RequestMapping(value = "/doctors", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE,

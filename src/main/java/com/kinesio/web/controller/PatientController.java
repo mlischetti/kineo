@@ -4,8 +4,12 @@ import com.kinesio.model.Patient;
 import com.kinesio.service.internal.PatientService;
 import com.kinesio.web.dto.PatientDto;
 import com.kinesio.web.exception.EntityNotFoundException;
+import com.kinesio.web.exception.ValidationException;
 import com.kinesio.web.request.patient.PatientRequest;
+import com.kinesio.web.response.PaginationResponse;
+import com.kinesio.web.response.Paging;
 import com.kinesio.web.response.patient.PatientResponse;
+import org.apache.commons.collections.CollectionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +17,7 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
 /**
  * Created by mlischetti on 12/7/15.
@@ -20,8 +25,10 @@ import javax.validation.Valid;
 @RestController
 @RequestMapping("/api")
 public class PatientController {
-
     private static final Logger LOGGER = LoggerFactory.getLogger(PatientController.class);
+
+    private static final Integer FIRST_RESULT = 0;
+    private static final Integer MAX_RESULT = 100;
 
     private PatientService patientService;
 
@@ -41,6 +48,38 @@ public class PatientController {
             throw exception;
         }
         return new PatientDto(patient);
+    }
+
+    @RequestMapping(value = "/patients", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public PaginationResponse<PatientDto> getPatients(@RequestParam(value = "limit", required = false) Integer limit, @RequestParam(value = "offset", required = false) Integer offset) {
+        LOGGER.debug("Retrieving patients ...");
+        int fistResult = FIRST_RESULT;
+        if (offset != null) {
+            fistResult = offset;
+        }
+        int maxResult = MAX_RESULT;
+        if (limit != null) {
+            if (limit > MAX_RESULT) {
+                ValidationException exception = new ValidationException();
+                exception.errorField("limit", "Could not be greater than " + MAX_RESULT);
+                throw exception;
+            }
+            maxResult = limit;
+        }
+        LOGGER.debug("Retrieve medical insurance patients from:{}, limit:{}", fistResult, maxResult);
+        PaginationResponse<PatientDto> response = new PaginationResponse<>();
+        List<Patient> patients = patientService.find(fistResult, maxResult);
+        if (CollectionUtils.isNotEmpty(patients)) {
+            for (Patient patient : patients) {
+                response.addItem(new PatientDto(patient));
+            }
+        }
+        Paging paging = new Paging();
+        paging.setLimit(maxResult);
+        paging.setOffset(fistResult);
+        paging.setTotal(patientService.count());
+        response.setPaging(paging);
+        return response;
     }
 
     @RequestMapping(value = "/patients", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -65,6 +104,8 @@ public class PatientController {
             exception.setSearchMessage("id = " + id);
             throw exception;
         }
+        patient.setFirstName(patientRequest.getFirstName());
+        patient.setLastName(patientRequest.getLastName());
         patientService.save(patient);
         LOGGER.debug("Updated patient: {}", id);
         return new PatientResponse(id);

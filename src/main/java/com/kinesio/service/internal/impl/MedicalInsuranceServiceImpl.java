@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.List;
 
 /**
  * Created by mlischetti on 12/8/15.
@@ -32,6 +33,16 @@ public class MedicalInsuranceServiceImpl implements MedicalInsuranceService {
     }
 
     @Override
+    public List<MedicalInsuranceCompany> findCompanies(int firstResult, int maxResults) {
+        return companyRepository.find(firstResult, maxResults);
+    }
+
+    @Override
+    public Long countCompanies() {
+        return companyRepository.count();
+    }
+
+    @Override
     @Transactional
     public void save(MedicalInsuranceCompany company) {
         companyRepository.save(company);
@@ -41,6 +52,16 @@ public class MedicalInsuranceServiceImpl implements MedicalInsuranceService {
     @Transactional
     public MedicalInsurancePlan findPlanById(Long planId) {
         return planRepository.findById(planId);
+    }
+
+    @Override
+    public List<MedicalInsurancePlan> findPlans(int firstResult, int maxResults) {
+        return planRepository.find(firstResult, maxResults);
+    }
+
+    @Override
+    public Long countPlans() {
+        return planRepository.count();
     }
 
     @Override

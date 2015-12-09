@@ -6,10 +6,14 @@ import com.kinesio.service.internal.MedicalInsuranceService;
 import com.kinesio.web.dto.MedicalInsuranceCompanyDto;
 import com.kinesio.web.dto.MedicalInsurancePlanDto;
 import com.kinesio.web.exception.EntityNotFoundException;
+import com.kinesio.web.exception.ValidationException;
 import com.kinesio.web.request.medical_insurance.MedicalInsuranceCompanyRequest;
 import com.kinesio.web.request.medical_insurance.MedicalInsurancePlanRequest;
+import com.kinesio.web.response.PaginationResponse;
+import com.kinesio.web.response.Paging;
 import com.kinesio.web.response.medical_insurance.MedicalInsuranceCompanyResponse;
 import com.kinesio.web.response.medical_insurance.MedicalInsurancePlanResponse;
+import org.apache.commons.collections.CollectionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +21,7 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
 
 /**
@@ -27,6 +32,9 @@ import javax.validation.Valid;
 public class MedicalInsuranceController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(MedicalInsuranceController.class);
+
+    private static final Integer FIRST_RESULT = 0;
+    private static final Integer MAX_RESULT = 100;
 
     private MedicalInsuranceService medicalInsuranceService;
 
@@ -47,6 +55,38 @@ public class MedicalInsuranceController {
             throw exception;
         }
         return new MedicalInsuranceCompanyDto(company);
+    }
+
+    @RequestMapping(value = "/medical-insurances/companies/", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public PaginationResponse<MedicalInsuranceCompanyDto> getDoctors(@RequestParam(value = "limit", required = false) Integer limit, @RequestParam(value = "offset", required = false) Integer offset) {
+        LOGGER.debug("Retrieving medical insurance companies...");
+        int fistResult = FIRST_RESULT;
+        if (offset != null) {
+            fistResult = offset;
+        }
+        int maxResult = MAX_RESULT;
+        if (limit != null) {
+            if (limit > MAX_RESULT) {
+                ValidationException exception = new ValidationException();
+                exception.errorField("limit", "Could not be greater than " + MAX_RESULT);
+                throw exception;
+            }
+            maxResult = limit;
+        }
+        LOGGER.debug("Retrieve medical insurance companies from:{}, limit:{}", fistResult, maxResult);
+        PaginationResponse<MedicalInsuranceCompanyDto> response = new PaginationResponse<>();
+        List<MedicalInsuranceCompany> companies = medicalInsuranceService.findCompanies(fistResult, maxResult);
+        if (CollectionUtils.isNotEmpty(companies)) {
+            for (MedicalInsuranceCompany company : companies) {
+                response.addItem(new MedicalInsuranceCompanyDto(company));
+            }
+        }
+        Paging paging = new Paging();
+        paging.setLimit(maxResult);
+        paging.setOffset(fistResult);
+        paging.setTotal(medicalInsuranceService.countCompanies());
+        response.setPaging(paging);
+        return response;
     }
 
     @RequestMapping(value = "/medical-insurances/companies", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE,
@@ -90,6 +130,39 @@ public class MedicalInsuranceController {
             throw exception;
         }
         return new MedicalInsurancePlanDto(plan);
+    }
+
+
+    @RequestMapping(value = "/medical-insurances/plans/", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public PaginationResponse<MedicalInsurancePlanDto> getPlans(@RequestParam(value = "limit", required = false) Integer limit, @RequestParam(value = "offset", required = false) Integer offset) {
+        LOGGER.debug("Retrieving medical insurance plans...");
+        int fistResult = FIRST_RESULT;
+        if (offset != null) {
+            fistResult = offset;
+        }
+        int maxResult = MAX_RESULT;
+        if (limit != null) {
+            if (limit > MAX_RESULT) {
+                ValidationException exception = new ValidationException();
+                exception.errorField("limit", "Could not be greater than " + MAX_RESULT);
+                throw exception;
+            }
+            maxResult = limit;
+        }
+        LOGGER.debug("Retrieve medical insurance plans from:{}, limit:{}", fistResult, maxResult);
+        PaginationResponse<MedicalInsurancePlanDto> response = new PaginationResponse<>();
+        List<MedicalInsurancePlan> plans = medicalInsuranceService.findPlans(fistResult, maxResult);
+        if (CollectionUtils.isNotEmpty(plans)) {
+            for (MedicalInsurancePlan plan : plans) {
+                response.addItem(new MedicalInsurancePlanDto(plan));
+            }
+        }
+        Paging paging = new Paging();
+        paging.setLimit(maxResult);
+        paging.setOffset(fistResult);
+        paging.setTotal(medicalInsuranceService.countPlans());
+        response.setPaging(paging);
+        return response;
     }
 
     @RequestMapping(value = "/medical-insurances/plans", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE,

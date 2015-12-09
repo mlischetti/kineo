@@ -4,11 +4,13 @@ import com.kinesio.repository.BaseRepository;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
+import java.util.List;
 
 /**
  * Created by mlischetti on 11/29/15.
@@ -39,6 +41,13 @@ public abstract class GenericRepository<T> implements BaseRepository<T> {
         return (T) criteria.uniqueResult();
     }
 
+    public List<T> find(int firstResult, int maxResults) {
+        Criteria criteria = this.getCurrentSession().createCriteria(entityType);
+        criteria.setFirstResult(firstResult);
+        criteria.setMaxResults(maxResults);
+        return criteria.list();
+    }
+
     public T save(T entity) {
         Session session = this.getCurrentSession();
         // If managed entity => within the session
@@ -54,5 +63,11 @@ public abstract class GenericRepository<T> implements BaseRepository<T> {
 
     public void remove(T entity) {
         this.getCurrentSession().delete(entity);
+    }
+
+    public Long count() {
+        Criteria criteria = this.getCurrentSession().createCriteria(entityType);
+        Long count = (Long) criteria.setProjection(Projections.rowCount()).uniqueResult();
+        return count;
     }
 }

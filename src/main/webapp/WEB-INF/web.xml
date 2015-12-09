@@ -52,7 +52,9 @@ see here: http://static.springsource.org/spring/docs/current/spring-framework-re
 		<filter-name>httpMethodFilter</filter-name>
 		<servlet-name>kinesio</servlet-name>
 	</filter-mapping>
-	<welcome-file-list>
-		<welcome-file>index.html</welcome-file>
-	</welcome-file-list>
+
+	<!--  	No need for welcome-file declaration here.
+        See inside spring/mvc-core-config.xml :
+        <mvc:view-controller path="/" view-name="welcome" />
+-->
 </web-app>

@@ -57,7 +57,7 @@ public class MedicalInsuranceController {
         return new MedicalInsuranceCompanyDto(company);
     }
 
-    @RequestMapping(value = "/medical-insurances/companies/", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/medical-insurances/companies", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public PaginationResponse<MedicalInsuranceCompanyDto> getDoctors(@RequestParam(value = "limit", required = false) Integer limit, @RequestParam(value = "offset", required = false) Integer offset) {
         LOGGER.debug("Retrieving medical insurance companies...");
         int fistResult = FIRST_RESULT;
@@ -133,7 +133,7 @@ public class MedicalInsuranceController {
     }
 
 
-    @RequestMapping(value = "/medical-insurances/plans/", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/medical-insurances/plans", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public PaginationResponse<MedicalInsurancePlanDto> getPlans(@RequestParam(value = "limit", required = false) Integer limit, @RequestParam(value = "offset", required = false) Integer offset) {
         LOGGER.debug("Retrieving medical insurance plans...");
         int fistResult = FIRST_RESULT;

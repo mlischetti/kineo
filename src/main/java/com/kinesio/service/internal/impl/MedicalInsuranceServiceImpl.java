@@ -33,11 +33,13 @@ public class MedicalInsuranceServiceImpl implements MedicalInsuranceService {
     }
 
     @Override
+    @Transactional
     public List<MedicalInsuranceCompany> findCompanies(int firstResult, int maxResults) {
         return companyRepository.find(firstResult, maxResults);
     }
 
     @Override
+    @Transactional
     public Long countCompanies() {
         return companyRepository.count();
     }
@@ -55,11 +57,13 @@ public class MedicalInsuranceServiceImpl implements MedicalInsuranceService {
     }
 
     @Override
+    @Transactional
     public List<MedicalInsurancePlan> findPlans(int firstResult, int maxResults) {
         return planRepository.find(firstResult, maxResults);
     }
 
     @Override
+    @Transactional
     public Long countPlans() {
         return planRepository.count();
     }

@@ -6,6 +6,8 @@ import com.google.api.client.http.HttpTransport;
 import com.google.api.client.json.JsonFactory;
 import com.google.api.client.json.jackson2.JacksonFactory;
 import com.google.api.services.calendar.Calendar;
+import com.google.api.services.calendar.CalendarScopes;
+import com.google.api.services.calendar.model.Event;
 import com.kinesio.service.external.CalendarService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -34,6 +36,8 @@ public class GoogleCalendarService implements CalendarService {
     //"<domain user whose data you need>@yourdomain.com"
     private String serviceAccountUser;
 
+    private String calendarId;
+
     private Calendar calendar = null;
 
     @PostConstruct
@@ -48,7 +52,7 @@ public class GoogleCalendarService implements CalendarService {
             credentials = new GoogleCredential.Builder().setTransport(httpTransport)
                     .setJsonFactory(jsonFactory)
                     .setServiceAccountId(this.serviceAccountId)
-                    .setServiceAccountScopes(Arrays.asList("https://www.googleapis.com/auth/calendar"))
+                    .setServiceAccountScopes(Arrays.asList(CalendarScopes.CALENDAR))
                     .setServiceAccountPrivateKeyFromP12File(keyFile)
                     .setServiceAccountUser(serviceAccountUser)
                     .build();
@@ -57,5 +61,14 @@ public class GoogleCalendarService implements CalendarService {
             return;
         }
         calendar = new Calendar.Builder(httpTransport, jsonFactory, credentials).build();
+    }
+
+    public void createEvent() {
+        try {
+            Event event = new Event();
+            calendar.events().insert(calendarId, event);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

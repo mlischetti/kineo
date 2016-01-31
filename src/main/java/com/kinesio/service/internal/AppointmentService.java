@@ -14,6 +14,8 @@ public interface AppointmentService {
 
     void save(Appointment appointment);
 
+    List<Appointment> getAppointmentsToSync();
+
     List<Appointment> find(Date startTime, Date endTime, int firstResult, int maxResults);
 
     Long count(Date startTime, Date endTime);

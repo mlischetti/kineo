@@ -8,5 +8,5 @@ import com.kinesio.model.Appointment;
 public interface CalendarService {
     String submit(Appointment appointment);
 
-    void delete(Appointment appointment);
+    boolean delete(Appointment appointment);
 }

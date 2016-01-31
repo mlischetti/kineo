@@ -20,6 +20,8 @@
     <bean id="objectMapper" class="org.springframework.http.converter.json.Jackson2ObjectMapperFactoryBean">
         <property name="propertyNamingStrategy" value="CAMEL_CASE_TO_LOWER_CASE_WITH_UNDERSCORES"/>
         <property name="dateFormat" ref="supportedDatesFormat"/>
+        <property name="failOnEmptyBeans" value="false"/>
+        <property name="failOnUnknownProperties" value="false"/>
         <!--
         <property name="indentOutput" value="true"/>
         <property name="simpleDateFormat" value="yyyy-MM-dd'T'HH:mm:ss.SSSZ"/>

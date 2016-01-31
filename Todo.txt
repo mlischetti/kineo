@@ -8,6 +8,7 @@ Calendar
 - String template
 - Accent mark
 - Date Time zone
+- Session expired???
 
 Model
 -----
@@ -32,7 +33,8 @@ GMT 0? o GMT-3
 
 Controller
 -----------
-Validation and errors
+- Validation and errors
+- Delete apppointment return void
 
 Bugs
 -----

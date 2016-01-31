@@ -36,13 +36,17 @@ public abstract class GenericRepository<T> implements BaseRepository<T> {
     }
 
     public T findById(Long id) {
-        Criteria criteria = this.getCurrentSession().createCriteria(entityType);
+        Criteria criteria = getCriteria();
         criteria.add(Restrictions.eq(ID_FIELD, id));
         return (T) criteria.uniqueResult();
     }
 
+    protected Criteria getCriteria() {
+        return this.getCurrentSession().createCriteria(entityType);
+    }
+
     public List<T> find(int firstResult, int maxResults) {
-        Criteria criteria = this.getCurrentSession().createCriteria(entityType);
+        Criteria criteria = getCriteria();
         criteria.setFirstResult(firstResult);
         criteria.setMaxResults(maxResults);
         return criteria.list();
@@ -66,7 +70,7 @@ public abstract class GenericRepository<T> implements BaseRepository<T> {
     }
 
     public Long count() {
-        Criteria criteria = this.getCurrentSession().createCriteria(entityType);
+        Criteria criteria = getCriteria();
         Long count = (Long) criteria.setProjection(Projections.rowCount()).uniqueResult();
         return count;
     }

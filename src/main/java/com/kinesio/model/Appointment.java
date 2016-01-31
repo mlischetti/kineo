@@ -40,6 +40,9 @@ public class Appointment extends BaseEntity {
     }
 
     public void setStatus(AppointmentStatus status) {
+        if(this.status != status) {
+            getEvent().setStatus(CalendarEventStatus.PENDING);
+        }
         this.status = status;
     }
 

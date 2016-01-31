@@ -13,7 +13,9 @@ import com.kinesio.web.response.appointment.AppointmentResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -121,12 +123,13 @@ public class AppointmentController {
 
         appointment.setDoctor(doctor);
         appointment.setPatient(patient);
+
         appointmentService.save(appointment);
         LOGGER.debug("Created appointment: {}", appointment.getId());
     }
 
-    @RequestMapping(value = "/appointments/{id}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public void deleteAppointment(@PathVariable(value = "id") Long id) {
+    @RequestMapping(value = "/appointments/{id}", method = RequestMethod.DELETE, produces = "application/json;charset=UTF-8")
+    public ResponseEntity<Void> deleteAppointment(@PathVariable(value = "id") Long id) {
         LOGGER.debug("Deleting appointment: {}", id);
         Appointment appointment = appointmentService.findById(id);
         if (appointment == null) {
@@ -137,5 +140,6 @@ public class AppointmentController {
         }
         appointmentService.delete(appointment);
         LOGGER.debug("Deleted appointment: {}", id);
+        return new ResponseEntity<Void>(HttpStatus.OK);
     }
 }

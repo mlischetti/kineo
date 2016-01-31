@@ -17,7 +17,7 @@
 	-->
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
-		<param-value>classpath:spring/business-config.xml, classpath:spring/tools-config.xml</param-value>
+		<param-value>classpath:spring/business-config.xml, classpath:spring/tools-config.xml, classpath*:spring/jobs-config.xml</param-value>
 	</context-param>
 
 	<listener>

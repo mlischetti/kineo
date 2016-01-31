@@ -2,11 +2,8 @@ package com.kinesio.service.internal.impl;
 
 import com.kinesio.model.Appointment;
 import com.kinesio.model.AppointmentStatus;
-import com.kinesio.model.CalendarEventStatus;
 import com.kinesio.repository.AppointmentRepository;
-import com.kinesio.service.external.CalendarService;
 import com.kinesio.service.internal.AppointmentService;
-import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,12 +18,10 @@ import java.util.List;
 public class AppointmentServiceImpl implements AppointmentService {
 
     private AppointmentRepository repository;
-    private CalendarService calendarService;
 
     @Autowired
-    public AppointmentServiceImpl(AppointmentRepository repository, CalendarService calendarService) {
+    public AppointmentServiceImpl(AppointmentRepository repository) {
         this.repository = repository;
-        this.calendarService = calendarService;
     }
 
     @Override
@@ -38,12 +33,13 @@ public class AppointmentServiceImpl implements AppointmentService {
     @Override
     @Transactional
     public void save(Appointment appointment) {
-        String eventId = calendarService.submit(appointment);
-        if (StringUtils.isNotBlank(eventId)) {
-            appointment.getEvent().setEventId(eventId);
-            appointment.getEvent().setStatus(CalendarEventStatus.SYNC);
-        }
         repository.save(appointment);
+    }
+
+    @Override
+    @Transactional
+    public List<Appointment> getAppointmentsToSync() {
+        return repository.getAppointmentsToSync();
     }
 
     @Override
@@ -64,8 +60,6 @@ public class AppointmentServiceImpl implements AppointmentService {
     @Transactional
     public void delete(Appointment appointment) {
         appointment.setStatus(AppointmentStatus.DELETE);
-        calendarService.delete(appointment);
-        appointment.getEvent().setStatus(CalendarEventStatus.SYNC);
         repository.save(appointment);
     }
 }

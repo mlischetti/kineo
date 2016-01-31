@@ -162,16 +162,18 @@ public class GoogleCalendarService implements CalendarService {
     }
 
     @Override
-    public void delete(Appointment appointment) {
+    public boolean delete(Appointment appointment) {
         String eventId = appointment.getEvent().getEventId();
         if (StringUtils.isNotBlank(eventId)) {
             try {
                 LOGGER.debug("Deleting event: {} based on appointment: {}", eventId, appointment.getId());
                 calendarService.events().delete(calendarId, eventId).setSendNotifications(false).execute();
                 LOGGER.debug("Deleted event: {} based on appointment: {}", eventId, appointment.getId());
+                return true;
             } catch (IOException e) {
                 LOGGER.error("Could not delete event: {}", eventId, e);
             }
         }
+        return false;
     }
 }

@@ -1,25 +1,21 @@
 package com.kinesio.web.dto;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.kinesio.model.Doctor;
 
 /**
  * Created by mlischetti on 12/7/15.
  */
 public class DoctorDto {
-
     private Long id;
-
-    @JsonProperty(value = "first_name")
     private String firstName;
-
-    @JsonProperty(value = "last_name")
     private String lastName;
+    private String email;
 
     public DoctorDto(Doctor doctor) {
         this.id = doctor.getId();
         this.firstName = doctor.getFirstName();
         this.lastName = doctor.getLastName();
+        this.email = doctor.getEmail();
     }
 
     public Long getId() {
@@ -44,5 +40,13 @@ public class DoctorDto {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 }

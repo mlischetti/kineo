@@ -21,9 +21,14 @@ public class Patient extends BaseEntity {
     @NotEmpty
     private String lastName;
 
-    @OneToOne
-    @JoinColumn(name = "medical_insurance_id")
-    private MedicalInsurance medicalInsurance;
+    private String email;
+
+    @ManyToOne
+    @JoinColumn(name = "medical_insurance_plan_id")
+    private MedicalInsurancePlan medicalInsurancePlan;
+
+    @Column(name = "affiliate_id")
+    private String affiliateId;
 
     public String getFirstName() {
         return firstName;
@@ -39,5 +44,33 @@ public class Patient extends BaseEntity {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public MedicalInsurancePlan getMedicalInsurancePlan() {
+        return medicalInsurancePlan;
+    }
+
+    public void setMedicalInsurancePlan(MedicalInsurancePlan medicalInsurancePlan) {
+        this.medicalInsurancePlan = medicalInsurancePlan;
+    }
+
+    public String getAffiliateId() {
+        return affiliateId;
+    }
+
+    public void setAffiliateId(String affiliateId) {
+        this.affiliateId = affiliateId;
+    }
+
+    public String getFullName() {
+        return lastName + " " + firstName;
     }
 }

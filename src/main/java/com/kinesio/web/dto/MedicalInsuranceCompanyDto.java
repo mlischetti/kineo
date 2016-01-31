@@ -6,9 +6,7 @@ import com.kinesio.model.MedicalInsuranceCompany;
  * Created by mlischetti on 12/8/15.
  */
 public class MedicalInsuranceCompanyDto {
-
     private Long id;
-
     private String name;
 
     public MedicalInsuranceCompanyDto(MedicalInsuranceCompany company) {

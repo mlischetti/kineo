@@ -1,6 +1,7 @@
 package com.kinesio.model;
 
 import javax.persistence.*;
+import java.util.Date;
 
 /**
  * Created by mlischetti on 11/27/15.
@@ -9,15 +10,70 @@ import javax.persistence.*;
 @Table(name = "Appointment")
 public class Appointment extends BaseEntity {
 
-    private static final long serialVersionUID = 1L;
+    public static final String ENTITY = "Appointment";
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @Enumerated(EnumType.STRING)
+    private AppointmentStatus status = AppointmentStatus.CONFIRM;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "event_id")
+    private CalendarEvent event = new CalendarEvent();
+
+    private String summary;
+
+    @Column(name = "start_time")
+    private Date startTime;
+
+    @Column(name = "end_time")
+    private Date endTime;
+
+    @ManyToOne
     @JoinColumn(name = "doctor_id")
     private Doctor doctor;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne
     @JoinColumn(name = "patient_id")
     private Patient patient;
+
+    public AppointmentStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(AppointmentStatus status) {
+        this.status = status;
+    }
+
+    public CalendarEvent getEvent() {
+        return event;
+    }
+
+    public void setEvent(CalendarEvent event) {
+        this.event = event;
+    }
+
+    public String getSummary() {
+        return summary;
+    }
+
+    public void setSummary(String summary) {
+        this.summary = summary;
+    }
+
+    public Date getStartTime() {
+        return startTime;
+    }
+
+    public void setStartTime(Date startTime) {
+        this.startTime = startTime;
+    }
+
+    public Date getEndTime() {
+        return endTime;
+    }
+
+    public void setEndTime(Date endTime) {
+        this.endTime = endTime;
+    }
 
     public Doctor getDoctor() {
         return doctor;

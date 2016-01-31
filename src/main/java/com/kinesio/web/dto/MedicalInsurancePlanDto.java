@@ -6,7 +6,6 @@ import com.kinesio.model.MedicalInsurancePlan;
  * Created by mlischetti on 12/8/15.
  */
 public class MedicalInsurancePlanDto {
-
     private MedicalInsuranceCompanyDto company;
     private String plan;
 

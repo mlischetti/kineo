@@ -1,20 +1,21 @@
 package com.kinesio.web.request.doctor;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotBlank;
 
 /**
  * Created by mlischetti on 12/7/15.
  */
 public class DoctorRequest {
-
     @NotBlank
-    @JsonProperty(value = "first_name")
     private String firstName;
 
     @NotBlank
-    @JsonProperty(value = "last_name")
     private String lastName;
+
+    @NotBlank
+    @Email
+    private String email;
 
     public String getFirstName() {
         return firstName;
@@ -30,5 +31,13 @@ public class DoctorRequest {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 }

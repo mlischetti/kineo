@@ -10,7 +10,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.converter.HttpMessageConversionException;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -67,16 +66,6 @@ public class RestExceptionHandlerAdvice {
         for (ErrorField field : validationException.getFields()) {
             response.addCause(field.getField() + ": " + field.getMessage());
         }
-        return response;
-    }
-
-    @ExceptionHandler(value = HttpMessageConversionException.class)
-    @ResponseStatus(value = HttpStatus.BAD_REQUEST)
-    @ResponseBody
-    public RestErrorResponse httpMessageConversionException(HttpMessageConversionException throwable) {
-        LOGGER.error("InternalServerError", throwable);
-        RestErrorResponse response = new RestErrorResponse(HttpStatus.BAD_REQUEST.value(), HttpStatus.BAD_REQUEST.getReasonPhrase());
-        response.addCause(throwable.getMessage());
         return response;
     }
 

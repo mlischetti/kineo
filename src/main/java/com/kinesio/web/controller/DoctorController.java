@@ -40,7 +40,6 @@ public class DoctorController {
 
     @RequestMapping(value = "/doctors/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public DoctorDto getDoctor(@PathVariable("id") Long id) {
-
         LOGGER.debug("Retrieving doctor: {}", id);
         Doctor doctor = doctorService.findById(id);
         if (doctor == null) {
@@ -89,9 +88,7 @@ public class DoctorController {
     public DoctorResponse createDoctor(@Valid @RequestBody DoctorRequest doctorRequest) {
         LOGGER.debug("Creating doctor...");
         Doctor doctor = new Doctor();
-        doctor.setFirstName(doctorRequest.getFirstName());
-        doctor.setLastName(doctorRequest.getLastName());
-        doctorService.save(doctor);
+        saveOrUpdate(doctor, doctorRequest);
         LOGGER.debug("Created doctor: {}", doctor.getId());
         return new DoctorResponse(doctor.getId());
     }
@@ -108,12 +105,16 @@ public class DoctorController {
             exception.setSearchMessage("id = " + id);
             throw exception;
         }
-        doctor.setFirstName(doctorRequest.getFirstName());
-        doctor.setLastName(doctorRequest.getLastName());
-        doctorService.save(doctor);
-
+        saveOrUpdate(doctor, doctorRequest);
         LOGGER.debug("Updated doctor: {}", id);
         return new DoctorResponse(id);
+    }
+
+    private void saveOrUpdate(Doctor doctor, DoctorRequest doctorRequest) {
+        doctor.setFirstName(doctorRequest.getFirstName());
+        doctor.setLastName(doctorRequest.getLastName());
+        doctor.setEmail(doctorRequest.getEmail());
+        doctorService.save(doctor);
     }
 
 }

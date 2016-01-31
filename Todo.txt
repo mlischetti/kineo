@@ -1,0 +1,39 @@
+Calendar
+--------
+- Calendar must be read only -->DONE
+- Include map into calendar --> DONE
+- Move conf to properties files --> DONE
+- Sent to google calendar async
+- Enable/disable calendar as config
+- String template
+- Accent mark
+- Date Time zone
+
+Model
+-----
+- Support delete appointment  --> DONE
+
+Service
+-------
+- AppointmentService: implement count find
+
+Controller
+-----------
+- AppointmentController return appointment's list
+
+Persistence
+-----------
+- Lazy object without transaction.
+- Appointment summary and description are necessary? --> DONE
+
+TimeZone
+----------
+GMT 0? o GMT-3
+
+Controller
+-----------
+Validation and errors
+
+Bugs
+-----
+Destroy method on bean with name 'supportedDatesFormat' threw an exception

@@ -132,7 +132,6 @@ public class MedicalInsuranceController {
         return new MedicalInsurancePlanDto(plan);
     }
 
-
     @RequestMapping(value = "/medical-insurances/plans", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public PaginationResponse<MedicalInsurancePlanDto> getPlans(@RequestParam(value = "limit", required = false) Integer limit, @RequestParam(value = "offset", required = false) Integer offset) {
         LOGGER.debug("Retrieving medical insurance plans...");

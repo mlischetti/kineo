@@ -1,6 +1,8 @@
 package com.kinesio.web.controller;
 
+import com.kinesio.model.MedicalInsurancePlan;
 import com.kinesio.model.Patient;
+import com.kinesio.service.internal.MedicalInsuranceService;
 import com.kinesio.service.internal.PatientService;
 import com.kinesio.web.dto.PatientDto;
 import com.kinesio.web.exception.EntityNotFoundException;
@@ -31,10 +33,12 @@ public class PatientController {
     private static final Integer MAX_RESULT = 100;
 
     private PatientService patientService;
+    private MedicalInsuranceService medicalInsuranceService;
 
     @Autowired
-    public PatientController(PatientService patientService) {
+    public PatientController(PatientService patientService, MedicalInsuranceService medicalInsuranceService) {
         this.patientService = patientService;
+        this.medicalInsuranceService = medicalInsuranceService;
     }
 
     @RequestMapping(value = "/patients/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -85,9 +89,18 @@ public class PatientController {
     @RequestMapping(value = "/patients", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public PatientResponse createPatient(@Valid @RequestBody PatientRequest patientRequest) {
         LOGGER.debug("Creating patient...");
+        MedicalInsurancePlan medicalInsurancePlan = null;
+        if (patientRequest.getMedicalInsurancePlanId() != null) {
+            medicalInsurancePlan = medicalInsuranceService.findPlanById(patientRequest.getMedicalInsurancePlanId());
+            if (medicalInsurancePlan == null) {
+                LOGGER.debug("Could not found medial insurance plan: {}", patientRequest.getMedicalInsurancePlanId());
+                EntityNotFoundException exception = new EntityNotFoundException(MedicalInsurancePlan.ENTITY);
+                exception.setSearchMessage("id = " + patientRequest.getMedicalInsurancePlanId());
+                throw exception;
+            }
+        }
         Patient patient = new Patient();
-        patient.setFirstName(patientRequest.getFirstName());
-        patient.setLastName(patientRequest.getLastName());
+        saveOrUpdate(patient, medicalInsurancePlan, patientRequest);
         patientService.save(patient);
         LOGGER.debug("Created patient: {}", patient.getId());
         return new PatientResponse(patient.getId());
@@ -104,10 +117,28 @@ public class PatientController {
             exception.setSearchMessage("id = " + id);
             throw exception;
         }
-        patient.setFirstName(patientRequest.getFirstName());
-        patient.setLastName(patientRequest.getLastName());
-        patientService.save(patient);
+        MedicalInsurancePlan medicalInsurancePlan = null;
+        if (patientRequest.getMedicalInsurancePlanId() != null) {
+            medicalInsurancePlan = medicalInsuranceService.findPlanById(patientRequest.getMedicalInsurancePlanId());
+            if (medicalInsurancePlan == null) {
+                LOGGER.debug("Could not found medial insurance plan: {}", patientRequest.getMedicalInsurancePlanId());
+                EntityNotFoundException exception = new EntityNotFoundException(MedicalInsurancePlan.ENTITY);
+                exception.setSearchMessage("id = " + patientRequest.getMedicalInsurancePlanId());
+                throw exception;
+            }
+        }
+
+        saveOrUpdate(patient, medicalInsurancePlan, patientRequest);
         LOGGER.debug("Updated patient: {}", id);
         return new PatientResponse(id);
+    }
+
+    private void saveOrUpdate(Patient patient, MedicalInsurancePlan medicalInsurancePlan, PatientRequest patientRequest) {
+        patient.setFirstName(patientRequest.getFirstName());
+        patient.setLastName(patientRequest.getLastName());
+        patient.setEmail(patientRequest.getEmail());
+        patient.setAffiliateId(patientRequest.getAffiliateId());
+        patient.setMedicalInsurancePlan(medicalInsurancePlan);
+        patientService.save(patient);
     }
 }

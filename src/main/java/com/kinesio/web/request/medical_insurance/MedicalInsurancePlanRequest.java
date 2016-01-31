@@ -1,6 +1,5 @@
 package com.kinesio.web.request.medical_insurance;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.validation.constraints.NotNull;
@@ -11,7 +10,6 @@ import javax.validation.constraints.NotNull;
 public class MedicalInsurancePlanRequest {
 
     @NotNull
-    @JsonProperty(value = "company_id")
     private Long companyId;
 
     @NotEmpty

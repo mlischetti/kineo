@@ -6,6 +6,7 @@ import com.kinesio.model.Patient;
 import com.kinesio.service.internal.AppointmentService;
 import com.kinesio.service.internal.DoctorService;
 import com.kinesio.service.internal.PatientService;
+import com.kinesio.util.MediaType;
 import com.kinesio.web.dto.AppointmentDto;
 import com.kinesio.web.exception.EntityNotFoundException;
 import com.kinesio.web.request.appointment.AppointmentRequest;
@@ -14,8 +15,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -39,7 +38,7 @@ public class AppointmentController {
         this.patientService = patientService;
     }
 
-    @RequestMapping(value = "/appointments/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/appointments/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF_8)
     public AppointmentDto getAppointment(@PathVariable(value = "id") Long id) {
         LOGGER.debug("Retrieving appointment: {}", id);
         Appointment appointment = appointmentService.findById(id);
@@ -52,7 +51,8 @@ public class AppointmentController {
         return new AppointmentDto(appointment);
     }
 
-    @RequestMapping(value = "/appointments", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/appointments", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON,
+            produces = MediaType.APPLICATION_JSON_UTF_8)
     public AppointmentResponse createAppointment(@Valid @RequestBody AppointmentRequest appointmentRequest) {
         LOGGER.debug("Creating patient...");
 
@@ -84,7 +84,8 @@ public class AppointmentController {
         return new AppointmentResponse(appointment.getId());
     }
 
-    @RequestMapping(value = "/appointments/{id}", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/appointments/{id}", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON,
+            produces = MediaType.APPLICATION_JSON_UTF_8)
     public AppointmentResponse updateAppointment(@PathVariable(value = "id") Long id,
                                                  @Valid @RequestBody AppointmentRequest appointmentRequest) {
         LOGGER.debug("Updating appointment: {}", id);
@@ -128,8 +129,9 @@ public class AppointmentController {
         LOGGER.debug("Created appointment: {}", appointment.getId());
     }
 
-    @RequestMapping(value = "/appointments/{id}", method = RequestMethod.DELETE, produces = "application/json;charset=UTF-8")
-    public ResponseEntity<Void> deleteAppointment(@PathVariable(value = "id") Long id) {
+    @RequestMapping(value = "/appointments/{id}", method = RequestMethod.DELETE)
+    @ResponseStatus(value = HttpStatus.OK)
+    public void deleteAppointment(@PathVariable(value = "id") Long id) {
         LOGGER.debug("Deleting appointment: {}", id);
         Appointment appointment = appointmentService.findById(id);
         if (appointment == null) {
@@ -140,6 +142,5 @@ public class AppointmentController {
         }
         appointmentService.delete(appointment);
         LOGGER.debug("Deleted appointment: {}", id);
-        return new ResponseEntity<Void>(HttpStatus.OK);
     }
 }

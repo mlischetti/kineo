@@ -4,6 +4,7 @@ import com.kinesio.model.MedicalInsurancePlan;
 import com.kinesio.model.Patient;
 import com.kinesio.service.internal.MedicalInsuranceService;
 import com.kinesio.service.internal.PatientService;
+import com.kinesio.util.MediaType;
 import com.kinesio.web.dto.PatientDto;
 import com.kinesio.web.exception.EntityNotFoundException;
 import com.kinesio.web.exception.ValidationException;
@@ -15,7 +16,6 @@ import org.apache.commons.collections.CollectionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -41,7 +41,7 @@ public class PatientController {
         this.medicalInsuranceService = medicalInsuranceService;
     }
 
-    @RequestMapping(value = "/patients/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/patients/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF_8)
     public PatientDto getPatient(@PathVariable(value = "id") Long id) {
         LOGGER.debug("Retrieving patient: {}", id);
         Patient patient = patientService.findById(id);
@@ -54,8 +54,9 @@ public class PatientController {
         return new PatientDto(patient);
     }
 
-    @RequestMapping(value = "/patients", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public PaginationResponse<PatientDto> getPatients(@RequestParam(value = "limit", required = false) Integer limit, @RequestParam(value = "offset", required = false) Integer offset) {
+    @RequestMapping(value = "/patients", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF_8)
+    public PaginationResponse<PatientDto> getPatients(@RequestParam(value = "limit", required = false) Integer limit,
+                                                      @RequestParam(value = "offset", required = false) Integer offset) {
         LOGGER.debug("Retrieving patients ...");
         int fistResult = FIRST_RESULT;
         if (offset != null) {
@@ -86,7 +87,7 @@ public class PatientController {
         return response;
     }
 
-    @RequestMapping(value = "/patients", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/patients", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON, produces = MediaType.APPLICATION_JSON_UTF_8)
     public PatientResponse createPatient(@Valid @RequestBody PatientRequest patientRequest) {
         LOGGER.debug("Creating patient...");
         MedicalInsurancePlan medicalInsurancePlan = null;
@@ -106,7 +107,8 @@ public class PatientController {
         return new PatientResponse(patient.getId());
     }
 
-    @RequestMapping(value = "/patients/{id}", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/patients/{id}", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON,
+            produces = MediaType.APPLICATION_JSON_UTF_8)
     public PatientResponse updatePatient(@PathVariable(value = "id") Long id,
                                          @Valid @RequestBody PatientRequest patientRequest) {
         LOGGER.debug("Updating patient: {}", id);

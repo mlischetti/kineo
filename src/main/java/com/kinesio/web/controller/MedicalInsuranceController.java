@@ -3,6 +3,7 @@ package com.kinesio.web.controller;
 import com.kinesio.model.MedicalInsuranceCompany;
 import com.kinesio.model.MedicalInsurancePlan;
 import com.kinesio.service.internal.MedicalInsuranceService;
+import com.kinesio.util.MediaType;
 import com.kinesio.web.dto.MedicalInsuranceCompanyDto;
 import com.kinesio.web.dto.MedicalInsurancePlanDto;
 import com.kinesio.web.exception.EntityNotFoundException;
@@ -17,7 +18,6 @@ import org.apache.commons.collections.CollectionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -44,7 +44,7 @@ public class MedicalInsuranceController {
     }
 
     //Medical-Company
-    @RequestMapping(value = "/medical-insurances/companies/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/medical-insurances/companies/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF_8)
     public MedicalInsuranceCompanyDto getCompany(@PathVariable("id") Long id) {
         LOGGER.debug("Retrieving medical insurance company: {}", id);
         MedicalInsuranceCompany company = medicalInsuranceService.findCompanyById(id);
@@ -57,8 +57,9 @@ public class MedicalInsuranceController {
         return new MedicalInsuranceCompanyDto(company);
     }
 
-    @RequestMapping(value = "/medical-insurances/companies", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public PaginationResponse<MedicalInsuranceCompanyDto> getDoctors(@RequestParam(value = "limit", required = false) Integer limit, @RequestParam(value = "offset", required = false) Integer offset) {
+    @RequestMapping(value = "/medical-insurances/companies", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF_8)
+    public PaginationResponse<MedicalInsuranceCompanyDto> getDoctors(@RequestParam(value = "limit", required = false) Integer limit,
+                                                                     @RequestParam(value = "offset", required = false) Integer offset) {
         LOGGER.debug("Retrieving medical insurance companies...");
         int fistResult = FIRST_RESULT;
         if (offset != null) {
@@ -89,8 +90,8 @@ public class MedicalInsuranceController {
         return response;
     }
 
-    @RequestMapping(value = "/medical-insurances/companies", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE,
-            produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/medical-insurances/companies", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON,
+            produces = MediaType.APPLICATION_JSON_UTF_8)
     public MedicalInsuranceCompanyResponse createCompany(@Valid @RequestBody MedicalInsuranceCompanyRequest medicalCompanyRequest) {
         LOGGER.debug("Creating medical insurance company...");
         MedicalInsuranceCompany company = new MedicalInsuranceCompany();
@@ -100,8 +101,8 @@ public class MedicalInsuranceController {
         return new MedicalInsuranceCompanyResponse(company.getId());
     }
 
-    @RequestMapping(value = "/medical-insurances/companies/{id}", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE,
-            produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/medical-insurances/companies/{id}", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON,
+            produces = MediaType.APPLICATION_JSON_UTF_8)
     public MedicalInsuranceCompanyResponse updateCompany(@PathVariable("id") Long id,
                                                          @Valid @RequestBody MedicalInsuranceCompanyRequest medicalCompanyRequest) {
         LOGGER.debug("Updating medical insurance company: {}", id);
@@ -119,7 +120,7 @@ public class MedicalInsuranceController {
     }
 
     //Medical-Plan
-    @RequestMapping(value = "/medical-insurances/plans/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/medical-insurances/plans/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF_8)
     public MedicalInsurancePlanDto getPlan(@PathVariable("id") Long id) {
         LOGGER.debug("Retrieving medical insurance plan: {}", id);
         MedicalInsurancePlan plan = medicalInsuranceService.findPlanById(id);
@@ -132,8 +133,9 @@ public class MedicalInsuranceController {
         return new MedicalInsurancePlanDto(plan);
     }
 
-    @RequestMapping(value = "/medical-insurances/plans", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public PaginationResponse<MedicalInsurancePlanDto> getPlans(@RequestParam(value = "limit", required = false) Integer limit, @RequestParam(value = "offset", required = false) Integer offset) {
+    @RequestMapping(value = "/medical-insurances/plans", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF_8)
+    public PaginationResponse<MedicalInsurancePlanDto> getPlans(@RequestParam(value = "limit", required = false) Integer limit,
+                                                                @RequestParam(value = "offset", required = false) Integer offset) {
         LOGGER.debug("Retrieving medical insurance plans...");
         int fistResult = FIRST_RESULT;
         if (offset != null) {
@@ -164,8 +166,8 @@ public class MedicalInsuranceController {
         return response;
     }
 
-    @RequestMapping(value = "/medical-insurances/plans", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE,
-            produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/medical-insurances/plans", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON,
+            produces = MediaType.APPLICATION_JSON_UTF_8)
     public MedicalInsurancePlanResponse createPlan(@Valid @RequestBody MedicalInsurancePlanRequest medicalPlanRequest) {
         LOGGER.debug("Creating medical insurance plan...");
         MedicalInsuranceCompany company = medicalInsuranceService.findCompanyById(medicalPlanRequest.getCompanyId());
@@ -183,8 +185,8 @@ public class MedicalInsuranceController {
         return new MedicalInsurancePlanResponse(plan.getId());
     }
 
-    @RequestMapping(value = "/medical-insurances/plans/{id}", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE,
-            produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/medical-insurances/plans/{id}", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON,
+            produces = MediaType.APPLICATION_JSON_UTF_8)
     public MedicalInsurancePlanResponse updatePlan(@PathVariable("id") Long id,
                                                    @Valid @RequestBody MedicalInsurancePlanRequest medicalPlanRequest) {
         LOGGER.debug("Updating medical insurance plan: {}", id);

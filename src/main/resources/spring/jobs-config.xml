@@ -7,7 +7,7 @@
 	 http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task.xsd"
        xmlns:task="http://www.springframework.org/schema/task">
 
-    <context:component-scan base-package="com.kinesio.job"/>
+    <context:component-scan base-package="com.kineo.job"/>
 
     <bean id="processExecutor" class="org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor">
         <property name="corePoolSize" value="50"/>

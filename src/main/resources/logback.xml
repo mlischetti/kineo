@@ -2,7 +2,7 @@
 
 <configuration scan="true">
 
-    <conversionRule conversionWord="oneLineEx" converterClass="com.kinesio.util.logback.OneLineExceptionConverter" />
+    <conversionRule conversionWord="oneLineEx" converterClass="com.kineo.util.logback.OneLineExceptionConverter" />
 
     <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
@@ -11,10 +11,10 @@
     </appender>
 
     <appender name="file" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <file>/tmp/kinesio.log</file>
+        <file>/tmp/kineo.log</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <!-- daily rollover -->
-            <fileNamePattern>kinesio.%d{yyyy-MM-dd}.log</fileNamePattern>
+            <fileNamePattern>kineo.%d{yyyy-MM-dd}.log</fileNamePattern>
 
             <!-- keep 30 days' worth of history -->
             <maxHistory>10</maxHistory>
@@ -26,7 +26,7 @@
 
     <!--<logger name="org.hibernate" level="debug"/>
     <logger name="org.springframework" level="warn"/> -->
-    <logger name="com.kinesio" level="debug"/>
+    <logger name="com.kineo" level="debug"/>
 
     <root level="info">
         <appender-ref ref="console"/>

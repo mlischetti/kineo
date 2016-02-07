@@ -1,1 +1,1 @@
-# Kinesio
+# Kineo appointment app

@@ -22,16 +22,16 @@
     </bean>
 
     <bean id="hikariConfiguration" class="com.zaxxer.hikari.HikariConfig">
-        <property name="username" value="${kinesio.persistence.database.hikaricp.username}"/>
-        <property name="password" value="${kinesio.persistence.database.hikaricp.password}"/>
+        <property name="username" value="${kineo.persistence.database.hikaricp.username}"/>
+        <property name="password" value="${kineo.persistence.database.hikaricp.password}"/>
         <property name="dataSourceClassName" value="com.mysql.jdbc.jdbc2.optional.MysqlDataSource"/>
-        <property name="maximumPoolSize" value="${kinesio.persistence.database.hikaricp.maximumPoolSize}"/>
-        <property name="minimumIdle" value="${kinesio.persistence.database.hikaricp.minimumIdle}"/>
-        <property name="connectionTestQuery" value="${kinesio.persistence.database.hikaricp.connectionTestQuery}"/>
-        <property name="poolName" value="${kinesio.persistence.database.hikaricp.poolName}"/>
+        <property name="maximumPoolSize" value="${kineo.persistence.database.hikaricp.maximumPoolSize}"/>
+        <property name="minimumIdle" value="${kineo.persistence.database.hikaricp.minimumIdle}"/>
+        <property name="connectionTestQuery" value="${kineo.persistence.database.hikaricp.connectionTestQuery}"/>
+        <property name="poolName" value="${kineo.persistence.database.hikaricp.poolName}"/>
         <property name="dataSourceProperties">
             <props>
-                <prop key="url">${kinesio.persistence.database.hikaricp.url}</prop>
+                <prop key="url">${kineo.persistence.database.hikaricp.url}</prop>
                 <prop key="cachePrepStmts">true</prop>
                 <prop key="prepStmtCacheSize">250</prop>
                 <prop key="prepStmtCacheSqlLimit">2048</prop>

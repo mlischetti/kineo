@@ -15,7 +15,7 @@
     <!--
         - POJOs labeled with the @Controller and @Service annotations are auto-detected.
     -->
-    <context:component-scan base-package="com.kinesio.web"/>
+    <context:component-scan base-package="com.kineo.web"/>
 
     <bean id="objectMapper" class="org.springframework.http.converter.json.Jackson2ObjectMapperFactoryBean">
         <property name="propertyNamingStrategy" value="CAMEL_CASE_TO_LOWER_CASE_WITH_UNDERSCORES"/>
@@ -28,7 +28,7 @@
         -->
     </bean>
 
-    <bean id="supportedDatesFormat" class="com.kinesio.util.date.SupportedDatesFormat">
+    <bean id="supportedDatesFormat" class="com.kineo.util.date.SupportedDatesFormat">
         <property name="timeZone">
             <bean class="java.util.TimeZone" factory-method="getTimeZone">
                 <constructor-arg value="GMT"/>

@@ -12,13 +12,13 @@ abstract class BaseJob {
 
     public void doWork() {
         try {
-            LOGGER.debug("Starting job {}", this.getClass().getName());
+            LOGGER.trace("Starting job {}", this.getClass().getName());
             JobsCounter.add();
             work();
         } catch (Exception e) {
             LOGGER.error("Fail trying doJob", e);
         } finally {
-            LOGGER.debug("Ended job {}", this.getClass().getName());
+            LOGGER.trace("Ended job {}", this.getClass().getName());
             JobsCounter.subtract();
         }
     }

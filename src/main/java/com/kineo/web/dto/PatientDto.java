@@ -18,7 +18,9 @@ public class PatientDto {
         this.firstName = patient.getFirstName();
         this.lastName = patient.getLastName();
         this.email = patient.getEmail();
-        this.medicalInsurancePlanId = patient.getMedicalInsurancePlan().getId();
+        if(patient.getMedicalInsurancePlan() != null) {
+            this.medicalInsurancePlanId = patient.getMedicalInsurancePlan().getId();
+        }
         this.affiliateId = patient.getAffiliateId();
     }
 

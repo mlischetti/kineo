@@ -27,6 +27,8 @@ public class Doctor extends BaseEntity {
     @NotEmpty
     private String email;
 
+    private String phone;
+
     public String getFirstName() {
         return firstName;
     }
@@ -49,6 +51,14 @@ public class Doctor extends BaseEntity {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
     public String getFullName() {

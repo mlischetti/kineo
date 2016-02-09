@@ -30,6 +30,8 @@ public class Patient extends BaseEntity {
     @Column(name = "affiliate_id")
     private String affiliateId;
 
+    private String phone;
+
     public String getFirstName() {
         return firstName;
     }
@@ -68,6 +70,14 @@ public class Patient extends BaseEntity {
 
     public void setAffiliateId(String affiliateId) {
         this.affiliateId = affiliateId;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
     public String getFullName() {

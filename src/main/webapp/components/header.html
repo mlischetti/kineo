@@ -1,0 +1,25 @@
+<nav class="navbar navbar-default navbar-static-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <img alt="Kineo" height="27" width="auto" src="images/logo.png">
+            <button class="navbar-toggle navbar-toggle-left collapsed" type="button" data-toggle="collapse" data-target="#nav-menu">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="glyphicon glyphicon-triangle-bottom"></span>
+            </button>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div id="nav-menu" class="navbar-collapse navbar-left collapse">
+            <ul class="nav navbar-nav navbar-menu">
+                <li data-ng-class="$state.is('calendars') ? 'active' : ''"><a data-ui-sref="calendars">Calendar</a></li>
+                <li data-ng-class="$state.is('patients') ? 'active' : ''"><a data-ui-sref="patients">Patients</a></li>
+                <li data-ng-class="$state.is('doctors') ? 'active' : ''"><a data-ui-sref="doctors">Doctors</a></li>
+                <li data-ng-class="$state.is('medical-insurances') ? 'active' : ''"><a data-ui-sref="medical-insurances">Medical Insurances</a></li>
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+
+    </div>
+    <!-- /.container-fluid -->
+</nav>

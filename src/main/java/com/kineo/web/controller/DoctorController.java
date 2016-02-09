@@ -114,6 +114,7 @@ public class DoctorController {
         doctor.setFirstName(doctorRequest.getFirstName());
         doctor.setLastName(doctorRequest.getLastName());
         doctor.setEmail(doctorRequest.getEmail());
+        doctor.setPhone(doctorRequest.getPhone());
         doctorService.save(doctor);
     }
 }

@@ -139,6 +139,7 @@ public class PatientController {
         patient.setFirstName(patientRequest.getFirstName());
         patient.setLastName(patientRequest.getLastName());
         patient.setEmail(patientRequest.getEmail());
+        patient.setPhone(patientRequest.getPhone());
         patient.setAffiliateId(patientRequest.getAffiliateId());
         patient.setMedicalInsurancePlan(medicalInsurancePlan);
         patientService.save(patient);

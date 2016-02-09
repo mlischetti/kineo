@@ -17,6 +17,8 @@ public class PatientRequest {
     @Email
     private String email;
 
+    private String phone;
+
     private String affiliateId;
 
     private Long medicalInsurancePlanId;
@@ -43,6 +45,14 @@ public class PatientRequest {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
     public String getAffiliateId() {

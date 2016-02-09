@@ -12,16 +12,18 @@ public class PatientDto {
     private String email;
     private Long medicalInsurancePlanId;
     private String affiliateId;
+    private String phone;
 
     public PatientDto(Patient patient) {
         this.id = patient.getId();
         this.firstName = patient.getFirstName();
         this.lastName = patient.getLastName();
         this.email = patient.getEmail();
-        if(patient.getMedicalInsurancePlan() != null) {
+        if (patient.getMedicalInsurancePlan() != null) {
             this.medicalInsurancePlanId = patient.getMedicalInsurancePlan().getId();
         }
         this.affiliateId = patient.getAffiliateId();
+        this.phone = patient.getPhone();
     }
 
     public Long getId() {
@@ -70,5 +72,13 @@ public class PatientDto {
 
     public void setAffiliateId(String affiliateId) {
         this.affiliateId = affiliateId;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 }

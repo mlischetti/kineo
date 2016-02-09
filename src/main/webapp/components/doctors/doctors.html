@@ -1,0 +1,33 @@
+<section id="doctors" class="sections sections-narrow">
+    <div class="container">
+        <div class="action-items pull-right">
+            <div class="action-item pull-right">
+                Actions:
+                <div class="btn-group">
+                    <button data-toggle="modal" data-target="#searchModal" class="btn btn-default">
+                        <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                    </button>
+
+                    <button data-toggle="modal" data-target="#addDoctorModal" class="btn btn-default">
+                        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <h2 class="sub-header">Doctors</h2>
+
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3" data-ng-repeat="doctor in doctors">
+                    <h3 class="h5">
+                        <a data-ui-sref="doctorDetails({id: doctor.id})" data-ng-bind="doctor.first_name + ' ' + doctor.last_name"></a>
+                    </h3>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Add Doctor modal -->
+<data-ng-include src="'components/_partials/_modal_add_doctor.html'"></data-ng-include>

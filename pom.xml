@@ -12,6 +12,7 @@
         <spring.version>4.1.1.RELEASE</spring.version>
         <commons-collections.version>3.2.2</commons-collections.version>
         <commons-lang.version>2.6</commons-lang.version>
+        <commons-io.version>2.4</commons-io.version>
         <mysql-connnector-java.version>5.1.31</mysql-connnector-java.version>
         <hikari-cp.verion>2.4.2</hikari-cp.verion>
         <hibernate-core.version>4.3.5.Final</hibernate-core.version>
@@ -140,6 +141,12 @@
             <groupId>commons-lang</groupId>
             <artifactId>commons-lang</artifactId>
             <version>${commons-lang.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>${commons-io.version}</version>
         </dependency>
 
         <!--/ Apache Commons -->

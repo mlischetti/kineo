@@ -10,12 +10,14 @@ public class DoctorDto {
     private String firstName;
     private String lastName;
     private String email;
+    private String phone;
 
     public DoctorDto(Doctor doctor) {
         this.id = doctor.getId();
         this.firstName = doctor.getFirstName();
         this.lastName = doctor.getLastName();
         this.email = doctor.getEmail();
+        this.phone = doctor.getPhone();
     }
 
     public Long getId() {
@@ -48,5 +50,13 @@ public class DoctorDto {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 }

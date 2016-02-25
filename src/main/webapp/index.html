@@ -1,6 +1,6 @@
 <!doctype html>
 <html class="no-js" data-ng-app="kineo">
-   <head>
+<head>
     <meta charset="utf-8">
     <title>kineo - Home</title>
     <meta name="description" content="">
@@ -8,21 +8,7 @@
     <link rel="shortcut icon" href="favicon.ico">
     <link rel="stylesheet" href="styles/main.css">
     <link rel="stylesheet" href="plugins/bootstrap-datepicker/bootstrap-datepicker.css">
-  </head>
-  <body data-ng-controller="MainController">
-    <!--[if lt IE 10]>
-      <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
-    <![endif]-->
 
-    <data-ng-include src="'components/header.html'"></data-ng-include>
-
-    <data-ui-view></data-ui-view>
-
-    <data-ng-include src="'components/footer.html'"></data-ng-include>
-
-    <!-- Search modal
-    <data-ng-include src="'components/_partials/_modal_search.html'"></data-ng-include>
-    -->
     <!--<script src="http://code.jquery.com/jquery.js"></script>-->
     <script src="plugins/jquery/jquery-2.1.0.min.js"></script>
     <script src="plugins/jquery-ui/jquery-ui.min.js"></script>
@@ -42,6 +28,7 @@
 
     <script src="services/services.js"></script>
     <script src="components/main/MainController.js"></script>
+    <script src="components/main/AlertMessagesController.js"></script>
     <script src="components/doctors/DoctorController.js"></script>
     <!--
     <script src="components/veterinarians/VeterinarianController.js"></script>
@@ -54,5 +41,28 @@
     <script src="components/directives/DatePickerDirective.js"></script>
     <script src="js/app.js"></script>
     <!-- endbuild -->
-  </body>
+</head>
+<body>
+<!-- Specify a Angular controller script that binds Javascript variables to the feedback messages.-->
+<div class="message" ng-controller="AlertMessagesController">
+    <alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</alert>
+</div>
+
+<div data-ng-controller="MainController">
+    <!--[if lt IE 10]>
+    <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade
+        your browser</a> to improve your experience.</p>
+    <![endif]-->
+
+    <data-ng-include src="'components/header.html'"></data-ng-include>
+
+    <data-ui-view></data-ui-view>
+
+    <data-ng-include src="'components/footer.html'"></data-ng-include>
+
+    <!-- Search modal
+    <data-ng-include src="'components/_partials/_modal_search.html'"></data-ng-include>
+    -->
+</div>
+</body>
 </html>

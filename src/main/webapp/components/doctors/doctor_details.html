@@ -8,24 +8,27 @@
                 </button>
                 <h2 class="h3 sub-header">Doctor Information</h2>
 
-                <form class="form-inline form-inline-display">
+                <!-- Specify the function to be called on submit and disable HTML5 validation, since we're using Angular validation-->
+                <div class="col-md-4 col-md-offset-2">
+                    <!-- Display an error if the input is invalid and is dirty (only when someone changes the value) -->
                     <div class="form-group">
-                        <p>First Name</p>
-                        <p class="h5" data-ng-bind="currentDoctor.first_name">Maria</p>
+                        <label>Fist Name</label>
+                        <p class="form-control" data-ng-bind="currentDoctor.first_name">First name</p>
                     </div>
                     <div class="form-group">
-                        <p>Last Name</p>
-                        <p class="h5" data-ng-bind="currentDoctor.last_name">Rodriguez</p>
+                        <label>Last Name</label>
+                        <p class="form-control" data-ng-bind="currentDoctor.last_name">Last name</p>
                     </div>
                     <div class="form-group">
-                        <p>Email</p>
-                        <p class="h5" data-ng-bind="currentDoctor.email">pepe@pepe.com</p>
+                        <label>Email</label>
+                        <p class="form-control" data-ng-bind="currentDoctor.email">Email</p>
                     </div>
+
                     <div class="form-group">
-                        <p>Contact Number</p>
-                        <p class="h5" data-ng-bind="currentDoctor.phone">6085557683</p>
+                        <label>Contact Number</label>
+                        <p class="form-control" data-ng-bind="currentDoctor.phone">Phone</p>
                     </div>
-                </form>
+                </div>
             </div>
         </div>
     </div>

@@ -9,4 +9,3 @@ var MainController = ['$scope', '$rootScope', '$state', '$sessionStorage', 'cont
     $rootScope.$state = $state;
 
 }];
-

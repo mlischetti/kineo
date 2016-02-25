@@ -70,6 +70,7 @@ app.config(['stateHelperProvider', '$urlRouterProvider', '$urlMatcherFactoryProv
 
 /** Controllers **/
 app.controller('MainController', MainController);
+app.controller('AlertMessagesController', AlertMessagesController);
 app.controller('DoctorController', DoctorController);
 app.controller('DoctorDetailsController', DoctorDetailsController);
 app.controller('AddDoctorController', AddDoctorController);

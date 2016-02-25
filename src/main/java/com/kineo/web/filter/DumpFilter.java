@@ -101,7 +101,6 @@ public class DumpFilter implements Filter {
             } catch (Exception e) {
                 LOGGER.error("Could not get the input stream.", e);
             }
-
             return bsis;
         }
 
@@ -120,16 +119,11 @@ public class DumpFilter implements Filter {
 
         final HttpServletRequest httpRequest = (HttpServletRequest) servletRequest;
 
-        if (httpRequest.getRequestURI().equals(this.healthCheckURI)) {
-
+        if (httpRequest.getRequestURI().equals(this.healthCheckURI) || !httpRequest.getRequestURI().contains("api")) {
             filterChain.doFilter(httpRequest, servletResponse);
-
         } else {
-
             HttpServletRequest bufferedRequest;
-
             try {
-
                 if (acceptedMediaType.contains(httpRequest.getContentType())) {
                     bufferedRequest = new BufferedRequestWrapper(httpRequest);
                     String requestString = new String(((BufferedRequestWrapper) bufferedRequest).getBuffer());
@@ -140,12 +134,10 @@ public class DumpFilter implements Filter {
                     LOGGER.info("REQUEST -> method: {}, uri: {}, queryString: {}", httpRequest.getMethod(), httpRequest.getRequestURI(),
                             httpRequest.getQueryString());
                 }
-
             } catch (Throwable e) {
                 LOGGER.info("REQUEST -> method: {}, uri: {}, queryString: {}", httpRequest.getMethod(), httpRequest.getRequestURI(),
                         httpRequest.getQueryString());
                 LOGGER.error("The request data could not be logged.", e);
-
                 bufferedRequest = httpRequest;
             }
 
@@ -156,7 +148,6 @@ public class DumpFilter implements Filter {
                 public PrintWriter getWriter() {
                     return pw.getWriter();
                 }
-
                 public ServletOutputStream getOutputStream() {
                     return pw.getStream();
                 }
@@ -166,7 +157,6 @@ public class DumpFilter implements Filter {
 
             byte[] bytes = pw.toByteArray();
             response.getOutputStream().write(bytes);
-
             LOGGER.info("RESPONSE -> {}", new String(bytes));
         }
     }

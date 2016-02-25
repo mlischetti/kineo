@@ -39,14 +39,14 @@ var AddDoctorController = ['$scope', '$rootScope', '$stateParams', 'Doctor', fun
     $scope.newDoctorId = -1;
 
     $scope.addDoctor = function () {
-        Doctor.save($scope.doctor, function (resp, headers) {
+        Doctor.save($scope.doctor).$promise.then(function (resp) {
             //success callback
             console.log("newDoctorId: " + resp.id);
             $scope.newDoctorId = resp.id;
             console.log("$scope.newDoctorId: " + $scope.newDoctorId);
-        }, function (error) {
+        }, function () {
             // error callback
             console.log(error);
         });
-    }
+    };
 }];

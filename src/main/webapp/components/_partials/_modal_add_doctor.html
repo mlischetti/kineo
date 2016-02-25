@@ -20,25 +20,55 @@
             <div class="modal-body">
                 <div class="container">
                     <div class="row">
-                        <div class="col-md-4 col-md-offset-2">
-                            <div class="form-group">
-                                <label for="first_name">First Name</label>
-                                <input type="text" class="form-control" id="first_name" ng-model="doctor.first_name">
+                        <!-- Specify the function to be called on submit and disable HTML5 validation, since we're using Angular validation-->
+                        <form name="doctorForm" class="col-md-4 col-md-offset-2" novalidate>
+                            <!-- Display an error if the input is invalid and is dirty (only when someone changes the value) -->
+                            <div class="form-group" ng-class="{'has-error' : doctorForm.first_name.$invalid && doctorForm.first_name.$dirty}">
+                                <label for="first_name">Fist Name</label>
+                                <!-- Display a check when the field is valid and was modified -->
+                                <span ng-class="{'glyphicon glyphicon-ok' : doctorForm.first_name.$valid && doctorForm.first_name.$dirty}"></span>
+                                <input id="first_name" name="first_name" type="text" class="form-control" maxlength="50"
+                                       ng-model="doctor.first_name" required ng-minlength="2" ng-maxlength="50"/>
+                                <!-- Validation messages to be displayed on required, minlength and maxlength -->
+                                <p class="help-block" ng-show="doctorForm.first_name.$error.required">Add name.</p>
+                                <p class="help-block" ng-show="doctorForm.first_name.$error.minlength">Name must be at least 2 characters long.</p>
+                                <p class="help-block" ng-show="doctorForm.first_name.$error.maxlength">Name cannot be longer than 50 characters.</p>
                             </div>
-                            <div class="form-group">
+                            <div class="form-group" ng-class="{'has-error' : doctorForm.last_name.$invalid && doctorForm.last_name.$dirty}">
                                 <label for="last_name">Last Name</label>
-                                <input type="text" class="form-control" id="last_name" ng-model="doctor.last_name">
+                                <!-- Display a check when the field is valid and was modified -->
+                                <span ng-class="{'glyphicon glyphicon-ok' : doctorForm.last_name.$valid && doctorForm.last_name.$dirty}"></span>
+                                <input id="last_name" name="last_name" type="text" class="form-control" maxlength="50"
+                                       ng-model="doctor.last_name" required ng-minlength="2" ng-maxlength="50"/>
+                                <!-- Validation messages to be displayed on required, minlength and maxlength -->
+                                <p class="help-block" ng-show="doctorForm.last_name.$error.required">Add last name.</p>
+                                <p class="help-block" ng-show="doctorForm.last_name.$error.minlength">Last name must be at least 2 characters long.</p>
+                                <p class="help-block" ng-show="doctorForm.last_name.$error.maxlength">Last name cannot be longer than 50 characters.</p>
                             </div>
-
-                            <div class="form-group">
+                            <div class="form-group" ng-class="{'has-error' : doctorForm.email.$invalid && doctorForm.email.$dirty}">
                                 <label for="email">Email</label>
-                                <input type="text" class="form-control" id="email" ng-model="doctor.email">
+                                <!-- Display a check when the field is valid and was modified -->
+                                <span ng-class="{'glyphicon glyphicon-ok' : doctorForm.email.$valid && doctorForm.email.$dirty}"></span>
+                                <input id="email" name="email" type="text" class="form-control" maxlength="50"
+                                       ng-model="doctor.email" required ng-minlength="2" ng-maxlength="50"/>
+                                <!-- Validation messages to be displayed on required, minlength and maxlength -->
+                                <p class="help-block" ng-show="doctorForm.email.$error.required">Add email.</p>
+                                <p class="help-block" ng-show="doctorForm.email.$error.minlength">Email must be at least 2 characters long.</p>
+                                <p class="help-block" ng-show="doctorForm.email.$error.maxlength">Email cannot be longer than 50 characters.</p>
                             </div>
-                            <div class="form-group">
+                            <div class="form-group" ng-class="{'has-error' : doctorForm.phone.$invalid && doctorForm.phone.$dirty}">
                                 <label for="phone">Contact Number</label>
-                                <input type="text" class="form-control" id="phone" ng-model="doctor.phone">
+                                <!-- Display a check when the field is valid and was modified -->
+                                <span ng-class="{'glyphicon glyphicon-ok' : doctorForm.phone.$valid && doctorForm.phone.$dirty}"></span>
+                                <input id="phone" name="phone" type="text" class="form-control" maxlength="50"
+                                       ng-model="doctor.phone" required ng-minlength="2" ng-maxlength="50"/>
+                                <!-- Validation messages to be displayed on required, minlength and maxlength -->
+                                <p class="help-block" ng-show="doctorForm.phone.$error.required">Add phone.</p>
+                                <p class="help-block" ng-show="doctorForm.phone.$error.minlength">Phone must be at least 2 characters long.</p>
+                                <p class="help-block" ng-show="doctorForm.phone.$error.maxlength">Phone cannot be longer than 50 characters.</p>
                             </div>
-                        </div>
+                        </form>
+
                         <div class="col-md-8 col-md-offset-2">
                             <div class="form-group form-group-action">
                                 <button type="submit" class="btn btn-primary" data-toggle="modal" data-target="#addDoctorSuccessModal"
@@ -78,7 +108,8 @@
                                 Well done! You've successfully added an a new doctor.
                             </div>
                             <div class="form-group form-group-action">
-                                <a data-ui-sref="doctorDetails({id: newDoctorId})" class="btn btn-primary">View doctor's details</a>
+                                <a data-ui-sref="doctorDetails({id: newDoctorId})" class="btn btn-primary">View doctor's
+                                    details</a>
                                 <button class="btn btn-link" data-dismiss="modal" aria-label="Close">Close</button>
                             </div>
                         </div>
@@ -112,11 +143,13 @@
                         <div class="col-md-4 col-md-offset-2">
                             <div class="form-group">
                                 <label for="first_name">First Name</label>
-                                <input type="text" class="form-control" id="first_name" ng-model="currentDoctor.first_name">
+                                <input type="text" class="form-control" id="first_name"
+                                       ng-model="currentDoctor.first_name">
                             </div>
                             <div class="form-group">
                                 <label for="last_name">Last Name</label>
-                                <input type="text" class="form-control" id="last_name" ng-model="currentDoctor.last_name">
+                                <input type="text" class="form-control" id="last_name"
+                                       ng-model="currentDoctor.last_name">
                             </div>
                             <div class="form-group">
                                 <label for="email">Email</label>
@@ -129,10 +162,13 @@
                         </div>
                         <div class="col-md-8 col-md-offset-2">
                             <div class="form-group form-group-action">
-                                <button type="submit" class="btn btn-primary" data-toggle="modal" data-target="#editDoctorSuccessModal"
+                                <button type="submit" class="btn btn-primary" data-toggle="modal"
+                                        data-target="#editDoctorSuccessModal"
                                         data-dismiss="modal" aria-label="Close" ng-click="saveDoctor()">Update Doctor
                                 </button>
-                                <button class="btn btn-link" class="close" data-dismiss="modal" aria-label="Close">Cancel</button>
+                                <button class="btn btn-link" class="close" data-dismiss="modal" aria-label="Close">
+                                    Cancel
+                                </button>
                             </div>
                         </div>
                     </div>

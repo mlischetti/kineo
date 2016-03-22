@@ -1,6 +1,7 @@
 package com.kineo.util.date;
 
 import com.fasterxml.jackson.databind.util.ISO8601DateFormat;
+import org.springframework.beans.factory.DisposableBean;
 
 import java.text.DateFormat;
 import java.text.FieldPosition;
@@ -12,7 +13,7 @@ import java.util.TimeZone;
 /**
  * Created by Mariano on 1/30/2016.
  */
-public class SupportedDatesFormat extends DateFormat {
+public class SupportedDatesFormat extends DateFormat implements DisposableBean {
 
     private static final long serialVersionUID = 1L;
 
@@ -60,5 +61,10 @@ public class SupportedDatesFormat extends DateFormat {
         SupportedDatesFormat format = new SupportedDatesFormat();
         format.setTimeZone(this.getTimeZone());
         return format;
+    }
+
+    @Override
+    public void destroy() throws Exception {
+        //Nothing to do
     }
 }

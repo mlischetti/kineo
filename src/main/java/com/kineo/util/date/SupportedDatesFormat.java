@@ -1,6 +1,8 @@
 package com.kineo.util.date;
 
 import com.fasterxml.jackson.databind.util.ISO8601DateFormat;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.DisposableBean;
 
 import java.text.DateFormat;
@@ -14,6 +16,8 @@ import java.util.TimeZone;
  * Created by Mariano on 1/30/2016.
  */
 public class SupportedDatesFormat extends DateFormat implements DisposableBean {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(SupportedDatesFormat.class);
 
     private static final long serialVersionUID = 1L;
 

@@ -29,24 +29,47 @@ var DoctorDetailsController = ['$scope', '$rootScope', '$stateParams', 'Doctor',
 
     $scope.saveDoctor = function () {
         var doctor = $scope.currentDoctor;
-        Doctor.update(doctor);
+        Doctor.update(doctor).$promise.then(function (resp) {
+            //success callback
+            console.log("updatedDoctorId: " + resp.id);
+        }, function(error) {
+            // error callback
+            console.log("Error on saveDoctor: " + doctor.id);
+        });
     }
 }];
 
-
-var AddDoctorController = ['$scope', '$rootScope', '$stateParams', 'Doctor', function ($scope, $rootScope, $stateParams, Doctor) {
+var AddDoctorController = ['$scope', '$rootScope', '$stateParams', '$timeout', 'Doctor', function ($scope, $rootScope, $stateParams, $timeout, Doctor) {
     $scope.doctor = {};
     $scope.newDoctorId = -1;
+    $scope.message = "Initial";
 
     $scope.addDoctor = function () {
-        Doctor.save($scope.doctor).$promise.then(function (resp) {
+        $scope.message = "on AddDoctor";
+        Doctor.save($scope.doctor).$promise.then(function (response) {
+            $scope.message = "on Success callback";
             //success callback
-            console.log("newDoctorId: " + resp.id);
-            $scope.newDoctorId = resp.id;
-            console.log("$scope.newDoctorId: " + $scope.newDoctorId);
-        }, function () {
+            console.log("newDoctorId: " + response.id);
+            //$scope.newDoctorId = response.id;
+            $timeout(function() {
+                $scope.newDoctorId = response.id;
+                $scope.message = "on timeout";
+                console.log("$scope.newDoctorId: " + $scope.newDoctorId);
+            });
+            //$scope.$apply(function() {
+            //    $scope.newDoctorId = response.id;
+            //    console.log("$scope.newDoctorId: " + $scope.newDoctorId);
+            //});
+        }, function (error) {
             // error callback
             console.log(error);
         });
+
+    };
+
+    $scope.addCounter = 0;
+
+    $scope.incrementCounter = function() {
+        $scope.addCounter = $scope.addCounter + 1;
     };
 }];

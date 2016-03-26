@@ -4,8 +4,6 @@ var MainController = ['$scope', '$rootScope', '$state', '$sessionStorage', 'cont
 
     $scope.context = context;
 
-    $scope.footerText = '© ' + new Date().getFullYear() + ' Kineo, Appointment app';
-
     $rootScope.$state = $state;
 
 }];

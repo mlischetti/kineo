@@ -28,7 +28,7 @@
         -->
     </bean>
 
-    <bean id="supportedDatesFormat" class="com.kineo.util.date.SupportedDatesFormat">
+    <bean id="supportedDatesFormat" class="com.kineo.util.date.SupportedDatesFormat" destroy-method="destroy">
         <property name="timeZone">
             <bean class="java.util.TimeZone" factory-method="getTimeZone">
                 <constructor-arg value="GMT"/>

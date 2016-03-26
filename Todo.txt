@@ -39,3 +39,9 @@ Controller
 Bugs
 -----
 Destroy method on bean with name 'supportedDatesFormat' threw an exception
+
+
+
+See
+----
+http://angular-ui.github.io/bootstrap/

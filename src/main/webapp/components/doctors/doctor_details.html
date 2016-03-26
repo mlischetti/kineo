@@ -6,7 +6,7 @@
                 <button class="btn btn-primary pull-right" data-toggle="modal" data-target="#editDoctorModal">
                     <span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Edit Doctor
                 </button>
-                <h2 class="h3 sub-header">Doctor Information</h2>
+                <h2 class="h3 sub-header">Doctor information</h2>
 
                 <!-- Specify the function to be called on submit and disable HTML5 validation, since we're using Angular validation-->
                 <div class="col-md-4 col-md-offset-2">
@@ -54,7 +54,7 @@
             <li ng-if="nextDoctor != null">
                 <a data-ui-sref="doctorDetails({id:nextDoctor.id})">
                     {{nextDoctor.first_name + ' ' + nextDoctor.last_name}}
-                <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                    <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
                 </a>
             </li>
         </ul>

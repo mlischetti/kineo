@@ -1,8 +1,6 @@
 var DoctorController = ['$scope', '$state', 'Doctors', function ($scope, $state, Doctors) {
     $scope.$on('$viewContentLoaded', function (event) {
-        $('html, body').animate({
-            scrollTop: $("#doctors").offset().top
-        }, 1000);
+        $('html, body').animate({scrollTop: $("#doctors").offset().top}, 1000);
     });
 
     $scope.doctors = Doctors.get({limit: 10, offset: 0});
@@ -13,7 +11,6 @@ var DoctorController = ['$scope', '$state', 'Doctors', function ($scope, $state,
 }];
 
 var DoctorDetailsController = ['$scope', '$rootScope', '$stateParams', 'Doctor', function ($scope, $rootScope, $stateParams, Doctor) {
-
     var currentId = $stateParams.id;
     var nextId = parseInt($stateParams.id) + 1;
     var prevId = parseInt($stateParams.id) - 1;
@@ -29,12 +26,13 @@ var DoctorDetailsController = ['$scope', '$rootScope', '$stateParams', 'Doctor',
 
     $scope.saveDoctor = function () {
         var doctor = $scope.currentDoctor;
-        Doctor.update(doctor).$promise.then(function (resp) {
+        Doctor.update(doctor, function (response) {
             //success callback
-            console.log("updatedDoctorId: " + resp.id);
+            console.log("Updated doctor: " + doctor.id);
+            $('#editDoctorSuccessModal').modal('show');
         }, function(error) {
             // error callback
-            console.log("Error on saveDoctor: " + doctor.id);
+            console.log("Error on updating doctor" + doctor.id + ". Error: " + error);
         });
     }
 }];
@@ -42,34 +40,16 @@ var DoctorDetailsController = ['$scope', '$rootScope', '$stateParams', 'Doctor',
 var AddDoctorController = ['$scope', '$rootScope', '$stateParams', '$timeout', 'Doctor', function ($scope, $rootScope, $stateParams, $timeout, Doctor) {
     $scope.doctor = {};
     $scope.newDoctorId = -1;
-    $scope.message = "Initial";
 
     $scope.addDoctor = function () {
-        $scope.message = "on AddDoctor";
-        Doctor.save($scope.doctor).$promise.then(function (response) {
-            $scope.message = "on Success callback";
+        Doctor.save($scope.doctor, function(response){
             //success callback
-            console.log("newDoctorId: " + response.id);
-            //$scope.newDoctorId = response.id;
-            $timeout(function() {
-                $scope.newDoctorId = response.id;
-                $scope.message = "on timeout";
-                console.log("$scope.newDoctorId: " + $scope.newDoctorId);
-            });
-            //$scope.$apply(function() {
-            //    $scope.newDoctorId = response.id;
-            //    console.log("$scope.newDoctorId: " + $scope.newDoctorId);
-            //});
-        }, function (error) {
+            console.log("New doctor: " + response.id + " created");
+            $scope.newDoctorId = response.id;
+            $('#addDoctorSuccessModal').modal('show');
+        }, function(error) {
             // error callback
-            console.log(error);
+            console.log("Error on creating new doctor. Error: " + error);
         });
-
-    };
-
-    $scope.addCounter = 0;
-
-    $scope.incrementCounter = function() {
-        $scope.addCounter = $scope.addCounter + 1;
     };
 }];

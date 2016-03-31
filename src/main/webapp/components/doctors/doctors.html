@@ -1,19 +1,8 @@
 <section id="doctors" class="sections sections-narrow">
     <div class="container">
         <div class="row">
-            <div class="form-horizontal">
-                <div class="control-group">
-                    <div class="controls form-inline">
-                        <input type="text" class="form-control" id="last-name-search" placeholder="Lastname">
-                        <input type="text" class="form-control" id="first-name-search" placeholder="Firstname">
-                        <button data-toggle="modal" data-target="#searchModal" class="btn btn-default">
-                            <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
-                        </button>
-                    </div>
-                </div>
-            </div>
-            <div class="action-items pull-right">
-                <div class="action-item pull-right">
+            <div class="col-md-12 ng-scope">
+                <div class="pull-right">
                     Actions:
                     <div class="btn-group">
                         <button data-toggle="modal" data-target="#searchModal" class="btn btn-default">
@@ -25,54 +14,51 @@
                         </button>
                     </div>
                 </div>
-            </div>
-        </div>
-        <!--
-        <h2 class="sub-header">Doctors</h2>
-        -->
-        <div class="container">
-            <!--
-            <div class="row">
-                <div class="col-md-3" data-ng-repeat="doctor in doctors">
-                    <h3 class="h5">
-                        <a data-ui-sref="doctorDetails({id: doctor.id})" data-ng-bind="doctor.first_name + ' ' + doctor.last_name"></a>
-                    </h3>
+                <div class="form-horizontal">
+                    <div class="control-group">
+                        <div class="controls form-inline">
+                            <input type="text" class="form-control" id="last-name-search" placeholder="Lastname">
+                            <input type="text" class="form-control" id="first-name-search" placeholder="Firstname">
+                            <button data-toggle="modal" data-target="#searchModal" class="btn btn-default">
+                                <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                            </button>
+                        </div>
+                    </div>
                 </div>
             </div>
-            -->
-            <div class="col-md-10 tall">
-                <h3>Doctors</h3>
-                <table class="table table-striped" style="padding-left: 10px">
-                    <thead>
-                    <tr>
-                        <th>Lastname</th>
-                        <th>Firstname</th>
-                        <th>Phone</th>
-                        <th>Actions</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr data-ng-repeat="doctor in doctors">
-                        <td width="30%">{{doctor.last_name}}</td>
-                        <td width="30%">{{doctor.first_name}}</td>
-                        <td width="20%">{{doctor.phone}}</td>
-                        <td>
-                            <div class="action-item center-block">
-                                <a data-ui-sref="doctorDetails({id: doctor.id})">
-                                    <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
-                                </a>
-                                <a data-ng-click="editDoctor(doctor.id)">
-                                    <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
-                                </a>
-                                <a data-ng-click="deleteDoctor(doctor.id)">
-                                    <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-                                </a>
-                            </div>
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
-            </div>
+        </div>
+        <div class="col-md-12 tall">
+            <h3>Doctors</h3>
+            <table class="table table-striped" style="padding-left: 10px">
+                <thead>
+                <tr>
+                    <th>Lastname</th>
+                    <th>Firstname</th>
+                    <th>Phone</th>
+                    <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr data-ng-repeat="doctor in doctors">
+                    <td width="30%">{{doctor.last_name}}</td>
+                    <td width="30%">{{doctor.first_name}}</td>
+                    <td width="20%">{{doctor.phone}}</td>
+                    <td>
+                        <div class="action-item center-block">
+                            <a data-ui-sref="doctorDetails({id: doctor.id})">
+                                <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
+                            </a>
+                            <a data-ng-click="editDoctor(doctor.id)">
+                                <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+                            </a>
+                            <a data-ng-click="deleteDoctor(doctor.id)">
+                                <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                            </a>
+                        </div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
         </div>
     </div>
 </section>

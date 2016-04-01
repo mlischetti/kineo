@@ -29,24 +29,15 @@ var DoctorController = ['$scope', '$state', 'Doctors', 'Doctor', function ($scop
         }, function(error) {
             console.log("Error on delete doctor: " + doctorId);
         });
-    }
+    };
 }];
 
 var DoctorDetailsController = ['$scope', '$rootScope', '$stateParams', 'Doctor', function ($scope, $rootScope, $stateParams, Doctor) {
     var currentId = $stateParams.id;
-    var nextId = parseInt($stateParams.id) + 1;
-    var prevId = parseInt($stateParams.id) - 1;
-
-    Doctor.get({id: prevId}, function (result) {
-        $scope.prevDoctor = result;
-    });
-    Doctor.get({id: nextId}, function (result) {
-        $scope.nextDoctor = result;
-    });
-
     $scope.currentDoctor = Doctor.get($stateParams);
 
     $scope.saveDoctor = function () {
+        console.log("Updating doctor: " + doctor.id);
         var doctor = $scope.currentDoctor;
         Doctor.update(doctor, function (response) {
             //success callback
@@ -56,7 +47,7 @@ var DoctorDetailsController = ['$scope', '$rootScope', '$stateParams', 'Doctor',
             // error callback
             console.log("Error on updating doctor" + doctor.id + ". Error: " + error);
         });
-    }
+    };
 }];
 
 var AddDoctorController = ['$scope', '$rootScope', '$stateParams', '$timeout', 'Doctor', function ($scope, $rootScope, $stateParams, $timeout, Doctor) {
@@ -64,6 +55,7 @@ var AddDoctorController = ['$scope', '$rootScope', '$stateParams', '$timeout', '
     $scope.newDoctorId = -1;
 
     $scope.addDoctor = function () {
+        console.log("Creating new doctor");
         Doctor.save($scope.doctor, function(response){
             //success callback
             console.log("New doctor: " + response.id + " created");

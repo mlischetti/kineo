@@ -44,20 +44,6 @@
                 </a>
             </li>
         </ul>
-        <ul class="pager pager-link pull-right">
-            <li ng-if="prevDoctor != null">
-                <a data-ui-sref="doctorDetails({id:prevDoctor.id})">
-                    <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-                    {{prevDoctor.first_name + ' ' + prevDoctor.last_name}}
-                </a>
-            </li>
-            <li ng-if="nextDoctor != null">
-                <a data-ui-sref="doctorDetails({id:nextDoctor.id})">
-                    {{nextDoctor.first_name + ' ' + nextDoctor.last_name}}
-                    <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-                </a>
-            </li>
-        </ul>
     </div>
 </section>
 

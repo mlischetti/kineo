@@ -16,4 +16,6 @@ public interface DoctorService {
     List<Doctor> find(int firstResult, int maxResults);
 
     Long count();
+
+    void delete(Doctor doctor);
 }

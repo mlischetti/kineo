@@ -1,13 +1,35 @@
-var DoctorController = ['$scope', '$state', 'Doctors', function ($scope, $state, Doctors) {
+var DoctorController = ['$scope', '$state', 'Doctors', 'Doctor', function ($scope, $state, Doctors, Doctor) {
     $scope.$on('$viewContentLoaded', function (event) {
         $('html, body').animate({scrollTop: $("#doctors").offset().top}, 1000);
     });
 
-    $scope.doctors = Doctors.get({limit: 10, offset: 0});
-    $scope.doctors.$promise.then(function (result) {
-        $scope.doctors = result.items;
+    $scope.doctors = [];
+
+    Doctors.get({limit: 10, offset: 0}, function(response) {
+        console.log("Getting doctors - Offset: " + response.paging.offset + ", limit: "  + response.paging.limit + ", total:" + response.paging.total);
+        $scope.doctors = response.items;
+    }, function(error){
+        // error callback
+        console.log("Error on retrieve doctors. Error: " + error);
     });
-    $scope.newDoctorId = 4;
+
+    $scope.deleteDoctor = function (doctorId) {
+        console.log("Trying to delete doctor: " + doctorId);
+        var doctors = $scope.doctors;
+        Doctor.delete({id:doctorId}, function(response) {
+            console.log("Delete doctor: " + doctorId);
+            for(var i = doctors.length - 1; i >= 0; i--) {
+                if(doctors[i].id === doctorId) {
+                    doctors.splice(i, 1);
+                    console.log("Doctor: " + doctorId + " removed from array");
+                    break;
+                }
+            }
+            $scope.doctors = doctors;
+        }, function(error) {
+            console.log("Error on delete doctor: " + doctorId);
+        });
+    }
 }];
 
 var DoctorDetailsController = ['$scope', '$rootScope', '$stateParams', 'Doctor', function ($scope, $rootScope, $stateParams, Doctor) {

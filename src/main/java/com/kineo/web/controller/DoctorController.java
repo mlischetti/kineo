@@ -14,6 +14,7 @@ import org.apache.commons.collections.CollectionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -108,6 +109,21 @@ public class DoctorController {
         saveOrUpdate(doctor, doctorRequest);
         LOGGER.debug("Updated doctor: {}", id);
         return new DoctorResponse(id);
+    }
+
+    @RequestMapping(value = "/doctors/{id}", method = RequestMethod.DELETE)
+    @ResponseStatus(value = HttpStatus.OK)
+    public void deleteDoctor(@PathVariable("id") Long id) {
+        LOGGER.debug("Deleting doctor: {}", id);
+        Doctor doctor = doctorService.findById(id);
+        if (doctor == null) {
+            LOGGER.debug("Could not found doctor: {}", id);
+            EntityNotFoundException exception = new EntityNotFoundException(Doctor.ENTITY);
+            exception.setSearchMessage("id = " + id);
+            throw exception;
+        }
+        doctorService.delete(doctor);
+        LOGGER.debug("Deleted doctor: {}", id);
     }
 
     private void saveOrUpdate(Doctor doctor, DoctorRequest doctorRequest) {

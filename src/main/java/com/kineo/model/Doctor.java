@@ -16,6 +16,8 @@ public class Doctor extends BaseEntity {
 
     public static final String ENTITY = "Doctor";
 
+    private boolean deleted = false;
+
     @Column(name = "first_name")
     @NotEmpty
     private String firstName;
@@ -28,6 +30,14 @@ public class Doctor extends BaseEntity {
     private String email;
 
     private String phone;
+
+    public boolean isDeleted() {
+        return deleted;
+    }
+
+    public void setDeleted(boolean deleted) {
+        this.deleted = deleted;
+    }
 
     public String getFirstName() {
         return firstName;

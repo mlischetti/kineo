@@ -45,4 +45,11 @@ public class DoctorServiceImpl implements DoctorService {
     public Long count() {
         return doctorRepository.count();
     }
+
+    @Transactional
+    @Override
+    public void delete(Doctor doctor) {
+        doctor.setDeleted(true);
+        save(doctor);
+    }
 }

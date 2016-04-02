@@ -34,13 +34,17 @@ GMT 0? o GMT-3
 Controller
 -----------
 - Validation and errors
-- Delete apppointment return void
+- Delete appointment return void
+
+Views
+-----
+- Validations errors
+- Validation on forms
+- Commons error catching
 
 Bugs
 -----
 Destroy method on bean with name 'supportedDatesFormat' threw an exception
-
-
 
 See
 ----

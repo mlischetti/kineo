@@ -3,24 +3,20 @@
         <div class="row">
             <div class="col-md-12 ng-scope">
                 <div class="pull-right">
-                    Actions:
                     <div class="btn-group">
-                        <button data-toggle="modal" data-target="#searchModal" class="btn btn-default">
-                            <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
-                        </button>
-
-                        <button data-toggle="modal" data-target="#addDoctorModal" class="btn btn-default">
-                            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                        <button class="btn btn-primary pull-right" data-toggle="modal" data-target="#addDoctorModal">
+                            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> New Doctor
                         </button>
                     </div>
                 </div>
                 <div class="form-horizontal">
                     <div class="control-group">
                         <div class="controls form-inline">
-                            <input type="text" class="form-control" id="last-name-search" placeholder="Lastname">
-                            <input type="text" class="form-control" id="first-name-search" placeholder="Firstname">
-                            <button data-toggle="modal" data-target="#searchModal" class="btn btn-default">
-                                <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                            <!--<input type="text" class="form-control" id="last-name-search" placeholder="Last name" ng-model="search.$" >-->
+                            <input type="text" class="form-control" id="last-name-search" placeholder="Last name" ng-model="search.last_name" >
+                            <input type="text" class="form-control" id="first-name-search" placeholder="First name" ng-model="search.first_name">
+                            <button data-toggle="modal" data-ng-click="clearSearch()" class="btn btn-default">
+                                <span class="glyphicon glyphicon-remove-sign" aria-hidden="true"></span>
                             </button>
                         </div>
                     </div>
@@ -32,14 +28,14 @@
             <table class="table table-striped" style="padding-left: 10px">
                 <thead>
                 <tr>
-                    <th>Lastname</th>
-                    <th>Firstname</th>
+                    <th>Last name</th>
+                    <th>First name</th>
                     <th>Phone</th>
                     <th>Actions</th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr data-ng-repeat="doctor in doctors">
+                <tr data-ng-repeat="doctor in doctors | filter:search">
                     <td width="30%">{{doctor.last_name}}</td>
                     <td width="30%">{{doctor.first_name}}</td>
                     <td width="20%">{{doctor.phone}}</td>

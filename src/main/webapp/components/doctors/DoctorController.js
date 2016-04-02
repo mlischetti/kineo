@@ -1,4 +1,5 @@
-var DoctorController = ['$scope', '$state', 'Doctors', 'Doctor', function ($scope, $state, Doctors, Doctor) {
+var DoctorController = ['$scope', '$window', '$state', 'Doctors', 'Doctor', function ($scope, $window, $state, Doctors, Doctor) {
+
     $scope.$on('$viewContentLoaded', function (event) {
         $('html, body').animate({scrollTop: $("#doctors").offset().top}, 1000);
     });
@@ -18,18 +19,16 @@ var DoctorController = ['$scope', '$state', 'Doctors', 'Doctor', function ($scop
         var doctors = $scope.doctors;
         Doctor.delete({id:doctorId}, function(response) {
             console.log("Delete doctor: " + doctorId);
-            for(var i = doctors.length - 1; i >= 0; i--) {
-                if(doctors[i].id === doctorId) {
-                    doctors.splice(i, 1);
-                    console.log("Doctor: " + doctorId + " removed from array");
-                    break;
-                }
-            }
-            $scope.doctors = doctors;
+            $window.location.reload();
         }, function(error) {
-            console.log("Error on delete doctor: " + doctorId);
+            console.log("Error on delete doctor: " + doctorId + ". Error: " + error);
         });
     };
+
+    $scope.clearSearch = function() {
+        console.log("Clear search filter");
+        $scope.search = null;
+    }
 }];
 
 var DoctorDetailsController = ['$scope', '$rootScope', '$stateParams', 'Doctor', function ($scope, $rootScope, $stateParams, Doctor) {
@@ -37,8 +36,8 @@ var DoctorDetailsController = ['$scope', '$rootScope', '$stateParams', 'Doctor',
     $scope.currentDoctor = Doctor.get($stateParams);
 
     $scope.saveDoctor = function () {
-        console.log("Updating doctor: " + doctor.id);
         var doctor = $scope.currentDoctor;
+        console.log("Updating doctor: " + doctor.id);
         Doctor.update(doctor, function (response) {
             //success callback
             console.log("Updated doctor: " + doctor.id);

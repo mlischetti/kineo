@@ -1,0 +1,49 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-4 ng-scope">
+            <div class="pull-right">
+                <div class="btn-group">
+                    <button class="btn btn-primary pull-right" data-toggle="modal" data-target="#addDoctorModal">
+                        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> New Doctor
+                    </button>
+                </div>
+            </div>
+            <div class="form-horizontal">
+                <div class="control-group">
+                    <div class="controls form-inline">
+                        <input type="text" class="form-control" id="last-name-search" placeholder="Last name" ng-model="search.last_name" >
+                        <input type="text" class="form-control" id="first-name-search" placeholder="First name" ng-model="search.first_name">
+                        <button data-toggle="modal" data-ng-click="clearSearch()" class="btn btn-default">
+                            <span class="glyphicon glyphicon-remove-sign" aria-hidden="true"></span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-2 tall">
+        <h3>Medical insurances Companies</h3>
+        <table class="table table-striped" style="padding-left: 10px">
+            <thead>
+            <tr>
+                <th>Name</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr data-ng-repeat="company in companies | filter:search">
+                <td width="70%">{{company.name}}</td>
+                <td>
+                    <div class="action-item center-block">
+                        <a data-ui-sref="doctorDetails({id: doctor.id})">
+                            <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
+                        </a>
+                        <a data-ng-click="deleteDoctor(doctor.id)">
+                            <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                        </a>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

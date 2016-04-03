@@ -1,0 +1,28 @@
+<section id="medical-insurances" class="sections sections-narrow">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-2 tall">
+                <ul>
+                    <li class="btn btn-default btn-sm">
+                        <a  href="" ng-click="viewContent('companies');">Companies</a>
+                    </li>
+                    <hr>
+                    <li class="btn btn-default btn-sm">
+                        <a  href="" ng-click="viewContent('plans');">Plans</a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="col-md-10 tall ">
+                <div ng-if="content=='companies'">
+                    <data-ng-include src="'components/medical-insurances/medical_insurances_companies.html'"></data-ng-include>
+                </div>
+                <div ng-if="content=='plans'">
+                   <button style="text-align: center" type="button" class="btn btn-default btn-primary" ng-click="goDeploy()">
+                       plans
+                   </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

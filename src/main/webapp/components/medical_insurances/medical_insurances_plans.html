@@ -1,17 +1,18 @@
-<h3>Medical insurances companies</h3>
+<h3>Medical insurances plans</h3>
 <div class="row">
     <div class="col-md-9 ng-scope">
         <div class="pull-right">
             <div class="btn-group">
                 <button class="btn btn-primary pull-right" data-toggle="modal" data-target="#addDoctorModal">
-                    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>New company
+                    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>New plan
                 </button>
             </div>
         </div>
         <div class="form-horizontal">
             <div class="control-group">
                 <div class="controls form-inline">
-                    <input type="text" class="form-control" id="company-name-search" placeholder="Company" ng-model="search.name">
+                    <input type="text" class="form-control" id="plan-name-search" placeholder="Plan" ng-model="search.plan">
+                    <input type="text" class="form-control" id="company-name-search" placeholder="Company" ng-model="search.company.name">
                 </div>
             </div>
         </div>
@@ -22,13 +23,15 @@
         <table class="table table-striped">
             <thead>
             <tr>
-                <th>Name</th>
+                <th>Plan</th>
+                <th>Company</th>
                 <th>Actions</th>
             </tr>
             </thead>
             <tbody>
-            <tr data-ng-repeat="company in companies | filter:search">
-                <td width="70%">{{company.name}}</td>
+            <tr data-ng-repeat="plan in plans | filter:search">
+                <td width="40%">{{plan.plan}}</td>
+                <td width="30%">{{plan.company.name}}</td>
                 <td>
                     <div class="action-item center-block">
                         <a data-ui-sref="doctorDetails({id: doctor.id})">

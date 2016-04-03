@@ -28,8 +28,8 @@
 
     <script src="services/services.js"></script>
     <script src="components/main/MainController.js"></script>
-    <script src="components/main/AlertMessagesController.js"></script>
     <script src="components/doctors/DoctorController.js"></script>
+    <script src="components/medical_insurances/MedicalInsurancesController.js"></script>
     <!--
     <script src="components/veterinarians/VeterinarianController.js"></script>
     <script src="components/pets/PetController.js"></script>
@@ -52,11 +52,6 @@
 
     <data-ng-include src="'components/header.html'"></data-ng-include>
 
-    <!-- Specify a Angular controller script that binds Javascript variables to the feedback messages.
-    <div class="message" ng-controller="AlertMessagesController">
-        <alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</alert>
-    </div>
-    -->
     <data-ui-view></data-ui-view>
 
     <data-ng-include src="'components/footer.html'"></data-ng-include>

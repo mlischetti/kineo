@@ -11,6 +11,17 @@ var Doctor = ['$resource', 'context', function ($resource, context) {
             'get': {method: 'GET', params: {}, format: 'json', isArray: false},
             'update': {method: 'PUT', params: {id: '@id'}, format: 'json', isArray: false},
             'delete': {method: 'DELETE', params: {id: '@id'}, format: 'json', isArray: false}
-        }
-    );
+        });
+}];
+
+var MedicalInsuranceCompanies = ['$resource', 'context', function ($resource, context) {
+    return $resource(context + '/api/medical-insurances/companies', {}, {
+        query: {method: 'GET', params: {limit: 'limit', offset: 'offset'}, isArray: false}
+    });
+}];
+
+var MedicalInsurancePlans = ['$resource', 'context', function ($resource, context) {
+    return $resource(context + '/api/medical-insurances/plans', {}, {
+        query: {method: 'GET', params: {limit: 'limit', offset: 'offset'}, isArray: false}
+    });
 }];

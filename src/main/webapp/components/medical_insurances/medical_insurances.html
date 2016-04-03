@@ -1,26 +1,26 @@
 <section id="medical-insurances" class="sections sections-narrow">
     <div class="container">
         <div class="row">
-            <div class="col-md-2 tall">
-                <ul>
-                    <li class="btn btn-default btn-sm">
-                        <a  href="" ng-click="viewContent('companies');">Companies</a>
+            <!--<div class="col-md-2 tall">-->
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div id="nav-menu" class="navbar-collapse navbar-left collapse">
+                <ul class="nav navbar-nav navbar-menu">
+                    <li data-ng-class="content=='companies' ? 'active' : ''">
+                        <a href="" ng-click="viewContent('companies');">Companies</a>
                     </li>
                     <hr>
-                    <li class="btn btn-default btn-sm">
-                        <a  href="" ng-click="viewContent('plans');">Plans</a>
+                    <li data-ng-class="content=='plans' ? 'active' : ''">
+                        <a href="" ng-click="viewContent('plans');">Plans</a>
                     </li>
                 </ul>
             </div>
 
-            <div class="col-md-10 tall ">
-                <div ng-if="content=='companies'">
-                    <data-ng-include src="'components/medical-insurances/medical_insurances_companies.html'"></data-ng-include>
+            <div class="col-md-10">
+                <div class="container" ng-if="content=='companies'">
+                    <data-ng-include src="'components/medical_insurances/medical_insurances_companies.html'"></data-ng-include>
                 </div>
-                <div ng-if="content=='plans'">
-                   <button style="text-align: center" type="button" class="btn btn-default btn-primary" ng-click="goDeploy()">
-                       plans
-                   </button>
+                <div class="container" ng-if="content=='plans'">
+                    <data-ng-include src="'components/medical_insurances/medical_insurances_plans.html'"></data-ng-include>
                 </div>
             </div>
         </div>

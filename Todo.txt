@@ -13,6 +13,7 @@ Calendar
 Model
 -----
 - Support delete appointment  --> DONE
+- Patient and doctor add document number (Create catalog)
 
 Service
 -------

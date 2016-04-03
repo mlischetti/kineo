@@ -6,7 +6,7 @@ var DoctorController = ['$scope', '$window', '$state', 'Doctors', 'Doctor', func
 
     $scope.doctors = [];
 
-    Doctors.get({limit: 10, offset: 0}, function(response) {
+    Doctors.get({limit: 100, offset: 0}, function(response) {
         console.log("Getting doctors - Offset: " + response.paging.offset + ", limit: "  + response.paging.limit + ", total:" + response.paging.total);
         $scope.doctors = response.items;
     }, function(error){

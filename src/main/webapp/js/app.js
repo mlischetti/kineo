@@ -36,6 +36,11 @@ app.config(['stateHelperProvider', '$urlRouterProvider', '$urlMatcherFactoryProv
         url: "/medical-insurances/companies/:id",
         templateUrl: "components/medical_insurances/medical_company_details.html",
         controller: "MedicalCompanyDetailsController"
+    }).state({
+        name: "medicalInsurancePlanDetails",
+        url: "/medical-insurances/plans/:id",
+        templateUrl: "components/medical_insurances/medical_insurance_plan_details.html",
+        controller: "MedicalInsurancePlanDetailsController"
     });
 
     /*  stateHelperProvider.state({
@@ -86,6 +91,7 @@ app.controller('AddDoctorController', AddDoctorController);
 app.controller('MedicalInsurancesController', MedicalInsurancesController);
 app.controller('MedicalCompanyDetailsController', MedicalCompanyDetailsController);
 app.controller('AddMedicalCompanyController', AddMedicalCompanyController);
+app.controller('MedicalInsurancePlanDetailsController', MedicalInsurancePlanDetailsController);
 /*
  app.controller('DashboardController', DashboardController);
  app.controller('VeterinarianController', VeterinarianController);

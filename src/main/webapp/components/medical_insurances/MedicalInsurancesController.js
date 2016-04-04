@@ -105,3 +105,38 @@ var AddMedicalCompanyController = ['$scope', '$rootScope', '$stateParams', 'Medi
             });
         }
     }];
+
+
+var MedicalInsurancePlanDetailsController = ['$scope', '$rootScope', '$stateParams', 'MedicalCompanies','MedicalInsurancePlan',
+    function ($scope, $rootScope, $stateParams, MedicalCompanies, MedicalInsurancePlan) {
+
+        $scope.companies = [];
+
+        var currentId = $stateParams.id;
+        console.log("Current plan: " + currentId);
+
+        $scope.currentPlan = MedicalInsurancePlan.get($stateParams);
+
+        MedicalCompanies.get({limit: 100, offset: 0}, function (response) {
+            console.log("Getting medical insurances companies - Offset: " + response.paging.offset + ", limit: " + response.paging.limit
+                + ", total:" + response.paging.total);
+            $scope.companies = response.items;
+        }, function (error) {
+            // error callback
+            console.log("Error on retrieve medical insurances companies. Error: " + error);
+        });
+
+        $scope.savePlan = function () {
+            var plan = $scope.currentPlan;
+            var planToUpdate = {id: plan.id, plan: plan.plan, company_id: plan.company.id};
+            console.log("Updating plan: " + planToUpdate.id);
+            MedicalInsurancePlan.update(planToUpdate, function (response) {
+                //success callback
+                console.log("Updated plan: " + planToUpdate.id);
+                $('#editMedicalInsurancePlanSuccessModal').modal('show');
+            }, function (error) {
+                // error callback
+                console.log("Error on updating plan: " + planToUpdate.id + ". Error: " + error);
+            });
+        };
+    }];

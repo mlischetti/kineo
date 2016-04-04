@@ -18,6 +18,8 @@ public interface MedicalInsuranceService {
 
     void save(MedicalInsuranceCompany company);
 
+    void delete(MedicalInsuranceCompany company);
+
     MedicalInsurancePlan findPlanById(Long planId);
 
     List<MedicalInsurancePlan> findPlans(int firstResult, int maxResults);
@@ -25,4 +27,6 @@ public interface MedicalInsuranceService {
     Long countPlans();
 
     void save(MedicalInsurancePlan plan);
+
+    void delete(MedicalInsurancePlan plan);
 }

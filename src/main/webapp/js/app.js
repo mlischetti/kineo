@@ -31,6 +31,11 @@ app.config(['stateHelperProvider', '$urlRouterProvider', '$urlMatcherFactoryProv
         url: "/medical-insurances",
         templateUrl: "components/medical_insurances/medical_insurances.html",
         controller: "MedicalInsurancesController"
+    }).state({
+        name: "medicalCompanyDetails",
+        url: "/medical-insurances/companies/:id",
+        templateUrl: "components/medical_insurances/medical_company_details.html",
+        controller: "MedicalCompanyDetailsController"
     });
 
     /*  stateHelperProvider.state({
@@ -79,6 +84,8 @@ app.controller('DoctorController', DoctorController);
 app.controller('DoctorDetailsController', DoctorDetailsController);
 app.controller('AddDoctorController', AddDoctorController);
 app.controller('MedicalInsurancesController', MedicalInsurancesController);
+app.controller('MedicalCompanyDetailsController', MedicalCompanyDetailsController);
+app.controller('AddMedicalCompanyController', AddMedicalCompanyController);
 /*
  app.controller('DashboardController', DashboardController);
  app.controller('VeterinarianController', VeterinarianController);
@@ -93,8 +100,10 @@ app.controller('MedicalInsurancesController', MedicalInsurancesController);
 /** Services **/
 app.factory('Doctors', Doctors);
 app.factory('Doctor', Doctor);
-app.factory('MedicalInsuranceCompanies', MedicalInsuranceCompanies);
+app.factory('MedicalCompanies', MedicalCompanies);
+app.factory('MedicalCompany', MedicalCompany);
 app.factory('MedicalInsurancePlans', MedicalInsurancePlans);
+app.factory('MedicalInsurancePlan', MedicalInsurancePlan);
 /*app.factory('Owner', Owner);
  app.factory('Pet', Pet);
  app.factory('OwnerPet', OwnerPet);

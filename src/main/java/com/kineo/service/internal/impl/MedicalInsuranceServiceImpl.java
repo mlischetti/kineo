@@ -52,6 +52,13 @@ public class MedicalInsuranceServiceImpl implements MedicalInsuranceService {
 
     @Override
     @Transactional
+    public void delete(MedicalInsuranceCompany company) {
+        company.setDeleted(true);
+        companyRepository.save(company);
+    }
+
+    @Override
+    @Transactional
     public MedicalInsurancePlan findPlanById(Long planId) {
         return planRepository.findById(planId);
     }
@@ -71,6 +78,13 @@ public class MedicalInsuranceServiceImpl implements MedicalInsuranceService {
     @Override
     @Transactional
     public void save(MedicalInsurancePlan plan) {
+        planRepository.save(plan);
+    }
+
+    @Override
+    @Transactional
+    public void delete(MedicalInsurancePlan plan) {
+        plan.setDeleted(true);
         planRepository.save(plan);
     }
 }

@@ -18,6 +18,7 @@ import org.apache.commons.collections.CollectionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -119,6 +120,22 @@ public class MedicalInsuranceController {
         return new MedicalInsuranceCompanyResponse(id);
     }
 
+    @RequestMapping(value = "/medical-insurances/companies/{id}", method = RequestMethod.DELETE)
+    @ResponseStatus(value = HttpStatus.OK)
+    public void deleteCompany(@PathVariable("id") Long id) {
+        LOGGER.debug("Deleting medical insurance company: {}", id);
+        MedicalInsuranceCompany company = medicalInsuranceService.findCompanyById(id);
+        if (company == null) {
+            LOGGER.debug("Could not found medial insurance company: {}", id);
+            EntityNotFoundException exception = new EntityNotFoundException(MedicalInsuranceCompany.ENTITY);
+            exception.setSearchMessage("id = " + id);
+            throw exception;
+        }
+
+        medicalInsuranceService.delete(company);
+        LOGGER.debug("Deleted medical insurance company: {}", id);
+    }
+
     //Medical-Plan
     @RequestMapping(value = "/medical-insurances/plans/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF_8)
     public MedicalInsurancePlanDto getPlan(@PathVariable("id") Long id) {
@@ -211,5 +228,21 @@ public class MedicalInsuranceController {
         medicalInsuranceService.save(plan);
         LOGGER.debug("Updated medical insurance plan: {}", id);
         return new MedicalInsurancePlanResponse(id);
+    }
+
+    @RequestMapping(value = "/medical-insurances/plans/{id}", method = RequestMethod.DELETE)
+    @ResponseStatus(value = HttpStatus.OK)
+    public void deletePlan(@PathVariable("id") Long id) {
+        LOGGER.debug("Deleting medical insurance plan: {}", id);
+        MedicalInsurancePlan plan = medicalInsuranceService.findPlanById(id);
+        if (plan == null) {
+            LOGGER.debug("Could not found medial insurance plan: {}", id);
+            EntityNotFoundException exception = new EntityNotFoundException(MedicalInsurancePlan.ENTITY);
+            exception.setSearchMessage("id = " + id);
+            throw exception;
+        }
+
+        medicalInsuranceService.delete(plan);
+        LOGGER.debug("Deleted medical insurance plan: {}", id);
     }
 }

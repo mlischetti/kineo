@@ -16,9 +16,8 @@ var DoctorController = ['$scope', '$window', '$state', 'Doctors', 'Doctor', func
 
     $scope.deleteDoctor = function (doctorId) {
         console.log("Trying to delete doctor: " + doctorId);
-        var doctors = $scope.doctors;
         Doctor.delete({id:doctorId}, function(response) {
-            console.log("Delete doctor: " + doctorId);
+            console.log("Deleted doctor: " + doctorId);
             $window.location.reload();
         }, function(error) {
             console.log("Error on delete doctor: " + doctorId + ". Error: " + error);
@@ -33,6 +32,7 @@ var DoctorController = ['$scope', '$window', '$state', 'Doctors', 'Doctor', func
 
 var DoctorDetailsController = ['$scope', '$rootScope', '$stateParams', 'Doctor', function ($scope, $rootScope, $stateParams, Doctor) {
     var currentId = $stateParams.id;
+    console.log("Current doctor: " + currentId);
     $scope.currentDoctor = Doctor.get($stateParams);
 
     $scope.saveDoctor = function () {
@@ -44,12 +44,12 @@ var DoctorDetailsController = ['$scope', '$rootScope', '$stateParams', 'Doctor',
             $('#editDoctorSuccessModal').modal('show');
         }, function(error) {
             // error callback
-            console.log("Error on updating doctor" + doctor.id + ". Error: " + error);
+            console.log("Error on updating doctor: " + doctor.id + ". Error: " + error);
         });
     };
 }];
 
-var AddDoctorController = ['$scope', '$rootScope', '$stateParams', '$timeout', 'Doctor', function ($scope, $rootScope, $stateParams, $timeout, Doctor) {
+var AddDoctorController = ['$scope', '$rootScope', '$stateParams', 'Doctor', function ($scope, $rootScope, $stateParams, Doctor) {
     $scope.doctor = {};
     $scope.newDoctorId = -1;
 

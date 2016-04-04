@@ -1,0 +1,38 @@
+<!-- Doctors -->
+<section id="medical_insurances_company_info" class="sections sections-no-padding sections-darker">
+    <div class="container">
+        <div class="row">
+            <div class="section-inner-padding">
+                <button class="btn btn-primary pull-right" data-toggle="modal" data-target="#editCompanyModal">
+                    <span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Edit company
+                </button>
+                <h2 class="h3 sub-header">Medical insurance company information</h2>
+
+                <!-- Specify the function to be called on submit and disable HTML5 validation, since we're using Angular validation-->
+                <div class="col-md-4 col-md-offset-2">
+                    <!-- Display an error if the input is invalid and is dirty (only when someone changes the value) -->
+                    <div class="form-group">
+                        <label>Name</label>
+                        <p class="form-control" data-ng-bind="currentCompany.name">Name</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Nav bar -->
+<section id="companies" class="sections sections-bottom-nav sections-darker">
+    <div class="container">
+        <ul class="pager pager-link pull-left">
+            <li>
+                <a data-ui-sref="medical-insurances">
+                    <span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span> Back to Companies List
+                </a>
+            </li>
+        </ul>
+    </div>
+</section>
+
+<!-- Edit Company modal -->
+<data-ng-include src="'components/_partials/_modal_edit_medical_company.html'"></data-ng-include>

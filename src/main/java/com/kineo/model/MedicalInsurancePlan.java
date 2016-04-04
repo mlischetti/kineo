@@ -24,6 +24,8 @@ public class MedicalInsurancePlan extends BaseEntity {
     @NotEmpty
     private String plan;
 
+    private boolean deleted = false;
+
     public MedicalInsuranceCompany getCompany() {
         return company;
     }
@@ -38,5 +40,13 @@ public class MedicalInsurancePlan extends BaseEntity {
 
     public void setPlan(String plan) {
         this.plan = plan;
+    }
+
+    public boolean isDeleted() {
+        return deleted;
+    }
+
+    public void setDeleted(boolean deleted) {
+        this.deleted = deleted;
     }
 }

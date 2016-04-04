@@ -1,6 +1,6 @@
-<div data-ng-controller="AddMedicalCompanyController">
+<div data-ng-controller="AddMedicalInsurancePlanController">
     <!-- Add Company Modal -->
-    <div class="modal modal-company fade" id="addMedicalCompanyModal" tabindex="-1">
+    <div class="modal modal-company fade" id="addMedicalInsurancePlanModal" tabindex="-1">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -10,8 +10,8 @@
                     <div class="container">
                         <div class="row">
                             <div class="col-md-8 col-md-offset-2">
-                                <h1 class="sub-header">Add a company</h1>
-                                <em class="text-muted">Fill up company basic information</em>
+                                <h1 class="sub-header">Add a plan</h1>
+                                <em class="text-muted">Fill up plan basic information</em>
                             </div>
                         </div>
                     </div>
@@ -21,14 +21,19 @@
                         <div class="row">
                             <div class="col-md-4 col-md-offset-2">
                                 <div class="form-group">
-                                    <label for="name">Name</label>
-                                    <input type="text" class="form-control" id="name" ng-model="company.name">
+                                    <label for="plan">Plan</label>
+                                    <input type="text" class="form-control" id="plan" ng-model="plan.plan">
+                                </div>
+                                <div class="form-group">
+                                    <label for="company">Company</label>
+                                    <select class="form-control" id="company" ng-model="plan.company"
+                                            ng-options="company as company.name for company in companies track by company.id"></select>
                                 </div>
                             </div>
                             <div class="col-md-8 col-md-offset-2">
                                 <div class="form-group form-group-action">
                                     <button type="submit" class="btn btn-primary" data-toggle="modal" data-dismiss="modal" aria-label="Close"
-                                            data-ng-click="addMedicalCompany()">Add Company
+                                            data-ng-click="addPlan()">Add Plan
                                     </button>
                                 </div>
                             </div>
@@ -40,7 +45,7 @@
     </div>
 
     <!-- Add Company Success Modal -->
-    <div class="modal modal-company fade" id="addMedicalCompanySuccessModal" tabindex="-1">
+    <div class="modal modal-company fade" id="addMedicalInsurancePlanSuccessModal" tabindex="-1">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -50,7 +55,7 @@
                     <div class="container">
                         <div class="row">
                             <div class="col-md-8 col-md-offset-2">
-                                <h1 class="sub-header">Company added successfully!</h1>
+                                <h1 class="sub-header">Plan added successfully!</h1>
                             </div>
                         </div>
                     </div>
@@ -60,11 +65,11 @@
                         <div class="row">
                             <div class="col-md-8 col-md-offset-2">
                                 <div class="alert alert-success" role="alert">
-                                    Well done! You've successfully created an a new company.
+                                    Well done! You've successfully created an a new plan.
                                 </div>
                                 <div class="form-group form-group-action">
-                                    <a data-dismiss="modal" data-ui-sref="medicalCompanyDetails({id:newCompanyId})" class="btn btn-primary">
-                                        View company's details</a>
+                                    <a data-dismiss="modal" data-ui-sref="medicalInsurancePlanDetails({id:newPlanId})" class="btn btn-primary">
+                                        View plan's details</a>
                                 </div>
                             </div>
                         </div>

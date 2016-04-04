@@ -1,5 +1,4 @@
 var DoctorController = ['$scope', '$window', '$state', 'Doctors', 'Doctor', function ($scope, $window, $state, Doctors, Doctor) {
-
     $scope.$on('$viewContentLoaded', function (event) {
         $('html, body').animate({scrollTop: $("#doctors").offset().top}, 1000);
     });
@@ -59,6 +58,7 @@ var AddDoctorController = ['$scope', '$rootScope', '$stateParams', 'Doctor', fun
             //success callback
             console.log("New doctor: " + response.id + " created");
             $scope.newDoctorId = response.id;
+            $scope.doctor = {};
             $('#addDoctorSuccessModal').modal('show');
         }, function(error) {
             // error callback

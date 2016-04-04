@@ -92,6 +92,7 @@ app.controller('MedicalInsurancesController', MedicalInsurancesController);
 app.controller('MedicalCompanyDetailsController', MedicalCompanyDetailsController);
 app.controller('AddMedicalCompanyController', AddMedicalCompanyController);
 app.controller('MedicalInsurancePlanDetailsController', MedicalInsurancePlanDetailsController);
+app.controller('AddMedicalInsurancePlanController', AddMedicalInsurancePlanController);
 /*
  app.controller('DashboardController', DashboardController);
  app.controller('VeterinarianController', VeterinarianController);

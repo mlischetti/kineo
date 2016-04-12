@@ -13,6 +13,8 @@ public class Patient extends BaseEntity {
 
     public static final String ENTITY = "Patient";
 
+    private boolean deleted = false;
+
     @Column(name = "first_name")
     @NotEmpty
     private String firstName;
@@ -31,6 +33,14 @@ public class Patient extends BaseEntity {
     private String affiliateId;
 
     private String phone;
+
+    public boolean isDeleted() {
+        return deleted;
+    }
+
+    public void setDeleted(boolean deleted) {
+        this.deleted = deleted;
+    }
 
     public String getFirstName() {
         return firstName;

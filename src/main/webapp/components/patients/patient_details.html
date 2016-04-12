@@ -1,0 +1,46 @@
+<!-- Patients -->
+<section id="patientsInfo" class="sections sections-no-padding sections-darker">
+    <div class="container">
+        <div class="row">
+            <div class="section-inner-padding">
+                <button class="btn btn-primary pull-right" data-toggle="modal" data-target="#editPatientModal">
+                    <span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Edit Patient
+                </button>
+                <h2 class="h3 sub-header">Patient information</h2>
+
+                <div class="col-md-4 col-md-offset-2">
+                    <div class="form-group">
+                        <label>Fist Name</label>
+                        <p class="form-control" data-ng-bind="patients.first_name">First name</p>
+                    </div>
+                    <div class="form-group">
+                        <label>Last Name</label>
+                        <p class="form-control" data-ng-bind="patients.last_name">Last name</p>
+                    </div>
+                    <div class="form-group">
+                        <label>Email</label>
+                        <p class="form-control" data-ng-bind="patients.email">Email</p>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Contact Number</label>
+                        <p class="form-control" data-ng-bind="patients.phone">Phone</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Nav bar -->
+<section id="patients" class="sections sections-bottom-nav sections-darker">
+    <div class="container">
+        <ul class="pager pager-link pull-left">
+            <li>
+                <a data-ui-sref="patients">
+                    <span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span> Back to Patient List
+                </a>
+            </li>
+        </ul>
+    </div>
+</section>

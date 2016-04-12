@@ -23,7 +23,7 @@ app.config(['stateHelperProvider', '$urlRouterProvider', '$urlMatcherFactoryProv
         controller: "DoctorController"
     }).state({
         name: "doctorDetails",
-        url: "/doctor/:id",
+        url: "/doctors/:id",
         templateUrl: "components/doctors/doctor_details.html",
         controller: "DoctorDetailsController"
     }).state({
@@ -41,6 +41,16 @@ app.config(['stateHelperProvider', '$urlRouterProvider', '$urlMatcherFactoryProv
         url: "/medical-insurances/plans/:id",
         templateUrl: "components/medical_insurances/medical_insurance_plan_details.html",
         controller: "MedicalInsurancePlanDetailsController"
+    }).state({
+        name: "patients",
+        url: "/patients",
+        templateUrl: "components/patients/patients.html",
+        controller: "PatientController"
+    }).state({
+        name: "patientDetails",
+        url: "/patients/:id",
+        templateUrl: "components/patients/patient_details.html",
+        controller: "PatientDetailsController"
     });
 
     /*  stateHelperProvider.state({
@@ -93,6 +103,7 @@ app.controller('MedicalCompanyDetailsController', MedicalCompanyDetailsControlle
 app.controller('AddMedicalCompanyController', AddMedicalCompanyController);
 app.controller('MedicalInsurancePlanDetailsController', MedicalInsurancePlanDetailsController);
 app.controller('AddMedicalInsurancePlanController', AddMedicalInsurancePlanController);
+app.controller('PatientController', PatientController);
 /*
  app.controller('DashboardController', DashboardController);
  app.controller('VeterinarianController', VeterinarianController);
@@ -111,6 +122,9 @@ app.factory('MedicalCompanies', MedicalCompanies);
 app.factory('MedicalCompany', MedicalCompany);
 app.factory('MedicalInsurancePlans', MedicalInsurancePlans);
 app.factory('MedicalInsurancePlan', MedicalInsurancePlan);
+app.factory('Patients', Patients);
+app.factory('Patient', Patient);
+app.factory('PatientDetailsController', PatientDetailsController);
 /*app.factory('Owner', Owner);
  app.factory('Pet', Pet);
  app.factory('OwnerPet', OwnerPet);

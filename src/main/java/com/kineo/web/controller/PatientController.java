@@ -144,4 +144,18 @@ public class PatientController {
         patient.setMedicalInsurancePlan(medicalInsurancePlan);
         patientService.save(patient);
     }
+
+    @RequestMapping(value = "/patients/{id}", method = RequestMethod.DELETE)
+    public void deletePatient(@PathVariable(value = "id") Long id) {
+        LOGGER.debug("Deleting patient: {}", id);
+        Patient patient = patientService.findById(id);
+        if (patient == null) {
+            LOGGER.debug("Could not found patient: {}", id);
+            EntityNotFoundException exception = new EntityNotFoundException(Patient.ENTITY);
+            exception.setSearchMessage("id = " + id);
+            throw exception;
+        }
+        patientService.delete(patient);
+        LOGGER.debug("Deleted patient: {}", id);
+    }
 }

@@ -45,4 +45,9 @@ public class PatientServiceImpl implements PatientService {
         return patientRepository.count();
     }
 
+    @Override
+    public void delete(Patient patient) {
+        patient.setDeleted(true);
+        patientRepository.save(patient);
+    }
 }

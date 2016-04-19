@@ -16,6 +16,7 @@ import org.apache.commons.collections.CollectionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -146,6 +147,7 @@ public class PatientController {
     }
 
     @RequestMapping(value = "/patients/{id}", method = RequestMethod.DELETE)
+    @ResponseStatus(value = HttpStatus.OK)
     public void deletePatient(@PathVariable(value = "id") Long id) {
         LOGGER.debug("Deleting patient: {}", id);
         Patient patient = patientService.findById(id);

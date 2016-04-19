@@ -104,6 +104,7 @@ app.controller('AddMedicalCompanyController', AddMedicalCompanyController);
 app.controller('MedicalInsurancePlanDetailsController', MedicalInsurancePlanDetailsController);
 app.controller('AddMedicalInsurancePlanController', AddMedicalInsurancePlanController);
 app.controller('PatientController', PatientController);
+app.controller('PatientDetailsController', PatientDetailsController);
 /*
  app.controller('DashboardController', DashboardController);
  app.controller('VeterinarianController', VeterinarianController);
@@ -124,7 +125,6 @@ app.factory('MedicalInsurancePlans', MedicalInsurancePlans);
 app.factory('MedicalInsurancePlan', MedicalInsurancePlan);
 app.factory('Patients', Patients);
 app.factory('Patient', Patient);
-app.factory('PatientDetailsController', PatientDetailsController);
 /*app.factory('Owner', Owner);
  app.factory('Pet', Pet);
  app.factory('OwnerPet', OwnerPet);

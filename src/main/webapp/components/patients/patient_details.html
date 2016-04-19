@@ -11,20 +11,27 @@
                 <div class="col-md-4 col-md-offset-2">
                     <div class="form-group">
                         <label>Fist Name</label>
-                        <p class="form-control" data-ng-bind="patients.first_name">First name</p>
+                        <p class="form-control">{{currentPatient.first_name}}</p>
                     </div>
                     <div class="form-group">
                         <label>Last Name</label>
-                        <p class="form-control" data-ng-bind="patients.last_name">Last name</p>
+                        <p class="form-control">{{currentPatient.last_name}}</p>
                     </div>
                     <div class="form-group">
                         <label>Email</label>
-                        <p class="form-control" data-ng-bind="patients.email">Email</p>
+                        <p class="form-control">{{currentPatient.email}}</p>
                     </div>
-
                     <div class="form-group">
                         <label>Contact Number</label>
-                        <p class="form-control" data-ng-bind="patients.phone">Phone</p>
+                        <p class="form-control">{{currentPatient.phone}}</p>
+                    </div>
+                    <div class="form-group">
+                        <label>Medical Insurance Plan</label>
+                        <p class="form-control">{{currentPatient.medical_insurance_plan.company.name + ' ' + currentPatient.medical_insurance_plan.plan}}</p>
+                    </div>
+                    <div class="form-group">
+                        <label>Affiliate Id</label>
+                        <p class="form-control">{{currentPatient.affiliate_id}}</p>
                     </div>
                 </div>
             </div>

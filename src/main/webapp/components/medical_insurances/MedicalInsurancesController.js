@@ -129,7 +129,6 @@ var MedicalInsurancePlanDetailsController = ['$scope', '$rootScope', '$statePara
 }];
 
 var AddMedicalInsurancePlanController = ['$scope', '$rootScope', '$stateParams', 'MedicalInsurancePlan', function ($scope, $rootScope, $stateParams, MedicalInsurancePlan) {
-    console.log("Enter into controller");
     $scope.plan = {};
     $scope.newPlanId = -1;
 

@@ -52,45 +52,6 @@ app.config(['stateHelperProvider', '$urlRouterProvider', '$urlMatcherFactoryProv
         templateUrl: "components/patients/patient_details.html",
         controller: "PatientDetailsController"
     });
-
-    /*  stateHelperProvider.state({
-     name: "landing",
-     url: "/",
-     templateUrl: "components/landing/landing.html",
-     controller: "MainController",
-     data: { requireLogin : false }
-     }).state({
-     name: "dashboard",
-     url: "/dashboard",
-     templateUrl: "components/dashboard/dashboard.html",
-     controller: "DashboardController",
-     data: { requireLogin : true }
-     }).state({
-     name: "vets",
-     url: "/vets",
-     templateUrl: "components/veterinarians/veterinarians.html",
-     controller: "VeterinarianController",
-     data: { requireLogin : true }
-     }).state({
-     name: "pets",
-     url: "/pets",
-     templateUrl: "components/pets/pets.html",
-     controller: "PetController",
-     data: { requireLogin : true }
-     }).state({
-     name: "owners",
-     url: "/owners",
-     templateUrl: "components/owners/owners.html",
-     controller: "OwnerController",
-     data: { requireLogin : true }
-     }).state({
-     name: "ownerDetails",
-     url: "/owners/:id",
-     templateUrl: "components/owners/owner_details.html",
-     controller: "OwnerDetailsController",
-     data: {requireLogin : true}
-     });*/
-
 }]);
 
 /** Controllers **/
@@ -105,15 +66,9 @@ app.controller('MedicalInsurancePlanDetailsController', MedicalInsurancePlanDeta
 app.controller('AddMedicalInsurancePlanController', AddMedicalInsurancePlanController);
 app.controller('PatientController', PatientController);
 app.controller('PatientDetailsController', PatientDetailsController);
+app.controller('AddPatientController', AddPatientController);
 /*
  app.controller('DashboardController', DashboardController);
- app.controller('VeterinarianController', VeterinarianController);
- app.controller('PetController', PetController);
- app.controller('PetDetailsController', PetDetailsController);
- app.controller('OwnerController', OwnerController);
- app.controller('OwnerDetailsController', OwnerDetailsController);
- app.controller('AddOwnerController', AddOwnerController);
- app.controller('VisitController', VisitController);
  app.controller('SearchController', SearchController);*/
 
 /** Services **/
@@ -125,12 +80,6 @@ app.factory('MedicalInsurancePlans', MedicalInsurancePlans);
 app.factory('MedicalInsurancePlan', MedicalInsurancePlan);
 app.factory('Patients', Patients);
 app.factory('Patient', Patient);
-/*app.factory('Owner', Owner);
- app.factory('Pet', Pet);
- app.factory('OwnerPet', OwnerPet);
- app.factory('Vet', Vet);
- app.factory('Visit', Visit);
- app.factory('PetType', PetType);*/
 
 /** Directives **/
 app.directive('scrollToTarget', function () {

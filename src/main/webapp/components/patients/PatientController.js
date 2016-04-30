@@ -1,8 +1,10 @@
-var PatientController = ['$scope', '$window', '$state', 'Patients', 'Patient', function ($scope, $window, $state, Patients, Patient) {
+var PatientController = ['$scope', '$window', '$state', 'Patients', 'Patient', 'MedicalInsurancePlans',
+    function ($scope, $window, $state, Patients, Patient, MedicalInsurancePlans) {
     $scope.$on('$viewContentLoaded', function (event) {
         $('html, body').animate({scrollTop: $("#patients").offset().top}, 1000);
     });
 
+    $scope.plans = [];
     $scope.patients = [];
 
     Patients.get({limit: 20, offset: 0}, function(response) {
@@ -12,6 +14,15 @@ var PatientController = ['$scope', '$window', '$state', 'Patients', 'Patient', f
     }, function(error){
         // error callback
         console.log("Error on retrieve patients. Error: " + error);
+    });
+
+    MedicalInsurancePlans.get({limit: 100, offset: 0}, function(response) {
+        console.log("Getting medical insurances plans - Offset: " + response.paging.offset + ", limit: "  + response.paging.limit
+            + ", total:" + response.paging.total);
+        $scope.plans = response.items;
+    }, function(error){
+        // error callback
+        console.log("Error on retrieve medical insurances plans. Error: " + error);
     });
 
     $scope.deletePatient = function (patientId) {
@@ -30,40 +41,66 @@ var PatientController = ['$scope', '$window', '$state', 'Patients', 'Patient', f
     }
 }];
 
-var PatientDetailsController = ['$scope', '$rootScope', '$stateParams', 'Patient', function ($scope, $rootScope, $stateParams, Patient) {
+var PatientDetailsController = ['$scope', '$rootScope', '$stateParams', 'Patient', 'MedicalInsurancePlans',
+    function ($scope, $rootScope, $stateParams, Patient, MedicalInsurancePlans) {
     var currentId = $stateParams.id;
+
+    $scope.plans = [];
+
+    MedicalInsurancePlans.get({limit: 100, offset: 0}, function(response) {
+        console.log("Getting medical insurances plans - Offset: " + response.paging.offset + ", limit: "  + response.paging.limit
+            + ", total:" + response.paging.total);
+        $scope.plans = response.items;
+    }, function(error){
+        // error callback
+        console.log("Error on retrieve medical insurances plans. Error: " + error);
+    });
+
     console.log("Current patient: " + currentId);
+
     $scope.currentPatient = Patient.get($stateParams);
 
     $scope.savePatient = function () {
-        var patient = $scope.currentPatient;
-        console.log("Updating patient: " + patient.id);
-        Doctor.update(doctor, function (response) {
+        var patientToCreate = createPatient($scope.currentPatient);
+        console.log("Updating patient: " + patientToCreate.id);
+        Patient.update(patientToCreate, function (response) {
             //success callback
-            console.log("Updated patient: " + patient.id);
+            console.log("Updated patient: " + patientToCreate.id);
             $('#editPatientSuccessModal').modal('show');
         }, function(error) {
             // error callback
-            console.log("Error on updating patient: " + patient.id + ". Error: " + error);
+            console.log("Error on updating patient: " + patientToCreate.id + ". Error: " + error);
         });
     };
+
+    function createPatient(currentPatient) {
+        var patient = new Object();
+        patient.id = currentPatient.id;
+        patient.first_name = currentPatient.first_name;
+        patient.last_name = currentPatient.first_name;
+        patient.email = currentPatient.email;
+        patient.phone = currentPatient.phone;
+        patient.medical_insurance_plan_id = currentPatient.medical_insurance_plan.id;
+        patient.affiliate_id = currentPatient.affiliate_id;
+        return patient;
+    }
 }];
 
-var AddDoctorController = ['$scope', '$rootScope', '$stateParams', 'Doctor', function ($scope, $rootScope, $stateParams, Doctor) {
-    $scope.doctor = {};
-    $scope.newDoctorId = -1;
+var AddPatientController = ['$scope', '$rootScope', '$stateParams', 'Patient', function ($scope, $rootScope, $stateParams, Patient) {
+    $scope.patient = {};
+    $scope.newPatientId = -1;
 
-    $scope.addDoctor = function () {
-        console.log("Creating new doctor");
-        Doctor.save($scope.doctor, function(response){
+    $scope.addPatient = function () {
+        console.log("Creating new patient");
+        Patient.save($scope.patient, function(response){
             //success callback
-            console.log("New doctor: " + response.id + " created");
-            $scope.newDoctorId = response.id;
-            $scope.doctor = {};
-            $('#addDoctorSuccessModal').modal('show');
+            console.log("New patient: " + response.id + " created");
+            $scope.newPatientId = response.id;
+            $scope.patient = {};
+            $('#addPatientSuccessModal').modal('show');
         }, function(error) {
             // error callback
-            console.log("Error on creating new doctor. Error: " + error);
+            console.log("Error on creating new patient. Error: " + error);
         });
     };
 }];

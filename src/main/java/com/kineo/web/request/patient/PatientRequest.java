@@ -19,6 +19,12 @@ public class PatientRequest {
 
     private String phone;
 
+    @NotBlank
+    private String documentType;
+
+    @NotBlank
+    private String documentNumber;
+
     private String affiliateId;
 
     private Long medicalInsurancePlanId;
@@ -53,6 +59,22 @@ public class PatientRequest {
 
     public void setPhone(String phone) {
         this.phone = phone;
+    }
+
+    public String getDocumentType() {
+        return documentType;
+    }
+
+    public void setDocumentType(String documentType) {
+        this.documentType = documentType;
+    }
+
+    public String getDocumentNumber() {
+        return documentNumber;
+    }
+
+    public void setDocumentNumber(String documentNumber) {
+        this.documentNumber = documentNumber;
     }
 
     public String getAffiliateId() {

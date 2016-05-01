@@ -11,6 +11,8 @@ public class DoctorDto {
     private String lastName;
     private String email;
     private String phone;
+    private String documentType;
+    private String documentNumber;
 
     public DoctorDto(Doctor doctor) {
         this.id = doctor.getId();
@@ -18,6 +20,10 @@ public class DoctorDto {
         this.lastName = doctor.getLastName();
         this.email = doctor.getEmail();
         this.phone = doctor.getPhone();
+        if(doctor.getDocumentType() != null) {
+            this.documentType = doctor.getDocumentType().name();
+        }
+        this.documentNumber = doctor.getDocumentNumber();
     }
 
     public Long getId() {
@@ -58,5 +64,21 @@ public class DoctorDto {
 
     public void setPhone(String phone) {
         this.phone = phone;
+    }
+
+    public String getDocumentType() {
+        return documentType;
+    }
+
+    public void setDocumentType(String documentType) {
+        this.documentType = documentType;
+    }
+
+    public String getDocumentNumber() {
+        return documentNumber;
+    }
+
+    public void setDocumentNumber(String documentNumber) {
+        this.documentNumber = documentNumber;
     }
 }

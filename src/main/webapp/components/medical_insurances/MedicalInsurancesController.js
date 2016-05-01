@@ -2,9 +2,8 @@ var MedicalInsurancesController = ['$scope', '$window', '$state', 'MedicalCompan
     $scope.$on('$viewContentLoaded', function (event) {
         $('html, body').animate({scrollTop: $("#medical-insurances").offset().top}, 1000);
     });
-    $scope.plans = [];
-    $scope.companies = [];
 
+    $scope.companies = [];
     var loadMedicalCompanies = function() {
         MedicalCompanies.get({limit: 100, offset: 0}, function(response) {
             console.log("Getting medical insurances companies - Offset: " + response.paging.offset + ", limit: "  + response.paging.limit
@@ -16,6 +15,7 @@ var MedicalInsurancesController = ['$scope', '$window', '$state', 'MedicalCompan
         });
     };
 
+    $scope.plans = [];
     var loadMedicalInsurancePlans = function() {
         MedicalInsurancePlans.get({limit: 100, offset: 0}, function(response) {
             console.log("Getting medical insurances plans - Offset: " + response.paging.offset + ", limit: "  + response.paging.limit
@@ -98,12 +98,12 @@ var AddMedicalCompanyController = ['$scope', '$rootScope', '$stateParams', 'Medi
 }];
 
 var MedicalInsurancePlanDetailsController = ['$scope', '$rootScope', '$stateParams', 'MedicalCompanies','MedicalInsurancePlan', function ($scope, $rootScope, $stateParams, MedicalCompanies, MedicalInsurancePlan) {
-    $scope.companies = [];
+
     var currentId = $stateParams.id;
     console.log("Current plan: " + currentId);
-
     $scope.currentPlan = MedicalInsurancePlan.get($stateParams);
 
+    $scope.companies = [];
     MedicalCompanies.get({limit: 100, offset: 0}, function (response) {
         console.log("Getting medical insurances companies - Offset: " + response.paging.offset + ", limit: " + response.paging.limit
             + ", total:" + response.paging.total);

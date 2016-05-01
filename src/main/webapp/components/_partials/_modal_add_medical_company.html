@@ -10,8 +10,8 @@
                     <div class="container">
                         <div class="row">
                             <div class="col-md-8 col-md-offset-2">
-                                <h1 class="sub-header">Add a company</h1>
-                                <em class="text-muted">Fill up company basic information</em>
+                                <h1 class="sub-header">Crear una compan&iacute;a</h1>
+                                <em class="text-muted">Llena la informaci&oacute;n b&aacute;sica</em>
                             </div>
                         </div>
                     </div>
@@ -19,16 +19,20 @@
                 <div class="modal-body">
                     <div class="container">
                         <div class="row">
-                            <div class="col-md-4 col-md-offset-2">
-                                <div class="form-group">
-                                    <label for="name">Name</label>
-                                    <input type="text" class="form-control" id="name" ng-model="company.name">
-                                </div>
+                            <div class="col-md-8 col-md-offset-1">
+                                <form class="form-horizontal">
+                                    <div class="form-group">
+                                        <label for="name" class="col-md-4 control-label">Nombre</label>
+                                        <div class="col-md-6">
+                                            <input type="text" class="form-control" id="name" ng-model="company.name">
+                                        </div>
+                                    </div>
+                                </form>
                             </div>
                             <div class="col-md-8 col-md-offset-2">
                                 <div class="form-group form-group-action">
                                     <button type="submit" class="btn btn-primary" data-toggle="modal" data-dismiss="modal" aria-label="Close"
-                                            data-ng-click="addMedicalCompany()">Add Company
+                                            data-ng-click="addMedicalCompany()">Crear
                                     </button>
                                 </div>
                             </div>
@@ -50,7 +54,7 @@
                     <div class="container">
                         <div class="row">
                             <div class="col-md-8 col-md-offset-2">
-                                <h1 class="sub-header">Company added successfully!</h1>
+                                <h1 class="sub-header">Compan&iacute;a exitosamente creada!</h1>
                             </div>
                         </div>
                     </div>
@@ -60,11 +64,11 @@
                         <div class="row">
                             <div class="col-md-8 col-md-offset-2">
                                 <div class="alert alert-success" role="alert">
-                                    Well done! You've successfully created an a new company.
+                                    Felicitaciones! has creado una nueva compan&iacute;a.
                                 </div>
                                 <div class="form-group form-group-action">
                                     <a data-dismiss="modal" data-ui-sref="medicalCompanyDetails({id:newCompanyId})" class="btn btn-primary">
-                                        View company's details</a>
+                                        Ver detalle</a>
                                 </div>
                             </div>
                         </div>

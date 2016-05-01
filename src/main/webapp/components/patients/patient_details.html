@@ -4,35 +4,42 @@
         <div class="row">
             <div class="section-inner-padding">
                 <button class="btn btn-primary pull-right" data-toggle="modal" data-target="#editPatientModal">
-                    <span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Edit Patient
+                    <span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Editar
                 </button>
-                <h2 class="h3 sub-header">Patient information</h2>
-
-                <div class="col-md-4 col-md-offset-2">
-                    <div class="form-group">
-                        <label>Fist Name</label>
-                        <p class="form-control">{{currentPatient.first_name}}</p>
-                    </div>
-                    <div class="form-group">
-                        <label>Last Name</label>
-                        <p class="form-control">{{currentPatient.last_name}}</p>
-                    </div>
-                    <div class="form-group">
-                        <label>Email</label>
-                        <p class="form-control">{{currentPatient.email}}</p>
-                    </div>
-                    <div class="form-group">
-                        <label>Contact Number</label>
-                        <p class="form-control">{{currentPatient.phone}}</p>
-                    </div>
-                    <div class="form-group">
-                        <label>Medical Insurance Plan</label>
-                        <p class="form-control">{{currentPatient.medical_insurance_plan.company.name + ' ' + currentPatient.medical_insurance_plan.plan}}</p>
-                    </div>
-                    <div class="form-group">
-                        <label>Affiliate Id</label>
-                        <p class="form-control">{{currentPatient.affiliate_id}}</p>
-                    </div>
+                <h2 class="h3 sub-header">{{currentPatient.last_name + ' ' + currentPatient.first_name}}</h2>
+                <div class="col-md-8 col-md-offset-1">
+                    <form class="form-horizontal">
+                        <div class="form-group">
+                            <label for="email" class="col-md-4 control-label">Email</label>
+                            <div class="col-md-6">
+                                <p id="email" class="form-control">{{currentPatient.email}}</p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="phone" class="col-md-4 control-label">Tel&eacute;feno</label>
+                            <div class="col-md-6">
+                                <p id="phone" class="form-control">{{currentPatient.phone}}</p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="document" class="col-md-4 control-label">Documento</label>
+                            <div class="col-md-6">
+                                <p id="document" class="form-control">{{currentPatient.document_type + ': ' + currentPatient.document_number}}</p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="medical_insurance_plan" class="col-md-4 control-label">Obra social</label>
+                            <div class="col-md-6">
+                                <p id="medical_insurance_plan" class="form-control">{{currentPatient.medical_insurance_plan.company.name + ' ' + currentPatient.medical_insurance_plan.plan}}</p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="affiliate_id" class="col-md-4 control-label">Nro de afiliado</label>
+                            <div class="col-md-6">
+                                <p id="affiliate_id" class="form-control">{{currentPatient.affiliate_id}}</p>
+                            </div>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
@@ -45,7 +52,7 @@
         <ul class="pager pager-link pull-left">
             <li>
                 <a data-ui-sref="patients">
-                    <span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span> Back to Patient List
+                    <span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span> Volver
                 </a>
             </li>
         </ul>

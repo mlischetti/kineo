@@ -61,3 +61,10 @@ var Patient = ['$resource', 'context', function ($resource, context) {
             'delete': {method: 'DELETE', params: {id: '@id'}, format: 'json', isArray: false}
         });
 }];
+
+//Catalogs
+var DocumentTypes = ['$resource', 'context', function ($resource, context) {
+    return $resource(context + '/api/catalogs/document-types', {}, {
+        'get': {method: 'GET', params: {}, isArray: true}
+    });
+}];

@@ -10,20 +10,26 @@ public class PatientDto {
     private String firstName;
     private String lastName;
     private String email;
+    private String phone;
+    private String documentType;
+    private String documentNumber;
     private MedicalInsurancePlanDto medicalInsurancePlan;
     private String affiliateId;
-    private String phone;
 
     public PatientDto(Patient patient) {
         this.id = patient.getId();
         this.firstName = patient.getFirstName();
         this.lastName = patient.getLastName();
         this.email = patient.getEmail();
+        this.phone = patient.getPhone();
+        if(patient.getDocumentType() != null) {
+            this.documentType = patient.getDocumentType().name();
+        }
+        this.documentNumber = patient.getDocumentNumber();
         if (patient.getMedicalInsurancePlan() != null) {
             this.medicalInsurancePlan = new MedicalInsurancePlanDto(patient.getMedicalInsurancePlan());
         }
         this.affiliateId = patient.getAffiliateId();
-        this.phone = patient.getPhone();
     }
 
     public Long getId() {
@@ -58,6 +64,30 @@ public class PatientDto {
         this.email = email;
     }
 
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getDocumentType() {
+        return documentType;
+    }
+
+    public void setDocumentType(String documentType) {
+        this.documentType = documentType;
+    }
+
+    public String getDocumentNumber() {
+        return documentNumber;
+    }
+
+    public void setDocumentNumber(String documentNumber) {
+        this.documentNumber = documentNumber;
+    }
+
     public MedicalInsurancePlanDto getMedicalInsurancePlan() {
         return medicalInsurancePlan;
     }
@@ -74,11 +104,4 @@ public class PatientDto {
         this.affiliateId = affiliateId;
     }
 
-    public String getPhone() {
-        return phone;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
 }

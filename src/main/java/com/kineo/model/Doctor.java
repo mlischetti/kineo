@@ -1,10 +1,9 @@
 package com.kineo.model;
 
+import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.NotEmpty;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 /**
  * Created by mlischetti on 11/27/15.
@@ -30,6 +29,13 @@ public class Doctor extends BaseEntity {
     private String email;
 
     private String phone;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "document_type")
+    private DocumentType documentType;
+
+    @Column(name = "document_number")
+    private String documentNumber;
 
     public boolean isDeleted() {
         return deleted;
@@ -69,6 +75,22 @@ public class Doctor extends BaseEntity {
 
     public void setPhone(String phone) {
         this.phone = phone;
+    }
+
+    public DocumentType getDocumentType() {
+        return documentType;
+    }
+
+    public void setDocumentType(DocumentType documentType) {
+        this.documentType = documentType;
+    }
+
+    public String getDocumentNumber() {
+        return documentNumber;
+    }
+
+    public void setDocumentNumber(String documentNumber) {
+        this.documentNumber = documentNumber;
     }
 
     public String getFullName() {

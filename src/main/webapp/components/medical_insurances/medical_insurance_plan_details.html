@@ -5,19 +5,25 @@
             <div class="section-inner-padding">
                 <button class="btn btn-primary pull-right" data-toggle="modal"
                         data-target="#editMedicalInsurancePlanModal">
-                    <span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Edit Plan
+                    <span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Editar
                 </button>
-                <h2 class="h3 sub-header">Medical insurance plan information</h2>
+                <h2 class="h3 sub-header">Informaci&oacute;n del plan</h2>
 
-                <div class="col-md-4 col-md-offset-2">
-                    <div class="form-group">
-                        <label>Name</label>
-                        <p class="form-control" data-ng-bind="currentPlan.plan">Name</p>
-                    </div>
-                    <div class="form-group">
-                        <label>Company</label>
-                        <p class="form-control" data-ng-bind="currentPlan.company.name">Name</p>
-                    </div>
+                <div class="col-md-8 col-md-offset-1">
+                    <form class="form-horizontal">
+                        <div class="form-group">
+                            <label for="plan" class="col-md-4 control-label">Plan</label>
+                            <div class="col-md-6">
+                                <p id="plan" class="form-control">{{currentPlan.plan}}</p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="company" class="col-md-4 control-label">Compan&iacute;a</label>
+                            <div class="col-md-6">
+                                <p id="company" class="form-control">{{currentPlan.company.name}}</p>
+                            </div>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
@@ -30,7 +36,7 @@
         <ul class="pager pager-link pull-left">
             <li>
                 <a data-ui-sref="medical-insurances">
-                    <span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span> Back to Plan List
+                    <span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span> Volver
                 </a>
             </li>
         </ul>

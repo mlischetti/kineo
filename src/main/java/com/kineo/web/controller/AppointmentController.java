@@ -23,7 +23,7 @@ import javax.validation.Valid;
  * Created by mlischetti on 12/7/15.
  */
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/appointments")
 public class AppointmentController {
     private static final Logger LOGGER = LoggerFactory.getLogger(AppointmentController.class);
 
@@ -38,7 +38,7 @@ public class AppointmentController {
         this.patientService = patientService;
     }
 
-    @RequestMapping(value = "/appointments/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF_8)
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF_8)
     public AppointmentDto getAppointment(@PathVariable(value = "id") Long id) {
         LOGGER.debug("Retrieving appointment: {}", id);
         Appointment appointment = appointmentService.findById(id);
@@ -51,8 +51,7 @@ public class AppointmentController {
         return new AppointmentDto(appointment);
     }
 
-    @RequestMapping(value = "/appointments", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON,
-            produces = MediaType.APPLICATION_JSON_UTF_8)
+    @RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON, produces = MediaType.APPLICATION_JSON_UTF_8)
     public AppointmentResponse createAppointment(@Valid @RequestBody AppointmentRequest appointmentRequest) {
         LOGGER.debug("Creating patient...");
 
@@ -84,7 +83,7 @@ public class AppointmentController {
         return new AppointmentResponse(appointment.getId());
     }
 
-    @RequestMapping(value = "/appointments/{id}", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON,
+    @RequestMapping(value = "/{id}", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON,
             produces = MediaType.APPLICATION_JSON_UTF_8)
     public AppointmentResponse updateAppointment(@PathVariable(value = "id") Long id,
                                                  @Valid @RequestBody AppointmentRequest appointmentRequest) {
@@ -129,7 +128,7 @@ public class AppointmentController {
         LOGGER.debug("Created appointment: {}", appointment.getId());
     }
 
-    @RequestMapping(value = "/appointments/{id}", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     @ResponseStatus(value = HttpStatus.OK)
     public void deleteAppointment(@PathVariable(value = "id") Long id) {
         LOGGER.debug("Deleting appointment: {}", id);

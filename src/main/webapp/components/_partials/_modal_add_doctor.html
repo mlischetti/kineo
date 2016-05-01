@@ -10,8 +10,8 @@
                     <div class="container">
                         <div class="row">
                             <div class="col-md-8 col-md-offset-2">
-                                <h1 class="sub-header">Add a doctor</h1>
-                                <em class="text-muted">Fill up doctor basic information and contact details</em>
+                                <h1 class="sub-header">Crear un m&eacute;dico</h1>
+                                <em class="text-muted">Llena la informaci&oacute;n b&aacute;sica del m&eacute;dico y los datos de contacto</em>
                             </div>
                         </div>
                     </div>
@@ -19,33 +19,53 @@
                 <div class="modal-body">
                     <div class="container">
                         <div class="row">
-                            <div class="col-md-4 col-md-offset-2">
-                                <div class="form-group">
-                                    <label for="first_name">First Name</label>
-                                    <input type="text" class="form-control" id="first_name" ng-model="doctor.first_name">
-                                </div>
-                                <div class="form-group">
-                                    <label for="last_name">Last Name</label>
-                                    <input type="text" class="form-control" id="last_name" ng-model="doctor.last_name">
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="email">Email</label>
-                                    <input type="text" class="form-control" id="email" ng-model="doctor.email">
-                                </div>
-                                <div class="form-group">
-                                    <label for="phone">Contact Number</label>
-                                    <input type="text" class="form-control" id="phone" ng-model="doctor.phone">
-                                </div>
+                            <div class="col-md-8 col-md-offset-1">
+                                <form class="form-horizontal">
+                                    <div class="form-group">
+                                        <label for="last_name" class="col-md-4 control-label">Apellido</label>
+                                        <div class="col-md-6">
+                                            <input type="text" class="form-control" id="last_name" ng-model="doctor.last_name">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="first_name" class="col-md-4 control-label">Nombre</label>
+                                        <div class="col-md-6">
+                                            <input type="text" class="form-control" id="first_name" ng-model="doctor.first_name">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="email" class="col-md-4 control-label">Email</label>
+                                        <div class="col-md-6">
+                                            <input type="text" class="form-control" id="email" ng-model="doctor.email">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="phone" class="col-md-4 control-label">T&eacute;lefono</label>
+                                        <div class="col-md-6">
+                                            <input type="text" class="form-control" id="phone" ng-model="doctor.phone">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="document_type" class="col-md-4 control-label">Tipo de documento</label>
+                                        <div class="col-md-6">
+                                            <select class="form-control" id="document_type" ng-model="doctor.document_type">
+                                                <option ng-repeat="documentType in documentTypes" value="{{documentType.name}}">{{documentType.name}}</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="document_number" class="col-md-4 control-label">N&uacute;mero de documento</label>
+                                        <div class="col-md-6">
+                                            <input type="text" class="form-control" id="document_number" ng-model="doctor.document_number">
+                                        </div>
+                                    </div>
+                                </form>
                             </div>
                             <div class="col-md-8 col-md-offset-2">
                                 <div class="form-group form-group-action">
                                     <button type="submit" class="btn btn-primary" data-toggle="modal" data-dismiss="modal" aria-label="Close"
-                                            data-ng-click="addDoctor()">Add Doctor
+                                            data-ng-click="addDoctor()">Crear
                                     </button>
-                                    <!--
-                                    <button class="btn btn-link" class="close" data-dismiss="modal" aria-label="Close">Cancel</button>
-                                    -->
                                 </div>
                             </div>
                         </div>
@@ -66,7 +86,7 @@
                     <div class="container">
                         <div class="row">
                             <div class="col-md-8 col-md-offset-2">
-                                <h1 class="sub-header">Doctor added successfully!</h1>
+                                <h1 class="sub-header">M&eacute;dico exitosamente creado!</h1>
                             </div>
                         </div>
                     </div>
@@ -76,14 +96,11 @@
                         <div class="row">
                             <div class="col-md-8 col-md-offset-2">
                                 <div class="alert alert-success" role="alert">
-                                    Well done! You've successfully created an a new doctor.
+                                    Felicitaciones! has creado un nuevo m&eacute;dico.
                                 </div>
                                 <div class="form-group form-group-action">
                                     <a data-dismiss="modal" data-ui-sref="doctorDetails({id:newDoctorId})" class="btn btn-primary">
-                                        View doctor's details</a>
-                                    <!--
-                                    <button class="btn btn-link" data-dismiss="modal" aria-label="Close">Close</button>
-                                    -->
+                                        Ver detalle</a>
                                 </div>
                             </div>
                         </div>

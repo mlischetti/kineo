@@ -1,6 +1,7 @@
 package com.kineo.web.controller;
 
 import com.kineo.model.Doctor;
+import com.kineo.model.DocumentType;
 import com.kineo.service.internal.DoctorService;
 import com.kineo.util.MediaType;
 import com.kineo.web.dto.DoctorDto;
@@ -19,12 +20,13 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Created by mlischetti on 11/29/15.
  */
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/doctors")
 public class DoctorController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(DoctorController.class);
@@ -39,7 +41,7 @@ public class DoctorController {
         this.doctorService = doctorService;
     }
 
-    @RequestMapping(value = "/doctors/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF_8)
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF_8)
     public DoctorDto getDoctor(@PathVariable("id") Long id) {
         LOGGER.debug("Retrieving doctor: {}", id);
         Doctor doctor = doctorService.findById(id);
@@ -52,7 +54,7 @@ public class DoctorController {
         return new DoctorDto(doctor);
     }
 
-    @RequestMapping(value = "/doctors", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF_8)
+    @RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF_8)
     public PaginationResponse<DoctorDto> getDoctors(@RequestParam(value = "limit", required = false) Integer limit, @RequestParam(value = "offset", required = false) Integer offset) {
         LOGGER.debug("Retrieving doctors...");
         int fistResult = FIRST_RESULT;
@@ -71,11 +73,7 @@ public class DoctorController {
         LOGGER.debug("Retrieve doctors from:{}, limit:{}", fistResult, maxResult);
         PaginationResponse<DoctorDto> response = new PaginationResponse<>();
         List<Doctor> doctors = doctorService.find(fistResult, maxResult);
-        if (CollectionUtils.isNotEmpty(doctors)) {
-            for (Doctor doctor : doctors) {
-                response.addItem(new DoctorDto(doctor));
-            }
-        }
+        response.setItems(doctors.stream().map((Doctor doctor) -> new DoctorDto(doctor)).collect(Collectors.toList()));
         Paging paging = new Paging();
         paging.setLimit(maxResult);
         paging.setOffset(fistResult);
@@ -84,8 +82,7 @@ public class DoctorController {
         return response;
     }
 
-    @RequestMapping(value = "/doctors", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON,
-            produces = MediaType.APPLICATION_JSON_UTF_8)
+    @RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON, produces = MediaType.APPLICATION_JSON_UTF_8)
     public DoctorResponse createDoctor(@Valid @RequestBody DoctorRequest doctorRequest) {
         LOGGER.debug("Creating doctor...");
         Doctor doctor = new Doctor();
@@ -94,8 +91,7 @@ public class DoctorController {
         return new DoctorResponse(doctor.getId());
     }
 
-    @RequestMapping(value = "/doctors/{id}", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON,
-            produces = MediaType.APPLICATION_JSON_UTF_8)
+    @RequestMapping(value = "/{id}", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON, produces = MediaType.APPLICATION_JSON_UTF_8)
     public DoctorResponse updateDoctor(@PathVariable("id") Long id,
                                        @Valid @RequestBody DoctorRequest doctorRequest) {
         LOGGER.debug("Updating doctor: {}", id);
@@ -111,7 +107,7 @@ public class DoctorController {
         return new DoctorResponse(id);
     }
 
-    @RequestMapping(value = "/doctors/{id}", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     @ResponseStatus(value = HttpStatus.OK)
     public void deleteDoctor(@PathVariable("id") Long id) {
         LOGGER.debug("Deleting doctor: {}", id);
@@ -131,6 +127,8 @@ public class DoctorController {
         doctor.setLastName(doctorRequest.getLastName());
         doctor.setEmail(doctorRequest.getEmail());
         doctor.setPhone(doctorRequest.getPhone());
+        doctor.setDocumentType(DocumentType.valueOf(doctorRequest.getDocumentType()));
+        doctor.setDocumentNumber(doctorRequest.getDocumentNumber());
         doctorService.save(doctor);
     }
 }

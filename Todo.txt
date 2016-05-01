@@ -1,6 +1,6 @@
 Calendar
 --------
-- Calendar must be read only -->DONE
+- Calendar must be read only --> DONE
 - Include map into calendar --> DONE
 - Move conf to properties files --> DONE
 - Sent to google calendar async
@@ -13,7 +13,7 @@ Calendar
 Model
 -----
 - Support delete appointment  --> DONE
-- Patient and doctor add document number (Create catalog)
+- Patient and doctor add document number (Create catalog) --> DONE
 - Patient birth day
 
 Service
@@ -43,6 +43,7 @@ Views
 - Validations errors
 - Validation on forms
 - Commons error catching
+- Load catalogs on startup
 
 Bugs
 -----

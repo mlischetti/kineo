@@ -80,6 +80,7 @@ app.factory('MedicalInsurancePlans', MedicalInsurancePlans);
 app.factory('MedicalInsurancePlan', MedicalInsurancePlan);
 app.factory('Patients', Patients);
 app.factory('Patient', Patient);
+app.factory('DocumentTypes', DocumentTypes);
 
 /** Directives **/
 app.directive('scrollToTarget', function () {

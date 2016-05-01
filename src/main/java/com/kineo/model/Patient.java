@@ -25,6 +25,13 @@ public class Patient extends BaseEntity {
 
     private String email;
 
+    @Enumerated(EnumType.STRING)
+    @Column(name = "document_type")
+    private DocumentType documentType;
+
+    @Column(name = "document_number")
+    private String documentNumber;
+
     @ManyToOne
     @JoinColumn(name = "medical_insurance_plan_id")
     private MedicalInsurancePlan medicalInsurancePlan;
@@ -64,6 +71,22 @@ public class Patient extends BaseEntity {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public DocumentType getDocumentType() {
+        return documentType;
+    }
+
+    public void setDocumentType(DocumentType documentType) {
+        this.documentType = documentType;
+    }
+
+    public String getDocumentNumber() {
+        return documentNumber;
+    }
+
+    public void setDocumentNumber(String documentNumber) {
+        this.documentNumber = documentNumber;
     }
 
     public MedicalInsurancePlan getMedicalInsurancePlan() {

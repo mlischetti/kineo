@@ -9,8 +9,8 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-md-8 col-md-offset-2">
-                            <h1 class="sub-header">Edit patient</h1>
-                            <em class="text-muted">Fill up patients basic information and contact details</em>
+                            <h1 class="sub-header">Editar paciente</h1>
+                            <em class="text-muted">Llena la informaci&oacute;n b&aacute;sica del paciente y los datos de contacto</em>
                         </div>
                     </div>
                 </div>
@@ -18,38 +18,67 @@
             <div class="modal-body">
                 <div class="container">
                     <div class="row">
-                        <div class="col-md-4 col-md-offset-2">
-                            <div class="form-group">
-                                <label for="first_name">First Name</label>
-                                <input type="text" class="form-control" id="first_name" ng-model="currentPatient.first_name">
-                            </div>
-                            <div class="form-group">
-                                <label for="last_name">Last Name</label>
-                                <input type="text" class="form-control" id="last_name" ng-model="currentPatient.last_name">
-                            </div>
-                            <div class="form-group">
-                                <label for="email">Email</label>
-                                <input type="text" class="form-control" id="email" ng-model="currentPatient.email">
-                            </div>
-                            <div class="form-group">
-                                <label for="phone">Contact Number</label>
-                                <input type="text" class="form-control" id="phone" ng-model="currentPatient.phone">
-                            </div>
-                            <div class="form-group">
-                                <label for="medical_insurance_plan_id">Medical Insurance Plan</label>
-                                <select class="form-control" id="medical_insurance_plan_id" ng-model="currentPatient.medical_insurance_plan.id">
-                                    <option ng-repeat="plan in plans" value="{{plan.id}}" ng-selected="plan.id == currentPatient.medical_insurance_plan.id">{{plan.company.name + ' ' + plan.plan}}</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label for="affiliate_id">Affiliate Id</label>
-                                <input type="text" class="form-control" id="affiliate_id" ng-model="currentPatient.affiliate_id">
-                            </div>
+                        <div class="col-md-8 col-md-offset-1">
+                            <form class="form-horizontal">
+                                <div class="form-group">
+                                    <label for="last_name" class="col-md-4 control-label">Apellido</label>
+                                    <div class="col-md-6">
+                                        <input type="text" class="form-control" id="last_name" ng-model="currentPatient.last_name">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="first_name" class="col-md-4 control-label">Nombre</label>
+                                    <div class="col-md-6">
+                                        <input type="text" class="form-control" id="first_name" ng-model="currentPatient.first_name">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="email" class="col-md-4 control-label">Email</label>
+                                    <div class="col-md-6">
+                                        <input type="text" class="form-control" id="email" ng-model="currentPatient.email">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="phone" class="col-md-4 control-label">T&eacute;lefono</label>
+                                    <div class="col-md-6">
+                                        <input type="text" class="form-control" id="phone" ng-model="currentPatient.phone">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="document_type" class="col-md-4 control-label">Tipo de documento</label>
+                                    <div class="col-md-6">
+                                        <select class="form-control" id="document_type" ng-model="currentPatient.document_type">
+                                            <option ng-repeat="documentType in documentTypes" value="{{documentType.name}}"
+                                                    ng-selected="documentType.name == currentPatient.document_type">{{documentType.name}}</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="document_number" class="col-md-4 control-label">N&uacute;mero de documento</label>
+                                    <div class="col-md-6">
+                                        <input type="text" class="form-control" id="document_number" ng-model="currentPatient.document_number">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="medical_insurance_plan_id" class="col-md-4 control-label">Obra social</label>
+                                    <div class="col-md-6">
+                                        <select class="form-control" id="medical_insurance_plan_id" ng-model="currentPatient.medical_insurance_plan.id">
+                                            <option ng-repeat="plan in plans" value="{{plan.id}}" ng-selected="plan.id == currentPatient.medical_insurance_plan.id">{{plan.company.name + ' ' + plan.plan}}</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="affiliate_id" class="col-md-4 control-label">Nro de afiliado</label>
+                                    <div class="col-md-6">
+                                        <input type="text" class="form-control" id="affiliate_id" ng-model="currentPatient.affiliate_id">
+                                    </div>
+                                </div>
+                            </form>
                         </div>
                         <div class="col-md-8 col-md-offset-2">
                             <div class="form-group form-group-action">
                                 <button type="submit" class="btn btn-primary" data-toggle="modal" data-dismiss="modal"
-                                        aria-label="Close" ng-click="savePatient()">Update Patient
+                                        aria-label="Close" ng-click="savePatient()">Actualizar
                                 </button>
                             </div>
                         </div>
@@ -71,7 +100,7 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-md-8 col-md-offset-2">
-                            <h1 class="sub-header">Patient updated successfully!</h1>
+                            <h1 class="sub-header">Paciente exitosamente modificado!</h1>
                         </div>
                     </div>
                 </div>
@@ -81,7 +110,7 @@
                     <div class="row">
                         <div class="col-md-8 col-md-offset-2">
                             <div class="alert alert-success" role="alert">
-                                Well done! You've successfully updated a patient.
+                                Felicitaciones! has actualizado un paciente.
                             </div>
                         </div>
                     </div>

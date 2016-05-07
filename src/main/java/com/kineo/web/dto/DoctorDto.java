@@ -1,14 +1,19 @@
 package com.kineo.web.dto;
 
 import com.kineo.model.Doctor;
+import com.kineo.util.date.DateUtils;
+
+import java.util.Date;
 
 /**
  * Created by mlischetti on 12/7/15.
  */
 public class DoctorDto {
+
     private Long id;
     private String firstName;
     private String lastName;
+    private String dateOfBirth;
     private String email;
     private String phone;
     private String documentType;
@@ -18,6 +23,7 @@ public class DoctorDto {
         this.id = doctor.getId();
         this.firstName = doctor.getFirstName();
         this.lastName = doctor.getLastName();
+        this.dateOfBirth = DateUtils.printAsSimpleDate(doctor.getDateOfBirth());
         this.email = doctor.getEmail();
         this.phone = doctor.getPhone();
         if(doctor.getDocumentType() != null) {
@@ -48,6 +54,14 @@ public class DoctorDto {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+    public String getDateOfBirth() {
+        return dateOfBirth;
+    }
+
+    public void setDateOfBirth(String dateOfBirth) {
+        this.dateOfBirth = dateOfBirth;
     }
 
     public String getEmail() {

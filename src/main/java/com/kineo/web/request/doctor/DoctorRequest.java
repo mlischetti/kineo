@@ -3,15 +3,21 @@ package com.kineo.web.request.doctor;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotBlank;
 
+import javax.validation.constraints.NotNull;
+import java.util.Date;
+
 /**
  * Created by mlischetti on 12/7/15.
  */
 public class DoctorRequest {
+
     @NotBlank
     private String firstName;
 
     @NotBlank
     private String lastName;
+
+    private Date dateOfBirth;
 
     @NotBlank
     @Email
@@ -39,6 +45,14 @@ public class DoctorRequest {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+    public Date getDateOfBirth() {
+        return dateOfBirth;
+    }
+
+    public void setDateOfBirth(Date dateOfBirth) {
+        this.dateOfBirth = dateOfBirth;
     }
 
     public String getEmail() {

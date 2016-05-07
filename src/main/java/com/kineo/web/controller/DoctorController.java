@@ -125,6 +125,7 @@ public class DoctorController {
     private void saveOrUpdate(Doctor doctor, DoctorRequest doctorRequest) {
         doctor.setFirstName(doctorRequest.getFirstName());
         doctor.setLastName(doctorRequest.getLastName());
+        doctor.setDateOfBirth(doctorRequest.getDateOfBirth());
         doctor.setEmail(doctorRequest.getEmail());
         doctor.setPhone(doctorRequest.getPhone());
         doctor.setDocumentType(DocumentType.valueOf(doctorRequest.getDocumentType()));

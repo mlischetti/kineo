@@ -54,6 +54,18 @@ var DoctorDetailsController = ['$scope', '$rootScope', '$stateParams', 'Doctor',
             console.log("Error on retrieve document types. Error: " + error);
         });
 
+        var utcFormat = 'YYYY-MM-DD[T]HH:mm:ss[Z]';
+
+        var start = moment().subtract(49, 'days').utc();
+        var end = moment().utc();
+
+        $scope.requestDate = {
+            startDate: start,
+            endDate: end
+        };
+
+        $scope.dateOfBirth = null;
+
         $scope.saveDoctor = function () {
             var doctor = $scope.currentDoctor;
             console.log("Updating doctor: " + doctor.id);

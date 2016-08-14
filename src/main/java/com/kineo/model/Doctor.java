@@ -1,5 +1,6 @@
 package com.kineo.model;
 
+import org.hibernate.annotations.Type;
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.NotEmpty;
 
@@ -27,6 +28,7 @@ public class Doctor extends BaseEntity {
     private String lastName;
 
     @Column(name = "date_of_birth", nullable = false)
+    @Type(type = "date")
     private Date dateOfBirth;
 
     @Column(name = "email", nullable = false)
@@ -41,6 +43,8 @@ public class Doctor extends BaseEntity {
 
     @Column(name = "document_number", nullable = false)
     private String documentNumber;
+
+    @Column(name = "date_of", nullable = true)
 
     public boolean isDeleted() {
         return deleted;
@@ -109,4 +113,5 @@ public class Doctor extends BaseEntity {
     public String getFullName() {
         return lastName + " " + firstName;
     }
+
 }

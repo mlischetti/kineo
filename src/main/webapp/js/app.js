@@ -94,3 +94,4 @@ app.directive('scrollToTarget', function () {
     };
 });
 app.directive('datePicker', DatePickerDirective);
+app.directive('multiSelectDate', MultiSelectDateDirective);

@@ -34,6 +34,15 @@
                                         </div>
                                     </div>
                                     <div class="form-group">
+                                        <label for="date_of_birth" class="col-md-4 control-label">Fecha de nacimiento</label>
+                                        <div class="col-md-6">
+                                            <multi-select-date id="date_of_birth" name="date_of_birth"
+                                                               ng-model="doctor.date_of_birth"
+                                                               year-order="desc"
+                                                               required/>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
                                         <label for="email" class="col-md-4 control-label">Email</label>
                                         <div class="col-md-6">
                                             <input type="text" class="form-control" id="email" ng-model="doctor.email">

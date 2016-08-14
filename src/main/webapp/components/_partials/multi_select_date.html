@@ -1,0 +1,14 @@
+<div class="form-inline">
+    <select ng-disabled="readonly" ng-model="date.day" ng-options="day for day in selects.days()" class="form-control">
+        <option value="" disabled>D&iacute;a</option>
+    </select>
+
+    <select ng-disabled="readonly" ng-model="date.month" ng-options="month for month in selects.months()" class="form-control">
+        <option value="" disabled>Mes</option>
+    </select>
+
+    <select ng-disabled="readonly" ng-model="date.year" ng-options="year for year in selects.years() | orderBy: year:yearOrder"
+            class="form-control">
+        <option value="" disabled>A&ntilde;o</option>
+    </select>
+</div>

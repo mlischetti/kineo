@@ -1,3 +1,5 @@
+const API_DATETIME_FORMAT = "YYYY-MM-DD";
+
 var DoctorController = ['$scope', '$window', '$state', 'Doctors', 'Doctor', 'DocumentTypes',
     function ($scope, $window, $state, Doctors, Doctor, DocumentTypes) {
         $scope.$on('$viewContentLoaded', function (event) {
@@ -54,21 +56,10 @@ var DoctorDetailsController = ['$scope', '$rootScope', '$stateParams', 'Doctor',
             console.log("Error on retrieve document types. Error: " + error);
         });
 
-        var utcFormat = 'YYYY-MM-DD[T]HH:mm:ss[Z]';
-
-        var start = moment().subtract(49, 'days').utc();
-        var end = moment().utc();
-
-        $scope.requestDate = {
-            startDate: start,
-            endDate: end
-        };
-
-        $scope.dateOfBirth = null;
-
         $scope.saveDoctor = function () {
             var doctor = $scope.currentDoctor;
             console.log("Updating doctor: " + doctor.id);
+            doctor.date_of_birth = moment(doctor.date_of_birth).format(API_DATETIME_FORMAT);
             Doctor.update(doctor, function (response) {
                 //success callback
                 console.log("Updated doctor: " + doctor.id);
@@ -87,7 +78,9 @@ var AddDoctorController = ['$scope', '$rootScope', '$stateParams', 'Doctor',
 
         $scope.addDoctor = function () {
             console.log("Creating new doctor");
-            Doctor.save($scope.doctor, function(response){
+            var doctor = $scope.doctor;
+            doctor.date_of_birth = moment(doctor.date_of_birth).format(API_DATETIME_FORMAT);
+            Doctor.save(doctor, function(response){
                 //success callback
                 console.log("New doctor: " + response.id + " created");
                 $scope.newDoctorId = response.id;

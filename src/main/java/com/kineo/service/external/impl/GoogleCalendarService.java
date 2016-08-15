@@ -133,10 +133,10 @@ public class GoogleCalendarService implements CalendarService {
         event.setAttendees(attendees);
 
         //Dates
-        DateTime start = new DateTime(appointment.getStartTime(), TimeZone.getTimeZone("America/Argentina/Buenos_Aires"));
+        DateTime start = new DateTime(appointment.getStartTime().toDate(), TimeZone.getTimeZone("America/Argentina/Buenos_Aires"));
         event.setStart(new EventDateTime().setDateTime(start));
 
-        DateTime end = new DateTime(appointment.getEndTime(), TimeZone.getTimeZone("America/Argentina/Buenos_Aires"));
+        DateTime end = new DateTime(appointment.getEndTime().toDate(), TimeZone.getTimeZone("America/Argentina/Buenos_Aires"));
         event.setEnd(new EventDateTime().setDateTime(end));
         return event;
     }

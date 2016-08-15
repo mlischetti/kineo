@@ -1,7 +1,9 @@
 package com.kineo.model;
 
+import org.hibernate.annotations.Type;
+import org.joda.time.DateTime;
+
 import javax.persistence.*;
-import java.util.Date;
 
 /**
  * Created by mlischetti on 11/27/15.
@@ -11,6 +13,7 @@ import java.util.Date;
 public class Appointment extends BaseEntity {
 
     public static final String ENTITY = "Appointment";
+    public static final int DEFAULT_DURATION = 30;
 
     @Enumerated(EnumType.STRING)
     private AppointmentStatus status = AppointmentStatus.CONFIRM;
@@ -22,10 +25,10 @@ public class Appointment extends BaseEntity {
     private String summary;
 
     @Column(name = "start_time")
-    private Date startTime;
+    @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime")
+    private DateTime startTime;
 
-    @Column(name = "end_time")
-    private Date endTime;
+    public int duration = DEFAULT_DURATION;
 
     @ManyToOne
     @JoinColumn(name = "doctor_id")
@@ -40,7 +43,7 @@ public class Appointment extends BaseEntity {
     }
 
     public void setStatus(AppointmentStatus status) {
-        if(this.status != status) {
+        if (this.status != status) {
             getEvent().setStatus(CalendarEventStatus.PENDING);
         }
         this.status = status;
@@ -62,20 +65,27 @@ public class Appointment extends BaseEntity {
         this.summary = summary;
     }
 
-    public Date getStartTime() {
+    public DateTime getStartTime() {
         return startTime;
     }
 
-    public void setStartTime(Date startTime) {
+    public void setStartTime(DateTime startTime) {
         this.startTime = startTime;
     }
 
-    public Date getEndTime() {
-        return endTime;
+    public DateTime getEndTime() {
+        if(startTime == null) {
+            return null;
+        }
+        return startTime.plusMinutes(getDuration());
     }
 
-    public void setEndTime(Date endTime) {
-        this.endTime = endTime;
+    public int getDuration() {
+        return duration;
+    }
+
+    public void setDuration(int duration) {
+        this.duration = duration;
     }
 
     public Doctor getDoctor() {

@@ -20,14 +20,14 @@ var MedicalCompanies = ['$resource', 'context', function ($resource, context) {
     });
 }];
 
-var MedicalCompany = ['$resource', 'context', function($resource, context) {
-   return $resource (context + '/api/medical-insurances/companies/:id', {id : '@id'},
-       {
-           'save': {method: 'POST', params: {}, format: 'json', isArray: false},
-           'get': {method: 'GET', params: {}, format: 'json', isArray: false},
-           'update': {method: 'PUT', params: {id: '@id'}, format: 'json', isArray: false},
-           'delete': {method: 'DELETE', params: {id: '@id'}, format: 'json', isArray: false}
-       });
+var MedicalCompany = ['$resource', 'context', function ($resource, context) {
+    return $resource(context + '/api/medical-insurances/companies/:id', {id: '@id'},
+        {
+            'save': {method: 'POST', params: {}, format: 'json', isArray: false},
+            'get': {method: 'GET', params: {}, format: 'json', isArray: false},
+            'update': {method: 'PUT', params: {id: '@id'}, format: 'json', isArray: false},
+            'delete': {method: 'DELETE', params: {id: '@id'}, format: 'json', isArray: false}
+        });
 }];
 
 var MedicalInsurancePlans = ['$resource', 'context', function ($resource, context) {
@@ -36,8 +36,8 @@ var MedicalInsurancePlans = ['$resource', 'context', function ($resource, contex
     });
 }];
 
-var MedicalInsurancePlan = ['$resource', 'context', function($resource, context) {
-    return $resource (context + '/api/medical-insurances/plans/:id', {id : '@id'},
+var MedicalInsurancePlan = ['$resource', 'context', function ($resource, context) {
+    return $resource(context + '/api/medical-insurances/plans/:id', {id: '@id'},
         {
             'save': {method: 'POST', params: {}, format: 'json', isArray: false},
             'get': {method: 'GET', params: {}, format: 'json', isArray: false},
@@ -62,12 +62,28 @@ var Patient = ['$resource', 'context', function ($resource, context) {
         });
 }];
 
+var Appointment = ['$resource', 'context', function ($resource, context) {
+    return $resource(context + '/api/appointments/:id', {id: '@id'},
+        {
+            'save': {method: 'POST', params: {}, format: 'json', isArray: false},
+            'update': {method: 'PUT', params: {id: '@id'}, format: 'json', isArray: false}
+        });
+}];
+
 //Catalogs
 var DocumentTypes = ['$resource', 'context', function ($resource, context) {
     return $resource(context + '/api/catalogs/document-types', {}, {
         'get': {method: 'GET', params: {}, isArray: true}
     });
 }];
+
+var AppointmentSummaries = ['$resource', 'context', function ($resource, context) {
+    return $resource(context + '/api/catalogs/appointment-summaries', {}, {
+        'get': {method: 'GET', params: {}, isArray: true}
+    });
+}];
+
+
 
 /** Services **/
 app.factory('Doctors', Doctors);
@@ -79,4 +95,6 @@ app.factory('MedicalInsurancePlans', MedicalInsurancePlans);
 app.factory('MedicalInsurancePlan', MedicalInsurancePlan);
 app.factory('Patients', Patients);
 app.factory('Patient', Patient);
+app.factory('Appointment', Appointment);
 app.factory('DocumentTypes', DocumentTypes);
+app.factory('AppointmentSummaries', AppointmentSummaries);

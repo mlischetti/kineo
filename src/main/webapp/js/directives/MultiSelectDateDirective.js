@@ -67,7 +67,7 @@ app.directive('multiSelectDate', function ($filter) {
                     var monthIsValid = !!date.month;
                     var dayIsValid = !!date.day;
 
-                    console.log(yearIsValid, monthIsValid, dayIsValid);
+                    //console.log(yearIsValid, monthIsValid, dayIsValid);
 
                     // SET INPUT VALIDITY
                     ngModel.$setValidity('required', yearIsValid || monthIsValid || dayIsValid ? true : false);

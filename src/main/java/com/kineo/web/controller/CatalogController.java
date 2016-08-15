@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
 import java.util.EnumSet;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -22,6 +23,15 @@ public class CatalogController {
     public List<DocumentTypeDto> getDocumentTypes() {
         List<DocumentTypeDto> response = EnumSet.allOf(DocumentType.class).stream().map(
                 (DocumentType documentType) -> new DocumentTypeDto(documentType)).collect(Collectors.toList());
+        return response;
+    }
+
+    @RequestMapping(value = "/appointment-summaries", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF_8)
+    public List<String> getAppointmentSummaries() {
+        List<String> response = new ArrayList<>();
+        response.add("Kinesiologia");
+        response.add("Osteopatia");
+        response.add("RPG");
         return response;
     }
 }

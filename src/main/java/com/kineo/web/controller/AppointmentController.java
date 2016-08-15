@@ -53,7 +53,7 @@ public class AppointmentController {
 
     @RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON, produces = MediaType.APPLICATION_JSON_UTF_8)
     public AppointmentResponse createAppointment(@Valid @RequestBody AppointmentRequest appointmentRequest) {
-        LOGGER.debug("Creating patient...");
+        LOGGER.debug("Creating appointment...");
 
         Doctor doctor = doctorService.findById(appointmentRequest.getDoctorId());
         if (doctor == null) {
@@ -72,13 +72,7 @@ public class AppointmentController {
         }
 
         Appointment appointment = new Appointment();
-        appointment.setSummary(appointmentRequest.getSummary());
-        appointment.setStartTime(appointmentRequest.getStartTime());
-        appointment.setEndTime(appointmentRequest.getEndTime());
-
-        appointment.setDoctor(doctor);
-        appointment.setPatient(patient);
-        appointmentService.save(appointment);
+        saveOrUpdate(appointment, doctor, patient, appointmentRequest);
         LOGGER.debug("Created appointment: {}", appointment.getId());
         return new AppointmentResponse(appointment.getId());
     }
@@ -119,11 +113,8 @@ public class AppointmentController {
     private void saveOrUpdate(Appointment appointment, Doctor doctor, Patient patient, AppointmentRequest appointmentRequest) {
         appointment.setSummary(appointmentRequest.getSummary());
         appointment.setStartTime(appointmentRequest.getStartTime());
-        appointment.setEndTime(appointmentRequest.getEndTime());
-
         appointment.setDoctor(doctor);
         appointment.setPatient(patient);
-
         appointmentService.save(appointment);
         LOGGER.debug("Created appointment: {}", appointment.getId());
     }

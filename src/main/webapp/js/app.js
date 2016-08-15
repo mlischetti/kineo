@@ -1,4 +1,4 @@
-var app = angular.module('kineo', ['ui.router', 'ui.router.stateHelper', 'ngAnimate', 'ngCookies', 'ngResource', 'ngStorage']);
+var app = angular.module('kineo', ['ui.router', 'ui.router.stateHelper', 'ngAnimate', 'ngResource']);
 
 
 /** Start of Configurable constants **/
@@ -12,10 +12,10 @@ app.config(['stateHelperProvider', '$urlRouterProvider', '$urlMatcherFactoryProv
     $urlMatcherFactoryProvider.strictMode(false)
 
     stateHelperProvider.state({
-        name: "calendars",
+        name: "appointments",
         url: "/",
-        templateUrl: "components/calendars/calendars.html",
-        controller: "MainController"
+        templateUrl: "components/appointments/appointments.html",
+        controller: "AppointmentController"
     }).state({
         name: "doctors",
         url: "/doctors",

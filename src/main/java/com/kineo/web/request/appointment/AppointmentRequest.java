@@ -1,8 +1,7 @@
 package com.kineo.web.request.appointment;
 
 import org.hibernate.validator.constraints.NotBlank;
-
-import java.util.Date;
+import org.joda.time.DateTime;
 
 /**
  * Created by Mariano on 1/24/2016.
@@ -12,9 +11,7 @@ public class AppointmentRequest {
     @NotBlank
     private String summary;
 
-    private Date startTime;
-
-    private Date endTime;
+    private DateTime startTime;
 
     private Long doctorId;
 
@@ -28,20 +25,12 @@ public class AppointmentRequest {
         this.summary = summary;
     }
 
-    public Date getStartTime() {
+    public DateTime getStartTime() {
         return startTime;
     }
 
-    public void setStartTime(Date startTime) {
+    public void setStartTime(DateTime startTime) {
         this.startTime = startTime;
-    }
-
-    public Date getEndTime() {
-        return endTime;
-    }
-
-    public void setEndTime(Date endTime) {
-        this.endTime = endTime;
     }
 
     public Long getDoctorId() {

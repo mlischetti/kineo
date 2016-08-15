@@ -2,8 +2,7 @@ package com.kineo.web.dto;
 
 import com.kineo.model.Appointment;
 import com.kineo.model.AppointmentStatus;
-
-import java.util.Date;
+import org.joda.time.DateTime;
 
 /**
  * Created by Mariano on 1/24/2016.
@@ -13,8 +12,8 @@ public class AppointmentDto {
     private AppointmentStatus status;
     private CalendarEventDto event;
     private String summary;
-    private Date startTime;
-    private Date endTime;
+    private DateTime startTime;
+    private DateTime endTime;
     private Long doctorId;
 
     public AppointmentDto(Appointment appointment) {
@@ -59,19 +58,19 @@ public class AppointmentDto {
         this.summary = summary;
     }
 
-    public Date getStartTime() {
+    public DateTime getStartTime() {
         return startTime;
     }
 
-    public void setStartTime(Date startTime) {
+    public void setStartTime(DateTime startTime) {
         this.startTime = startTime;
     }
 
-    public Date getEndTime() {
+    public DateTime getEndTime() {
         return endTime;
     }
 
-    public void setEndTime(Date endTime) {
+    public void setEndTime(DateTime endTime) {
         this.endTime = endTime;
     }
 

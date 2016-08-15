@@ -54,34 +54,6 @@ app.config(['stateHelperProvider', '$urlRouterProvider', '$urlMatcherFactoryProv
     });
 }]);
 
-/** Controllers **/
-app.controller('MainController', MainController);
-app.controller('DoctorController', DoctorController);
-app.controller('DoctorDetailsController', DoctorDetailsController);
-app.controller('AddDoctorController', AddDoctorController);
-app.controller('MedicalInsurancesController', MedicalInsurancesController);
-app.controller('MedicalCompanyDetailsController', MedicalCompanyDetailsController);
-app.controller('AddMedicalCompanyController', AddMedicalCompanyController);
-app.controller('MedicalInsurancePlanDetailsController', MedicalInsurancePlanDetailsController);
-app.controller('AddMedicalInsurancePlanController', AddMedicalInsurancePlanController);
-app.controller('PatientController', PatientController);
-app.controller('PatientDetailsController', PatientDetailsController);
-app.controller('AddPatientController', AddPatientController);
-/*
- app.controller('DashboardController', DashboardController);
- app.controller('SearchController', SearchController);*/
-
-/** Services **/
-app.factory('Doctors', Doctors);
-app.factory('Doctor', Doctor);
-app.factory('MedicalCompanies', MedicalCompanies);
-app.factory('MedicalCompany', MedicalCompany);
-app.factory('MedicalInsurancePlans', MedicalInsurancePlans);
-app.factory('MedicalInsurancePlan', MedicalInsurancePlan);
-app.factory('Patients', Patients);
-app.factory('Patient', Patient);
-app.factory('DocumentTypes', DocumentTypes);
-
 /** Directives **/
 app.directive('scrollToTarget', function () {
     return function (scope, element) {
@@ -93,5 +65,3 @@ app.directive('scrollToTarget', function () {
         });
     };
 });
-app.directive('datePicker', DatePickerDirective);
-app.directive('multiSelectDate', MultiSelectDateDirective);

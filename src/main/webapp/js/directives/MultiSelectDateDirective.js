@@ -1,4 +1,4 @@
-var MultiSelectDateDirective = function ($filter) {
+app.directive('multiSelectDate', function ($filter) {
     return {
         restrict: 'E',
         require: '?ngModel',
@@ -92,4 +92,4 @@ var MultiSelectDateDirective = function ($filter) {
             }, true);
         }
     }
-};
+});

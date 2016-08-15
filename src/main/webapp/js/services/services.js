@@ -68,3 +68,15 @@ var DocumentTypes = ['$resource', 'context', function ($resource, context) {
         'get': {method: 'GET', params: {}, isArray: true}
     });
 }];
+
+/** Services **/
+app.factory('Doctors', Doctors);
+app.factory('Doctors', Doctors);
+app.factory('Doctor', Doctor);
+app.factory('MedicalCompanies', MedicalCompanies);
+app.factory('MedicalCompany', MedicalCompany);
+app.factory('MedicalInsurancePlans', MedicalInsurancePlans);
+app.factory('MedicalInsurancePlan', MedicalInsurancePlan);
+app.factory('Patients', Patients);
+app.factory('Patient', Patient);
+app.factory('DocumentTypes', DocumentTypes);

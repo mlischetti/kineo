@@ -135,6 +135,7 @@ public class PatientController {
     private void saveOrUpdate(Patient patient, MedicalInsurancePlan medicalInsurancePlan, PatientRequest patientRequest) {
         patient.setFirstName(patientRequest.getFirstName());
         patient.setLastName(patientRequest.getLastName());
+        patient.setDateOfBirth(patientRequest.getDateOfBirth());
         patient.setEmail(patientRequest.getEmail());
         patient.setPhone(patientRequest.getPhone());
         patient.setDocumentType(DocumentType.valueOf(patientRequest.getDocumentType()));

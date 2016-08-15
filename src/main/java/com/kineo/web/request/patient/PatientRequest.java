@@ -3,6 +3,8 @@ package com.kineo.web.request.patient;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotBlank;
 
+import java.util.Date;
+
 /**
  * Created by mlischetti on 12/7/15.
  */
@@ -13,6 +15,8 @@ public class PatientRequest {
 
     @NotBlank
     private String lastName;
+
+    private Date dateOfBirth;
 
     @Email
     private String email;
@@ -43,6 +47,14 @@ public class PatientRequest {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+    public Date getDateOfBirth() {
+        return dateOfBirth;
+    }
+
+    public void setDateOfBirth(Date dateOfBirth) {
+        this.dateOfBirth = dateOfBirth;
     }
 
     public String getEmail() {

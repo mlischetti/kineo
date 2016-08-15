@@ -91,6 +91,7 @@ app.controller('PatientDetailsController', function ($scope, $stateParams, Patie
         patient.id = currentPatient.id;
         patient.first_name = currentPatient.first_name;
         patient.last_name = currentPatient.last_name;
+        patient.date_of_birth = moment(currentPatient.date_of_birth).format(API_DATETIME_FORMAT);
         patient.email = currentPatient.email;
         patient.phone = currentPatient.phone;
         patient.document_type = currentPatient.document_type;
@@ -107,7 +108,9 @@ app.controller('AddPatientController', function ($scope, Patient) {
 
     $scope.addPatient = function () {
         console.log("Creating new patient");
-        Patient.save($scope.patient, function (response) {
+        var patient = $scope.patient;
+        patient.date_of_birth = moment(patient.date_of_birth).format(API_DATETIME_FORMAT);
+        Patient.save(patient, function (response) {
             //success callback
             console.log("New patient: " + response.id + " created");
             $scope.newPatientId = response.id;

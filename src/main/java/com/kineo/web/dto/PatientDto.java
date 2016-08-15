@@ -1,6 +1,7 @@
 package com.kineo.web.dto;
 
 import com.kineo.model.Patient;
+import com.kineo.util.date.DateUtils;
 
 /**
  * Created by mlischetti on 12/7/15.
@@ -9,6 +10,7 @@ public class PatientDto {
     private Long id;
     private String firstName;
     private String lastName;
+    private String dateOfBirth;
     private String email;
     private String phone;
     private String documentType;
@@ -20,6 +22,7 @@ public class PatientDto {
         this.id = patient.getId();
         this.firstName = patient.getFirstName();
         this.lastName = patient.getLastName();
+        this.dateOfBirth = DateUtils.printAsSimpleDate(patient.getDateOfBirth());
         this.email = patient.getEmail();
         this.phone = patient.getPhone();
         if(patient.getDocumentType() != null) {
@@ -54,6 +57,14 @@ public class PatientDto {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+    public String getDateOfBirth() {
+        return dateOfBirth;
+    }
+
+    public void setDateOfBirth(String dateOfBirth) {
+        this.dateOfBirth = dateOfBirth;
     }
 
     public String getEmail() {

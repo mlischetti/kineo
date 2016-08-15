@@ -1,8 +1,10 @@
 package com.kineo.model;
 
+import org.hibernate.annotations.Type;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
+import java.util.Date;
 
 /**
  * Created by mlischetti on 11/27/15.
@@ -22,6 +24,10 @@ public class Patient extends BaseEntity {
     @Column(name = "last_name")
     @NotEmpty
     private String lastName;
+
+    @Column(name = "date_of_birth", nullable = false)
+    @Type(type = "date")
+    private Date dateOfBirth;
 
     private String email;
 
@@ -63,6 +69,14 @@ public class Patient extends BaseEntity {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+    public Date getDateOfBirth() {
+        return dateOfBirth;
+    }
+
+    public void setDateOfBirth(Date dateOfBirth) {
+        this.dateOfBirth = dateOfBirth;
     }
 
     public String getEmail() {

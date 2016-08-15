@@ -45,7 +45,8 @@ Views
 - Commons error catching
 - Load catalogs on startup
 - Patient advance search, replace filter by search form (Could be a lot of patients)
-- Links to goolge calendar and facebook page
+- Links to google calendar and facebook page
+- Js min
 
 Bugs
 -----

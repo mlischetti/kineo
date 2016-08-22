@@ -1,43 +1,13 @@
-app.controller('MedicalInsurancesController', function ($scope, $window, MedicalCompanies, MedicalCompany, MedicalInsurancePlans, MedicalInsurancePlan) {
-    $scope.$on('$viewContentLoaded', function (event) {
-        $('html, body').animate({scrollTop: $("#medical-insurances").offset().top}, 1000);
-    });
-
+app.controller('MedicalCompaniesController', function ($scope, $window, MedicalCompanies, MedicalCompany) {
     $scope.companies = [];
-    var loadMedicalCompanies = function () {
-        MedicalCompanies.get({limit: 100, offset: 0}, function (response) {
-            console.log("Getting medical insurances companies - Offset: " + response.paging.offset + ", limit: " + response.paging.limit
-                + ", total:" + response.paging.total);
-            $scope.companies = response.items;
-        }, function (error) {
-            // error callback
-            console.log("Error on retrieve medical insurances companies. Error: " + error);
-        });
-    };
-
-    $scope.plans = [];
-    var loadMedicalInsurancePlans = function () {
-        MedicalInsurancePlans.get({limit: 100, offset: 0}, function (response) {
-            console.log("Getting medical insurances plans - Offset: " + response.paging.offset + ", limit: " + response.paging.limit
-                + ", total:" + response.paging.total);
-            $scope.plans = response.items;
-        }, function (error) {
-            // error callback
-            console.log("Error on retrieve medical insurances plans. Error: " + error);
-        });
-    };
-
-    $scope.viewContent = function (content) {
-        console.log("content selected: " + content);
-        if (content == 'companies') {
-            loadMedicalCompanies();
-        } else {
-            loadMedicalInsurancePlans();
-        }
-        $scope.content = content;
-    };
-
-    $scope.viewContent('companies');
+    MedicalCompanies.get({limit: 100, offset: 0}, function (response) {
+        console.log("Getting medical insurances companies - Offset: " + response.paging.offset + ", limit: " + response.paging.limit
+            + ", total:" + response.paging.total);
+        $scope.companies = response.items;
+    }, function (error) {
+        // error callback
+        console.log("Error on retrieve medical insurances companies. Error: " + error);
+    });
 
     $scope.company = {};
 
@@ -96,6 +66,35 @@ app.controller('MedicalInsurancesController', function ($scope, $window, Medical
         $scope.company = {};
         $window.location.reload();
     };
+});
+
+app.controller('MedicalCompanyDetailsController', function ($scope, $stateParams, MedicalCompany) {
+    var currentId = $stateParams.id;
+    console.log("Current company: " + currentId);
+    $scope.company = MedicalCompany.get($stateParams);
+});
+
+
+app.controller('MedicalInsurancesPlansController', function ($scope, $window, MedicalCompanies, MedicalCompany, MedicalInsurancePlans, MedicalInsurancePlan) {
+    $scope.companies = [];
+    MedicalCompanies.get({limit: 100, offset: 0}, function (response) {
+        console.log("Getting medical insurances companies - Offset: " + response.paging.offset + ", limit: " + response.paging.limit
+            + ", total:" + response.paging.total);
+        $scope.companies = response.items;
+    }, function (error) {
+        // error callback
+        console.log("Error on retrieve medical insurances companies. Error: " + error);
+    });
+
+    $scope.plans = [];
+    MedicalInsurancePlans.get({limit: 100, offset: 0}, function (response) {
+        console.log("Getting medical insurances plans - Offset: " + response.paging.offset + ", limit: " + response.paging.limit
+            + ", total:" + response.paging.total);
+        $scope.plans = response.items;
+    }, function (error) {
+        // error callback
+        console.log("Error on retrieve medical insurances plans. Error: " + error);
+    });
 
     $scope.plan = {};
 
@@ -155,12 +154,6 @@ app.controller('MedicalInsurancesController', function ($scope, $window, Medical
         $scope.plan = {};
         $window.location.reload();
     };
-});
-
-app.controller('MedicalCompanyDetailsController', function ($scope, $stateParams, MedicalCompany) {
-    var currentId = $stateParams.id;
-    console.log("Current company: " + currentId);
-    $scope.company = MedicalCompany.get($stateParams);
 });
 
 app.controller('MedicalInsurancePlanDetailsController', function ($scope, $stateParams, MedicalCompanies, MedicalInsurancePlan) {

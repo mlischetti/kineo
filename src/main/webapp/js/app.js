@@ -27,10 +27,15 @@ app.config(['stateHelperProvider', '$urlRouterProvider', '$urlMatcherFactoryProv
         templateUrl: "components/doctors/doctor_details.html",
         controller: "DoctorDetailsController"
     }).state({
-        name: "medical-insurances",
-        url: "/medical-insurances",
-        templateUrl: "components/medical_insurances/medical_insurances.html",
-        controller: "MedicalInsurancesController"
+        name: "medical-companies",
+        url: "/medical-companies",
+        templateUrl: "components/medical_insurances/medical_companies.html",
+        controller: "MedicalCompaniesController"
+    }).state({
+        name: "medical-insurances-plans",
+        url: "/medical-insurances-plans",
+        templateUrl: "components/medical_insurances/medical_insurances_plans.html",
+        controller: "MedicalInsurancesPlansController"
     }).state({
         name: "medicalCompanyDetails",
         url: "/medical-insurances/companies/:id",

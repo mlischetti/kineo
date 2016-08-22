@@ -42,6 +42,10 @@ app.controller('MedicalInsurancesController', function ($scope, $window, Medical
     $scope.company = {};
 
     $scope.newCompanyId = -1;
+    $scope.showCreateMedicalCompanyModal = function () {
+        $scope.company = {};
+        $('#addMedicalCompanyModal').modal('show');
+    };
     $scope.addMedicalCompany = function () {
         console.log("Creating new company");
         var company = $scope.company;
@@ -62,7 +66,6 @@ app.controller('MedicalInsurancesController', function ($scope, $window, Medical
         $scope.company = company;
         $('#deleteCompanyModal').modal('show');
     };
-
     $scope.deleteMedicalCompany = function (companyId) {
         console.log("Trying to delete company: " + companyId);
         MedicalCompany.delete({id: companyId}, function (response) {
@@ -80,7 +83,6 @@ app.controller('MedicalInsurancesController', function ($scope, $window, Medical
         angular.copy(company, $scope.company);
         $('#editCompanyModal').modal('show');
     };
-
     $scope.saveCompany = function () {
         var company = $scope.company;
         console.log("Updating company: " + company.id);
@@ -98,6 +100,10 @@ app.controller('MedicalInsurancesController', function ($scope, $window, Medical
     $scope.plan = {};
 
     $scope.newPlanId = -1;
+    $scope.showCreateMedicalInsurancePlanModal = function () {
+        $scope.plan = {};
+        $('#addMedicalInsurancePlanModal').modal('show');
+    };
     $scope.addPlan = function () {
         var planToCreate = {plan: $scope.plan.plan, company_id: $scope.plan.company.id};
         console.log("Creating new plan");
@@ -118,7 +124,6 @@ app.controller('MedicalInsurancesController', function ($scope, $window, Medical
         $scope.plan = plan;
         $('#deleteMedicalInsurancePlanModal').modal('show');
     };
-
     $scope.deleteMedicalInsurancePlan = function (planId) {
         console.log("Trying to delete plan: " + planId);
         MedicalInsurancePlan.delete({id: planId}, function (response) {
@@ -136,7 +141,6 @@ app.controller('MedicalInsurancesController', function ($scope, $window, Medical
         angular.copy(plan, $scope.plan);
         $('#editMedicalInsurancePlanModal').modal('show');
     };
-
     $scope.savePlan = function () {
         var plan = $scope.plan;
         var planToUpdate = {id: plan.id, plan: plan.plan, company_id: plan.company.id};

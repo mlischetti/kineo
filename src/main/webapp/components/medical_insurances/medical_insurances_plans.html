@@ -3,7 +3,7 @@
     <div class="col-md-9 ng-scope">
         <div class="pull-right">
             <div class="btn-group">
-                <button class="btn btn-primary pull-right" data-toggle="modal" data-target="#addMedicalInsurancePlanModal">
+                <button class="btn btn-primary pull-right" data-toggle="modal" data-ng-click="showCreateMedicalInsurancePlanModal()">
                     <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Nuevo
                 </button>
             </div>
@@ -23,15 +23,15 @@
         <table class="table table-striped">
             <thead>
             <tr>
-                <th>Plan</th>
                 <th>Compan&iacute;a</th>
+                <th>Plan</th>
                 <th>Acciones</th>
             </tr>
             </thead>
             <tbody>
             <tr data-ng-repeat="plan in plans | filter:search">
-                <td width="40%">{{plan.plan}}</td>
                 <td width="30%">{{plan.company.name}}</td>
+                <td width="40%">{{plan.plan}}</td>
                 <td>
                     <div class="action-item center-block">
                         <span class="glyphicon glyphicon-eye-open text-success action" data-ui-sref="medicalInsurancePlanDetails({id: plan.id})"></span>

@@ -25,8 +25,12 @@ app.controller('DoctorController', function ($scope, $window, Doctors, Doctor, D
 
     //Create
     $scope.doctor = {};
-    $scope.newDoctorId = -1;
 
+    $scope.newDoctorId = -1;
+    $scope.showCreateDoctorModal = function () {
+        $scope.doctor = {};
+        $('#addDoctorModal').modal('show');
+    };
     $scope.addDoctor = function () {
         console.log("Creating new doctor");
         var doctor = $scope.doctor;
@@ -48,7 +52,6 @@ app.controller('DoctorController', function ($scope, $window, Doctors, Doctor, D
         $scope.doctor = doctor;
         $('#deleteDoctorModal').modal('show');
     };
-
     $scope.deleteDoctor = function (doctorId) {
         console.log("Trying to delete doctor: " + doctorId);
         Doctor.delete({id: doctorId}, function (response) {
@@ -66,7 +69,6 @@ app.controller('DoctorController', function ($scope, $window, Doctors, Doctor, D
         angular.copy(doctor, $scope.doctor);
         $('#editDoctorModal').modal('show');
     };
-
     $scope.saveDoctor = function () {
         var doctor = $scope.doctor;
         console.log("Updating doctor: " + doctor.id);

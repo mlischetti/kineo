@@ -34,8 +34,12 @@ app.controller('PatientController', function ($scope, $window, Patients, Patient
 
     //Create
     $scope.patient = {};
-    $scope.newPatientId = -1;
 
+    $scope.newPatientId = -1;
+    $scope.showCreatePatientModal = function () {
+        $scope.patient = {};
+        $('#addPatientModal').modal('show');
+    };
     $scope.addPatient = function () {
         console.log("Creating new patient");
         var patient = $scope.patient;
@@ -57,7 +61,6 @@ app.controller('PatientController', function ($scope, $window, Patients, Patient
         $scope.patient = patient;
         $('#deletePatientModal').modal('show');
     };
-
     $scope.deletePatient = function (patientId) {
         console.log("Trying to delete patient: " + patientId);
         Patient.delete({id: patientId}, function (response) {
@@ -75,7 +78,6 @@ app.controller('PatientController', function ($scope, $window, Patients, Patient
         angular.copy(patient, $scope.patient);
         $('#editPatientModal').modal('show');
     };
-
     $scope.savePatient = function () {
         var patient = $scope.patient;
         patient.date_of_birth = moment(patient.date_of_birth).format(API_DATETIME_FORMAT);

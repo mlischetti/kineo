@@ -2,17 +2,15 @@
     <div class="container">
         <div class="row">
             <div id="nav-menu" class="navbar-collapse navbar-left collapse">
-                <ul class="nav navbar-nav navbar-menu">
+                <ul class="nav nav-pills nav-stacked">
                     <li data-ng-class="content=='companies' ? 'active' : ''">
-                        <a href="" ng-click="viewContent('companies');">Compan&iacute;as</a>
+                        <a href="#" ng-click="viewContent('companies');">Compan&iacute;as</a>
                     </li>
-                    <hr>
                     <li data-ng-class="content=='plans' ? 'active' : ''">
-                        <a href="" ng-click="viewContent('plans');">Planes</a>
+                        <a href="#" ng-click="viewContent('plans');">Planes</a>
                     </li>
                 </ul>
             </div>
-
             <div class="col-md-10">
                 <div class="container" ng-if="content=='companies'">
                     <data-ng-include src="'components/medical_insurances/medical_companies.html'"></data-ng-include>

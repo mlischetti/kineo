@@ -1,11 +1,7 @@
-<!-- Doctors -->
-<section id="medical_company_info" class="sections sections-no-padding sections-darker">
+<section id="medical_company_info" class="sections sections-no-padding">
     <div class="container">
         <div class="row">
             <div class="section-inner-padding">
-                <button class="btn btn-primary pull-right" data-toggle="modal" data-target="#editCompanyModal">
-                    <span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Editar
-                </button>
                 <h2 class="h3 sub-header">Informaci&oacute;n de la compan&iacute;a</h2>
 
                 <div class="col-md-8 col-md-offset-1">
@@ -13,7 +9,7 @@
                         <div class="form-group">
                             <label for="company" class="col-md-4 control-label">Nombre</label>
                             <div class="col-md-6">
-                                <p id="company" class="form-control">{{currentCompany.name}}</p>
+                                <p id="company" class="form-control">{{company.name}}</p>
                             </div>
                         </div>
                     </form>
@@ -23,7 +19,6 @@
     </div>
 </section>
 
-<!-- Nav bar -->
 <section id="companies" class="sections sections-bottom-nav sections-darker">
     <div class="container">
         <ul class="pager pager-link pull-left">
@@ -35,6 +30,3 @@
         </ul>
     </div>
 </section>
-
-<!-- Edit Company modal -->
-<data-ng-include src="'components/_partials/_modal_edit_medical_company.html'"></data-ng-include>

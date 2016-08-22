@@ -3,7 +3,6 @@ app.controller('PatientController', function ($scope, $window, Patients, Patient
         $('html, body').animate({scrollTop: $("#patients").offset().top}, 1000);
     });
 
-
     $scope.patients = [];
     Patients.get({limit: 20, offset: 0}, function (response) {
         console.log("Getting patients - Offset: " + response.paging.offset + ", limit: "
@@ -33,76 +32,7 @@ app.controller('PatientController', function ($scope, $window, Patients, Patient
         console.log("Error on retrieve document types. Error: " + error);
     });
 
-    $scope.deletePatient = function (patientId) {
-        console.log("Trying to delete patient: " + patientId);
-        Patient.delete({id: patientId}, function (response) {
-            console.log("Deleted patient: " + patientId);
-            $window.location.reload();
-        }, function (error) {
-            console.log("Error on delete patient: " + patientId + ". Error: " + error);
-        });
-    };
-
-    $scope.clearSearch = function () {
-        console.log("Clear search filter");
-        $scope.search = null;
-    }
-});
-
-app.controller('PatientDetailsController', function ($scope, $stateParams, Patient, MedicalInsurancePlans, DocumentTypes) {
-    var currentId = $stateParams.id;
-    console.log("Current patient: " + currentId);
-
-    $scope.currentPatient = Patient.get($stateParams);
-    $scope.plans = [];
-    MedicalInsurancePlans.get({limit: 100, offset: 0}, function (response) {
-        console.log("Getting medical insurances plans - Offset: " + response.paging.offset + ", limit: " + response.paging.limit
-            + ", total:" + response.paging.total);
-        $scope.plans = response.items;
-    }, function (error) {
-        // error callback
-        console.log("Error on retrieve medical insurances plans. Error: " + error);
-    });
-
-    $scope.documentTypes = [];
-    DocumentTypes.get({}, function (response) {
-        console.log("Getting document types");
-        $scope.documentTypes = response;
-    }, function (error) {
-        // error callback
-        console.log("Error on retrieve document types. Error: " + error);
-    });
-
-    $scope.savePatient = function () {
-        var patientToCreate = createPatient($scope.currentPatient);
-        console.log("Updating patient: " + patientToCreate.id);
-        Patient.update(patientToCreate, function (response) {
-            //success callback
-            console.log("Updated patient: " + patientToCreate.id);
-            $('#editPatientSuccessModal').modal('show');
-        }, function (error) {
-            // error callback
-            console.log("Error on updating patient: " + patientToCreate.id + ". Error: " + error);
-        });
-    };
-
-    function createPatient(currentPatient) {
-        var patient = new Object();
-        patient.id = currentPatient.id;
-        patient.first_name = currentPatient.first_name;
-        patient.last_name = currentPatient.last_name;
-        patient.date_of_birth = moment(currentPatient.date_of_birth).format(API_DATETIME_FORMAT);
-        patient.email = currentPatient.email;
-        patient.phone = currentPatient.phone;
-        patient.document_type = currentPatient.document_type;
-        patient.document_number = currentPatient.document_number;
-        patient.medical_insurance_plan_id = currentPatient.medical_insurance_plan.id;
-        patient.affiliate_id = currentPatient.affiliate_id;
-        return patient;
-    }
-});
-
-app.controller('AddPatientController', function ($scope, Patient) {
+    //Create
     $scope.patient = {};
     $scope.newPatientId = -1;
 
@@ -114,11 +44,64 @@ app.controller('AddPatientController', function ($scope, Patient) {
             //success callback
             console.log("New patient: " + response.id + " created");
             $scope.newPatientId = response.id;
-            $scope.patient = {};
             $('#addPatientSuccessModal').modal('show');
         }, function (error) {
             // error callback
             console.log("Error on creating new patient. Error: " + error);
         });
+        $scope.patient = {};
     };
+
+    //Delete
+    $scope.showDeletePatientModal = function (patient) {
+        $scope.patient = patient;
+        $('#deletePatientModal').modal('show');
+    };
+
+    $scope.deletePatient = function (patientId) {
+        console.log("Trying to delete patient: " + patientId);
+        Patient.delete({id: patientId}, function (response) {
+            console.log("Deleted patient: " + patientId);
+        }, function (error) {
+            console.log("Error on delete patient: " + patientId + ". Error: " + error);
+        });
+        $scope.patient = {};
+        $window.location.reload();
+    };
+
+    //Edit
+    $scope.showEditPatientModal = function (patient) {
+        $scope.patient = {};
+        angular.copy(patient, $scope.patient);
+        $('#editPatientModal').modal('show');
+    };
+
+    $scope.savePatient = function () {
+        var patient = $scope.patient;
+        patient.date_of_birth = moment(patient.date_of_birth).format(API_DATETIME_FORMAT);
+        patient.medical_insurance_plan_id = patient.medical_insurance_plan.id;
+        console.log("Updating patient: " + patient.id);
+        Patient.update(patient, function (response) {
+            //success callback
+            console.log("Updated patient: " + patient.id);
+
+        }, function (error) {
+            // error callback
+            console.log("Error on updating patient: " + patient.id + ". Error: " + error);
+        });
+        $scope.patient = {};
+        $window.location.reload();
+    };
+
+    //Search & Filter
+    $scope.clearSearch = function () {
+        console.log("Clear search filter");
+        $scope.search = null;
+    }
+});
+
+app.controller('PatientDetailsController', function ($scope, $state, $stateParams, Patient) {
+    var currentId = $stateParams.id;
+    console.log("Current patient: " + currentId);
+    $scope.patient = Patient.get($stateParams);
 });

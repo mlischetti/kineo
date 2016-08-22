@@ -34,12 +34,9 @@
                 <td width="30%">{{plan.company.name}}</td>
                 <td>
                     <div class="action-item center-block">
-                        <a data-ui-sref="medicalInsurancePlanDetails({id: plan.id})">
-                            <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
-                        </a>
-                        <a data-ng-click="deleteMedicalInsurancePlan(plan.id)">
-                            <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-                        </a>
+                        <span class="glyphicon glyphicon-eye-open text-success action" data-ui-sref="medicalInsurancePlanDetails({id: plan.id})"></span>
+                        <span class="glyphicon glyphicon-edit action" data-ng-click="showEditMedicalInsurancePlanModal(plan)"></span>
+                        <span class="glyphicon glyphicon-remove text-danger action" data-ng-click="showDeleteMedicalInsurancePlanModal(plan)"></span>
                     </div>
                 </td>
             </tr>
@@ -48,4 +45,9 @@
     </div>
 </div>
 
+<!-- Modals -->
 <data-ng-include src="'components/_partials/_modal_add_medical_insurance_plan.html'"></data-ng-include>
+
+<data-ng-include src="'components/_partials/_modal_edit_medical_insurance_plan.html'"></data-ng-include>
+
+<data-ng-include src="'components/_partials/_modal_delete_medical_insurance_plan.html'"></data-ng-include>

@@ -40,13 +40,9 @@
                         <td width="20%">{{doctor.phone}}</td>
                         <td>
                             <div class="action-item center-block">
-                                <a data-ui-sref="doctorDetails({id: doctor.id})">
-                                    <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
-                                </a>
-                                <span class="btn-separator"></span>
-                                <a data-ng-click="deleteDoctor(doctor.id)" style="cursor:pointer;">
-                                    <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-                                </a>
+                                <span class="glyphicon glyphicon-eye-open text-success action" data-ui-sref="doctorDetails({id: doctor.id})"></span>
+                                <span class="glyphicon glyphicon-edit action" data-ng-click="showEditDoctor(doctor)"></span>
+                                <span class="glyphicon glyphicon-remove text-danger action" data-ng-click="showDeleteDoctorModal(doctor)"></span>
                             </div>
                         </td>
                     </tr>
@@ -57,5 +53,9 @@
     </div>
 </section>
 
-<!-- Add Doctor modal -->
+<!-- Modals -->
 <data-ng-include src="'components/_partials/_modal_add_doctor.html'"></data-ng-include>
+
+<data-ng-include src="'components/_partials/_modal_edit_doctor.html'"></data-ng-include>
+
+<data-ng-include src="'components/_partials/_modal_delete_doctor.html'"></data-ng-include>

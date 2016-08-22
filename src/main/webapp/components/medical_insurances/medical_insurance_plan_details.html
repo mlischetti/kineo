@@ -1,26 +1,14 @@
-<!-- Doctors -->
 <section id="medical_insurance_plan_info" class="sections sections-no-padding sections-darker">
     <div class="container">
         <div class="row">
             <div class="section-inner-padding">
-                <button class="btn btn-primary pull-right" data-toggle="modal"
-                        data-target="#editMedicalInsurancePlanModal">
-                    <span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Editar
-                </button>
-                <h2 class="h3 sub-header">Informaci&oacute;n del plan</h2>
-
-                <div class="col-md-8 col-md-offset-1">
+                <h2 class="h3 sub-header">{{plan.plan}}</h2>
+                <div class="col-md-12">
                     <form class="form-horizontal">
-                        <div class="form-group">
-                            <label for="plan" class="col-md-4 control-label">Plan</label>
-                            <div class="col-md-6">
-                                <p id="plan" class="form-control">{{currentPlan.plan}}</p>
-                            </div>
-                        </div>
                         <div class="form-group">
                             <label for="company" class="col-md-4 control-label">Compan&iacute;a</label>
                             <div class="col-md-6">
-                                <p id="company" class="form-control">{{currentPlan.company.name}}</p>
+                                <p id="company" class="form-control">{{plan.company.name}}</p>
                             </div>
                         </div>
                     </form>
@@ -30,7 +18,6 @@
     </div>
 </section>
 
-<!-- Nav bar -->
 <section id="plans" class="sections sections-bottom-nav sections-darker">
     <div class="container">
         <ul class="pager pager-link pull-left">
@@ -42,6 +29,3 @@
         </ul>
     </div>
 </section>
-
-<!-- Edit Company modal -->
-<data-ng-include src="'components/_partials/_modal_edit_medical_insurance_plan.html'"></data-ng-include>

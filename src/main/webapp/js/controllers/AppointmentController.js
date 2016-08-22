@@ -1,4 +1,4 @@
-app.controller('AppointmentController', function ($scope, $rootScope, $state, context, Doctor, Patient, AppointmentSummaries) {
+app.controller('AppointmentController', function ($scope, $rootScope, $window, $state, context, Doctor, Patient, AppointmentSummaries, Appointment) {
     $scope.context = context;
     $rootScope.$state = $state;
 
@@ -28,9 +28,7 @@ app.controller('AppointmentController', function ($scope, $rootScope, $state, co
         // error callback
         console.log("Error on retrieve document types. Error: " + error);
     });
-});
 
-app.controller('AddAppointmentController', function ($scope, Appointment) {
     $scope.appointment = {};
 
     $scope.addAppointment = function () {
@@ -47,5 +45,6 @@ app.controller('AddAppointmentController', function ($scope, Appointment) {
             // error callback
             console.log("Error on creating new appointment. Error: " + error);
         });
+        $scope.appointment = {};
     };
 });

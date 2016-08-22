@@ -1,40 +1,33 @@
-<!-- Doctors -->
-<section id="doctorsInfo" class="sections sections-no-padding sections-darker">
+<section id="doctorsInfo" class="sections sections-no-padding">
     <div class="container">
         <div class="row">
             <div class="section-inner-padding">
-                <button class="btn btn-primary pull-right" data-toggle="modal" data-target="#editDoctorModal">
-                    <span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Editar
-                </button>
-                <h2 class="h3 sub-header">{{currentDoctor.last_name + ' ' + currentDoctor.first_name}}</h2>
-                <div class="col-md-8 col-md-offset-1">
+                <h2 class="h3 sub-header">{{doctor.last_name + ' ' + doctor.first_name}}</h2>
+                <div class="col-md-12">
                     <form class="form-horizontal">
                         <div class="form-group">
                             <label for="date_of_birth" class="col-md-4 control-label">Fecha de nacimiento</label>
-                            <div class="col-md-6">
-                                <multi-select-date id="date_of_birth" name="date_of_birth"
-                                                   ng-model="currentDoctor.date_of_birth"
-                                                   year-order="desc"
-                                                   readonly="true"
-                                                   required/>
+                            <div class="col-md-4">
+                                <multi-select-date id="date_of_birth" name="date_of_birth" ng-model="doctor.date_of_birth"
+                                                   year-order="desc" readonly="true" required/>
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="email" class="col-md-4 control-label">Email</label>
-                            <div class="col-md-6">
-                                <p id="email" class="form-control" data-ng-bind="currentDoctor.email"></p>
+                            <div class="col-md-4">
+                                <p id="email" class="form-control" data-ng-bind="doctor.email"></p>
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="phone" class="col-md-4 control-label">Tel&eacute;feno</label>
-                            <div class="col-md-6">
-                                <p id="phone" class="form-control" data-ng-bind="currentDoctor.phone">Phone</p>
+                            <div class="col-md-4">
+                                <p id="phone" class="form-control" data-ng-bind="doctor.phone"></p>
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="document" class="col-md-4 control-label">Documento</label>
-                            <div class="col-md-6">
-                                <p id="document" class="form-control">{{currentDoctor.document_type + ': ' + currentDoctor.document_number}}</p>
+                            <div class="col-md-4">
+                                <p id="document" class="form-control">{{doctor.document_type + ': ' + doctor.document_number}}</p>
                             </div>
                         </div>
                     </form>
@@ -44,7 +37,6 @@
     </div>
 </section>
 
-<!-- Nav bar -->
 <section id="doctors" class="sections sections-bottom-nav sections-darker">
     <div class="container">
         <ul class="pager pager-link pull-left">
@@ -56,6 +48,3 @@
         </ul>
     </div>
 </section>
-
-<!-- Edit Doctor modal -->
-<data-ng-include src="'components/_partials/_modal_edit_doctor.html'"></data-ng-include>

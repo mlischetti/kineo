@@ -14,7 +14,8 @@ Model
 -----
 - Support delete appointment  --> DONE
 - Patient and doctor add document number (Create catalog) --> DONE
-- Patient birth day
+- Patient birth day --> DONE
+- Doctor birth day --> DONE
 
 Service
 -------
@@ -51,7 +52,3 @@ Views
 Bugs
 -----
 Destroy method on bean with name 'supportedDatesFormat' threw an exception
-
-See
-----
-http://angular-ui.github.io/bootstrap/

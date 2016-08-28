@@ -25,8 +25,8 @@ app.controller('DoctorController', function ($scope, $window, Doctors, Doctor, D
 
     //Create
     $scope.doctor = {};
+    $scope.doctorId = -1;
 
-    $scope.newDoctorId = -1;
     $scope.showCreateDoctorModal = function () {
         $scope.doctor = {};
         $('#addDoctorModal').modal('show');
@@ -38,13 +38,22 @@ app.controller('DoctorController', function ($scope, $window, Doctors, Doctor, D
         Doctor.save(doctor, function (response) {
             //success callback
             console.log("New doctor: " + response.id + " created");
-            $scope.newDoctorId = response.id;
+            $scope.doctorId = response.id;
+            $scope.doctor = {};
             $('#addDoctorSuccessModal').modal('show');
         }, function (error) {
             // error callback
             console.log("Error on creating new doctor. Error: " + error);
+            $scope.doctor = {};
         });
-        $scope.doctor = {};
+    };
+    $scope.closeAddDoctorSuccessModal = function(doctorId) {
+        $('#addDoctorSuccessModal').modal('hide');
+        if(doctorId != null) {
+            $window.location.href = '#/doctors/' + doctorId;
+        } else {
+            $window.location.reload();
+        }
     };
 
     //Delete
@@ -56,11 +65,12 @@ app.controller('DoctorController', function ($scope, $window, Doctors, Doctor, D
         console.log("Trying to delete doctor: " + doctorId);
         Doctor.delete({id: doctorId}, function (response) {
             console.log("Deleted doctor: " + doctorId);
+            $scope.doctor = {};
+            $window.location.reload();
         }, function (error) {
             console.log("Error on delete doctor: " + doctorId + ". Error: " + error);
+            $scope.doctor = {};
         });
-        $scope.doctor = {};
-        $window.location.reload();
     };
 
     //Edit
@@ -76,24 +86,21 @@ app.controller('DoctorController', function ($scope, $window, Doctors, Doctor, D
         Doctor.update(doctor, function (response) {
             //success callback
             console.log("Updated doctor: " + doctor.id);
-            $('#editDoctorSuccessModal').modal('show');
+            $scope.doctor = {};
+            $window.location.reload();
         }, function (error) {
             // error callback
             console.log("Error on updating doctor: " + doctor.id + ". Error: " + error);
+            $scope.doctor = {};
         });
-        $scope.doctor = {};
-        $window.location.reload();
     };
 
     $scope.clearSearch = function () {
-        console.log("Clear search filter");
-        $scope.search = null;
-    }
+        $scope.search = {};
+    };
 });
 
-app.controller('DoctorDetailsController', function ($scope, $stateParams, Doctor, DocumentTypes) {
-    var currentId = $stateParams.id;
-
-    console.log("Current doctor: " + currentId);
-    $scope.doctor = Doctor.get($stateParams);
+app.controller('DoctorDetailsController', function ($scope, $route, Doctor) {
+    console.log("Current doctor: " + $route.current.params.id);
+    $scope.doctor = Doctor.get({id: $route.current.params.id});
 });

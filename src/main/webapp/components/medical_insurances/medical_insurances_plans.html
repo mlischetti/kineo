@@ -6,7 +6,7 @@
             <div class="col-md-12 ng-scope">
                 <div class="pull-right">
                     <div class="btn-group">
-                        <button class="btn btn-primary pull-right" data-toggle="modal" data-ng-click="showCreateMedicalInsurancePlanModal()">
+                        <button class="btn btn-primary pull-right" data-toggle="modal" ng-click="showCreateMedicalInsurancePlanModal()">
                             <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Nuevo
                         </button>
                     </div>
@@ -14,8 +14,11 @@
                 <div class="form-horizontal">
                     <div class="control-group">
                         <div class="controls form-inline">
-                            <input type="text" class="form-control" id="plan-name-search" placeholder="Plan" ng-model="search.plan">
                             <input type="text" class="form-control" id="company-name-search" placeholder="Compan&iacute;a" ng-model="search.company.name">
+                            <input type="text" class="form-control" id="plan-name-search" placeholder="Plan" ng-model="search.plan">
+                            <button data-toggle="modal" ng-click="clearSearch()" class="btn btn-default">
+                                <span class="glyphicon glyphicon-remove-sign" aria-hidden="true"></span>
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -32,14 +35,16 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr data-ng-repeat="plan in plans | filter:search">
+                    <tr ng-repeat="plan in plans | filter:search">
                         <td width="30%">{{plan.company.name}}</td>
                         <td width="40%">{{plan.plan}}</td>
                         <td>
                             <div class="action-item center-block">
-                                <span class="glyphicon glyphicon-eye-open text-success action" data-ui-sref="medicalInsurancePlanDetails({id: plan.id})"></span>
-                                <span class="glyphicon glyphicon-edit action" data-ng-click="showEditMedicalInsurancePlanModal(plan)"></span>
-                                <span class="glyphicon glyphicon-remove text-danger action" data-ng-click="showDeleteMedicalInsurancePlanModal(plan)"></span>
+                                <a href="#/medical-insurances/plans/{{plan.id}}">
+                                    <span class="glyphicon glyphicon-eye-open text-success action"></span>
+                                </a>
+                                <span class="glyphicon glyphicon-edit action" ng-click="showEditMedicalInsurancePlanModal(plan)"></span>
+                                <span class="glyphicon glyphicon-remove text-danger action" ng-click="showDeleteMedicalInsurancePlanModal(plan)"></span>
                             </div>
                         </td>
                     </tr>
@@ -51,8 +56,8 @@
 </section>
 
 <!-- Modals -->
-<data-ng-include src="'components/_partials/_modal_add_medical_insurance_plan.html'"></data-ng-include>
+<ng-include src="'components/_partials/_modal_add_medical_insurance_plan.html'"></ng-include>
 
-<data-ng-include src="'components/_partials/_modal_edit_medical_insurance_plan.html'"></data-ng-include>
+<ng-include src="'components/_partials/_modal_edit_medical_insurance_plan.html'"></ng-include>
 
-<data-ng-include src="'components/_partials/_modal_delete_medical_insurance_plan.html'"></data-ng-include>
+<ng-include src="'components/_partials/_modal_delete_medical_insurance_plan.html'"></ng-include>

@@ -1,4 +1,4 @@
-<nav class="navbar navbar-default navbar-static-top">
+<nav ng-controller="NavController" class="navbar navbar-default navbar-static-top">
     <div class="container-fluid">
         <div class="navbar-header">
             <button class="navbar-toggle navbar-toggle-left collapsed" type="button" data-toggle="collapse" data-target="#nav-menu">
@@ -6,34 +6,31 @@
                 <span class="glyphicon glyphicon-triangle-bottom"></span>
             </button>
         </div>
-
-        <!-- Collect the nav links, forms, and other content for toggling -->
         <div id="nav-menu" class="navbar-collapse navbar-left collapse">
             <ul class="nav navbar-nav navbar-menu">
-                <li data-ng-class="$state.is('appointments') ? 'active' : ''">
-                    <a data-ui-sref="appointments">Turnos</a>
+                <li ng-class="{'active': route.current.$$route.name == 'appointments'}">
+                    <a href="#/appointments">Turnos</a>
                 </li>
-                <li data-ng-class="$state.is('patients') ? 'active' : ''">
-                    <a data-ui-sref="patients">Pacientes</a>
+                <li ng-class="{'active': route.current.$$route.name == 'patients'}">
+                    <a href="#/patients">Pacientes</a>
                 </li>
-                <li data-ng-class="$state.is('doctors') ? 'active' : ''">
-                    <a data-ui-sref="doctors">M&eacute;dicos</a>
+                <li ng-class="{'active': route.current.$$route.name == 'doctors'}">
+                    <a href="#/doctors">M&eacute;dicos</a>
                 </li>
-                <li data-ng-class="$state.is('medical-companies') || $state.is('medical-insurances-plans') ? 'active' : ''">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Obras Sociales
+                <li ng-class="{'active': route.current.$$route.name == 'medical-companies' || route.current.$$route.name == 'medical-insurances-plans'}">
+                    <a class="dropdown-toggle" data-toggle="dropdown">Obras Sociales
                         <span class="caret"></span>
                     </a>
                     <ul class="dropdown-menu">
                         <li>
-                            <a data-ui-sref="medical-companies">Compan&iacute;as</a>
+                            <a href="#/medical-insurances/companies">Compan&iacute;as</a>
                         </li>
                         <li>
-                            <a data-ui-sref="medical-insurances-plans">Planes</a>
+                            <a href="#/medical-insurances/plans">Planes</a>
                         </li>
                     </ul>
                 </li>
             </ul>
         </div>
-
     </div>
 </nav>

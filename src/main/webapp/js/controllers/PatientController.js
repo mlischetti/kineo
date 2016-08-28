@@ -35,7 +35,7 @@ app.controller('PatientController', function ($scope, $window, Patients, Patient
     //Create
     $scope.patient = {};
 
-    $scope.newPatientId = -1;
+    $scope.patientId = -1;
     $scope.showCreatePatientModal = function () {
         $scope.patient = {};
         $('#addPatientModal').modal('show');
@@ -47,13 +47,22 @@ app.controller('PatientController', function ($scope, $window, Patients, Patient
         Patient.save(patient, function (response) {
             //success callback
             console.log("New patient: " + response.id + " created");
-            $scope.newPatientId = response.id;
+            $scope.patientId = response.id;
+            $scope.patient = {};
             $('#addPatientSuccessModal').modal('show');
         }, function (error) {
             // error callback
             console.log("Error on creating new patient. Error: " + error);
+            $scope.patient = {};
         });
-        $scope.patient = {};
+    };
+    $scope.closeAddPatientSuccessModal = function(patientId) {
+        $('#addPatientSuccessModal').modal('hide');
+        if(patientId != null) {
+            $window.location.href = '#/patients/' + patientId;
+        } else {
+            $window.location.reload();
+        }
     };
 
     //Delete
@@ -65,11 +74,12 @@ app.controller('PatientController', function ($scope, $window, Patients, Patient
         console.log("Trying to delete patient: " + patientId);
         Patient.delete({id: patientId}, function (response) {
             console.log("Deleted patient: " + patientId);
+            $scope.patient = {};
+            $window.location.reload();
         }, function (error) {
             console.log("Error on delete patient: " + patientId + ". Error: " + error);
+            $scope.patient = {};
         });
-        $scope.patient = {};
-        $window.location.reload();
     };
 
     //Edit
@@ -86,24 +96,22 @@ app.controller('PatientController', function ($scope, $window, Patients, Patient
         Patient.update(patient, function (response) {
             //success callback
             console.log("Updated patient: " + patient.id);
-
+            $scope.patient = {};
+            $window.location.reload();
         }, function (error) {
             // error callback
             console.log("Error on updating patient: " + patient.id + ". Error: " + error);
+            $scope.patient = {};
         });
-        $scope.patient = {};
-        $window.location.reload();
     };
 
     //Search & Filter
     $scope.clearSearch = function () {
-        console.log("Clear search filter");
-        $scope.search = null;
-    }
+        $scope.search = {};
+    };
 });
 
-app.controller('PatientDetailsController', function ($scope, $state, $stateParams, Patient) {
-    var currentId = $stateParams.id;
-    console.log("Current patient: " + currentId);
-    $scope.patient = Patient.get($stateParams);
+app.controller('PatientDetailsController', function ($scope, $route, Patient) {
+    console.log("Current patient: " + $route.current.params.id);
+    $scope.patient = Patient.get({id: $route.current.params.id});
 });

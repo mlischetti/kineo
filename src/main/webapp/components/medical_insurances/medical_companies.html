@@ -6,7 +6,7 @@
             <div class="col-md-12 ng-scope">
                 <div class="pull-right">
                     <div class="btn-group">
-                        <button class="btn btn-primary pull-right" data-toggle="modal" data-ng-click="showCreateMedicalCompanyModal()">
+                        <button class="btn btn-primary pull-right" data-toggle="modal" ng-click="showCreateMedicalCompanyModal()">
                             <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Nuevo
                         </button>
                     </div>
@@ -30,13 +30,15 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr data-ng-repeat="company in companies | filter:search">
+                    <tr ng-repeat="company in companies | filter:search">
                         <td width="70%">{{company.name}}</td>
                         <td>
                             <div class="action-item center-block">
-                                <span class="glyphicon glyphicon-eye-open text-success action" data-ui-sref="medicalCompanyDetails({id: company.id})"></span>
-                                <span class="glyphicon glyphicon-edit action" data-ng-click="showEditMedicalCompanyModal(company)"></span>
-                                <span class="glyphicon glyphicon-remove text-danger action" data-ng-click="showDeleteMedicalCompanyModal(company)"></span>
+                                <a href="#/medical-insurances/companies/{{company.id}}">
+                                    <span class="glyphicon glyphicon-eye-open text-success action"></span>
+                                </a>
+                                <span class="glyphicon glyphicon-edit action" ng-click="showEditMedicalCompanyModal(company)"></span>
+                                <span class="glyphicon glyphicon-remove text-danger action" ng-click="showDeleteMedicalCompanyModal(company)"></span>
                             </div>
                         </td>
                     </tr>
@@ -48,8 +50,8 @@
 </section>
 
 <!-- Modals -->
-<data-ng-include src="'components/_partials/_modal_add_medical_company.html'"></data-ng-include>
+<ng-include src="'components/_partials/_modal_add_medical_company.html'"></ng-include>
 
-<data-ng-include src="'components/_partials/_modal_edit_medical_company.html'"></data-ng-include>
+<ng-include src="'components/_partials/_modal_edit_medical_company.html'"></ng-include>
 
-<data-ng-include src="'components/_partials/_modal_delete_medical_company.html'"></data-ng-include>
+<ng-include src="'components/_partials/_modal_delete_medical_company.html'"></ng-include>

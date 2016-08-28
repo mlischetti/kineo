@@ -1,7 +1,4 @@
-app.controller('AppointmentController', function ($scope, $rootScope, $window, $state, context, Doctor, Patient, AppointmentSummaries, Appointment) {
-    $scope.context = context;
-    $rootScope.$state = $state;
-
+app.controller('AppointmentController', function ($scope, Doctor, Patient, AppointmentSummaries, Appointment) {
     $scope.doctors = [];
     Doctor.get({limit: 100, offset: 0}, function (response) {
         console.log("Getting doctors - Offset: " + response.paging.offset + ", limit: " + response.paging.limit + ", total:" + response.paging.total);
@@ -44,7 +41,10 @@ app.controller('AppointmentController', function ($scope, $rootScope, $window, $
         }, function (error) {
             // error callback
             console.log("Error on creating new appointment. Error: " + error);
+            $scope.appointment = {};
         });
-        $scope.appointment = {};
+    };
+    $scope.closeAppointmentsSuccessModal = function () {
+        $('#addAppointmentSuccessModal').modal('hide');
     };
 });

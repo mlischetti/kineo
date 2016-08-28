@@ -1,63 +1,58 @@
-var app = angular.module('kineo', ['ui.router', 'ui.router.stateHelper', 'ngAnimate', 'ngResource']);
+var app = angular.module('kineo', ['ngRoute', 'ngResource']);
 
 
 /** Start of Configurable constants **/
 app.constant('context', '/kineo');
 /** End of Configurable constants **/
-
-app.config(['stateHelperProvider', '$urlRouterProvider', '$urlMatcherFactoryProvider', function (stateHelperProvider, $urlRouterProvider, $urlMatcherFactoryProvider) {
-
-    $urlRouterProvider.otherwise("/");
-
-    $urlMatcherFactoryProvider.strictMode(false)
-
-    stateHelperProvider.state({
-        name: "appointments",
-        url: "/",
-        templateUrl: "components/appointments/appointments.html",
-        controller: "AppointmentController"
-    }).state({
-        name: "doctors",
-        url: "/doctors",
-        templateUrl: "components/doctors/doctors.html",
-        controller: "DoctorController"
-    }).state({
-        name: "doctorDetails",
-        url: "/doctors/:id",
-        templateUrl: "components/doctors/doctor_details.html",
-        controller: "DoctorDetailsController"
-    }).state({
-        name: "medical-companies",
-        url: "/medical-companies",
-        templateUrl: "components/medical_insurances/medical_companies.html",
-        controller: "MedicalCompaniesController"
-    }).state({
-        name: "medical-insurances-plans",
-        url: "/medical-insurances-plans",
-        templateUrl: "components/medical_insurances/medical_insurances_plans.html",
-        controller: "MedicalInsurancesPlansController"
-    }).state({
-        name: "medicalCompanyDetails",
-        url: "/medical-insurances/companies/:id",
-        templateUrl: "components/medical_insurances/medical_company_details.html",
-        controller: "MedicalCompanyDetailsController"
-    }).state({
-        name: "medicalInsurancePlanDetails",
-        url: "/medical-insurances/plans/:id",
-        templateUrl: "components/medical_insurances/medical_insurance_plan_details.html",
-        controller: "MedicalInsurancePlanDetailsController"
-    }).state({
-        name: "patients",
-        url: "/patients",
-        templateUrl: "components/patients/patients.html",
-        controller: "PatientController"
-    }).state({
-        name: "patientDetails",
-        url: "/patients/:id",
-        templateUrl: "components/patients/patient_details.html",
-        controller: "PatientDetailsController"
-    });
-}]);
+app.config(function ($routeProvider) {
+    $routeProvider
+        .when("/appointments", {
+            name: "appointments",
+            templateUrl: "components/appointments/appointments.html",
+            controller: "AppointmentController"
+        })
+        .when("/doctors", {
+            name: "doctors",
+            templateUrl: "components/doctors/doctors.html",
+            controller: "DoctorController"
+        })
+        .when("/doctors/:id", {
+            name: "doctorDetails",
+            templateUrl: "components/doctors/doctor_details.html",
+            controller: "DoctorDetailsController"
+        })
+        .when("/medical-insurances/companies", {
+            name: "medical-companies",
+            templateUrl: "components/medical_insurances/medical_companies.html",
+            controller: "MedicalCompaniesController"
+        })
+        .when("/medical-insurances/plans", {
+            name: "medical-insurances-plans",
+            templateUrl: "components/medical_insurances/medical_insurances_plans.html",
+            controller: "MedicalInsurancesPlansController"
+        })
+        .when("/medical-insurances/companies/:id", {
+            name: "appointments",
+            templateUrl: "components/medical_insurances/medical_company_details.html",
+            controller: "MedicalCompanyDetailsController"
+        })
+        .when("/medical-insurances/plans/:id", {
+            name: "appointments",
+            templateUrl: "components/medical_insurances/medical_insurance_plan_details.html",
+            controller: "MedicalInsurancePlanDetailsController"
+        })
+        .when("/patients", {
+            name: "patients",
+            templateUrl: "components/patients/patients.html",
+            controller: "PatientController"
+        })
+        .when("/patients/:id", {
+            name: "patientDetails",
+            templateUrl: "components/patients/patient_details.html",
+            controller: "PatientDetailsController"
+        })
+        .otherwise({redirectTo:'/appointments'});
+});
 
 /** Directives **/
 app.directive('scrollToTarget', function () {

@@ -1,4 +1,7 @@
 app.controller('AppointmentController', function ($scope, Doctor, Patient, AppointmentSummaries, Appointment) {
+    const DATE_FORMAT = "DD/MM/YYYY";
+    const TIME_FORMAT = "HH:mm";
+
     $scope.doctors = [];
     Doctor.get({limit: 100, offset: 0}, function (response) {
         console.log("Getting doctors - Offset: " + response.paging.offset + ", limit: " + response.paging.limit + ", total:" + response.paging.total);
@@ -27,6 +30,23 @@ app.controller('AppointmentController', function ($scope, Doctor, Patient, Appoi
     });
 
     $scope.appointment = {};
+    $scope.time_string = '';
+
+    $scope.showAddAppointmentModal = function() {
+        $scope.appointment = {};
+        var now = moment().utcOffset("-03:00");
+
+        $scope.date_string = now.format(DATE_FORMAT);
+        $('#datepicker').datepicker('update', $scope.date_string);
+
+        $scope.time_string = now.format(TIME_FORMAT);
+        console.log("$scope.time_string: " + $scope.time_string);
+        //$('#clockpicker').clockpicker({
+        //    'default': 'now'
+        //});
+        //ver:https://eonasdan.github.io/bootstrap-datetimepicker/
+        $('#addAppointmentModal').modal('show');
+    };
 
     $scope.addAppointment = function () {
         console.log("Creating new appointment");

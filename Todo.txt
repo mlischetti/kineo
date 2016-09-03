@@ -52,3 +52,6 @@ Views
 Bugs
 -----
 Destroy method on bean with name 'supportedDatesFormat' threw an exception
+
+
+- auto complete

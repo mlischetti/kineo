@@ -1,6 +1,6 @@
-app.controller('MedicalInsurancesPlansController', function ($scope, $window, MedicalCompanies, MedicalCompany, MedicalInsurancePlans, MedicalInsurancePlan) {
+app.controller('MedicalInsurancesPlansController', function ($scope, $window, MedicalCompany, MedicalInsurancePlan) {
     $scope.companies = [];
-    MedicalCompanies.get({limit: 100, offset: 0}, function (response) {
+    MedicalCompany.get({limit: 100, offset: 0}, function (response) {
         console.log("Getting medical insurances companies - Offset: " + response.paging.offset + ", limit: " + response.paging.limit
             + ", total:" + response.paging.total);
         $scope.companies = response.items;
@@ -10,7 +10,7 @@ app.controller('MedicalInsurancesPlansController', function ($scope, $window, Me
     });
 
     $scope.plans = [];
-    MedicalInsurancePlans.get({limit: 100, offset: 0}, function (response) {
+    MedicalInsurancePlan.get({limit: 100, offset: 0}, function (response) {
         console.log("Getting medical insurances plans - Offset: " + response.paging.offset + ", limit: " + response.paging.limit
             + ", total:" + response.paging.total);
         $scope.plans = response.items;

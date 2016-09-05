@@ -59,7 +59,7 @@ public class MedicalInsuranceController {
     }
 
     @RequestMapping(value = "/medical-insurances/companies", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF_8)
-    public PaginationResponse<MedicalInsuranceCompanyDto> getDoctors(@RequestParam(value = "limit", required = false) Integer limit,
+    public PaginationResponse<MedicalInsuranceCompanyDto> getCompanies(@RequestParam(value = "limit", required = false) Integer limit,
                                                                      @RequestParam(value = "offset", required = false) Integer offset) {
         LOGGER.debug("Retrieving medical insurance companies...");
         int fistResult = FIRST_RESULT;

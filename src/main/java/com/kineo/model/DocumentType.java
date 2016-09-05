@@ -4,15 +4,21 @@ package com.kineo.model;
  * Created by mlischetti on 4/6/16.
  */
 public enum DocumentType {
-    DNI("Documento nacional de identidad"),
-    LE("Libreta de enrolamiento"),
-    LC("Libreta civica"),
-    CI("Cedula de identidad");
+    DNI(0, "Documento nacional de identidad"),
+    LE(1, "Libreta de enrolamiento"),
+    LC(2, "Libreta civica"),
+    CI(3, "Cedula de identidad");
 
+    private int code;
     private String description;
 
-    DocumentType(String description) {
+    DocumentType(int code, String description) {
+        this.code = code;
         this.description = description;
+    }
+
+    public int getCode() {
+        return code;
     }
 
     public String getDescription() {

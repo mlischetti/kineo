@@ -6,13 +6,14 @@ import javax.persistence.*;
  * Created by Mariano on 1/31/2016.
  */
 @Entity
-@Table(name = "Calendar_Event")
+@Table(name = "CALENDAR_EVENT")
 public class CalendarEvent extends BaseEntity {
 
     @Enumerated(EnumType.STRING)
+    @Column(name = "STATUS")
     private CalendarEventStatus status = CalendarEventStatus.PENDING;
 
-    @Column(name = "event_id")
+    @Column(name = "EVENT_ID")
     private String eventId;
 
     public String getEventId() {

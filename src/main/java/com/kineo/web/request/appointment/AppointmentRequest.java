@@ -13,7 +13,7 @@ public class AppointmentRequest {
 
     private DateTime startTime;
 
-    private Long doctorId;
+    private Long professionalId;
 
     private Long patientId;
 
@@ -33,12 +33,12 @@ public class AppointmentRequest {
         this.startTime = startTime;
     }
 
-    public Long getDoctorId() {
-        return doctorId;
+    public Long getProfessionalId() {
+        return professionalId;
     }
 
-    public void setDoctorId(Long doctorId) {
-        this.doctorId = doctorId;
+    public void setProfessionalId(Long professionalId) {
+        this.professionalId = professionalId;
     }
 
     public Long getPatientId() {

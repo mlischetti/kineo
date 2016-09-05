@@ -1,33 +1,33 @@
-<section id="doctorsInfo" class="sections sections-no-padding">
+<section id="professionalInfo" class="sections sections-no-padding">
     <div class="container">
         <div class="row">
             <div class="section-inner-padding">
-                <h2 class="h3 sub-header">{{doctor.last_name + ' ' + doctor.first_name}}</h2>
+                <h2 class="h3 sub-header">{{professional.category | capitalize}}. {{professional.last_name + ' ' + professional.first_name}}</h2>
                 <div class="col-md-12">
                     <form class="form-horizontal">
                         <div class="form-group">
                             <label for="date_of_birth" class="col-md-4 control-label">Fecha de nacimiento</label>
                             <div class="col-md-4">
-                                <multi-select-date id="date_of_birth" name="date_of_birth" ng-model="doctor.date_of_birth"
+                                <multi-select-date id="date_of_birth" name="date_of_birth" ng-model="professional.date_of_birth"
                                                    year-order="desc" readonly="true" required/>
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="email" class="col-md-4 control-label">Email</label>
                             <div class="col-md-4">
-                                <p id="email" class="form-control">{{doctor.email}}</p>
+                                <p id="email" class="form-control">{{professional.email}}</p>
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="phone" class="col-md-4 control-label">Tel&eacute;feno</label>
                             <div class="col-md-4">
-                                <p id="phone" class="form-control">{{doctor.phone}}</p>
+                                <p id="phone" class="form-control">{{professional.phone}}</p>
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="document" class="col-md-4 control-label">Documento</label>
                             <div class="col-md-4">
-                                <p id="document" class="form-control">{{doctor.document_type + ': ' + doctor.document_number}}</p>
+                                <p id="document" class="form-control">{{professional.document_type + ': ' + professional.document_number}}</p>
                             </div>
                         </div>
                     </form>
@@ -37,11 +37,11 @@
     </div>
 </section>
 
-<section id="doctors" class="sections sections-bottom-nav sections-darker">
+<section id="professionals" class="sections sections-bottom-nav sections-darker">
     <div class="container">
         <ul class="pager pager-link pull-left">
             <li>
-                <a href="#/doctors">
+                <a href="#/professionals">
                     <span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span> Volver
                 </a>
             </li>

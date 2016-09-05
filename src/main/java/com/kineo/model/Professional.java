@@ -12,39 +12,44 @@ import java.util.Date;
  */
 
 @Entity
-@Table(name = "Doctor")
-public class Doctor extends BaseEntity {
+@Table(name = "PROFESSIONAL")
+public class Professional extends BaseEntity {
 
-    public static final String ENTITY = "Doctor";
+    public static final String ENTITY = "PROFESSIONAL";
+
+    @Column(name = "DELETED", nullable = false)
 
     private boolean deleted = false;
 
-    @Column(name = "first_name", nullable = false)
+    @Column(name = "CATEGORY", nullable = false)
+    @Enumerated(EnumType.STRING)
+    private ProfessionalCategory category;
+
+    @Column(name = "FIRST_NAME", nullable = false)
     @NotEmpty
     private String firstName;
 
-    @Column(name = "last_name", nullable = false)
+    @Column(name = "LAST_NAME", nullable = false)
     @NotEmpty
     private String lastName;
 
-    @Column(name = "date_of_birth", nullable = false)
+    @Column(name = "DATE_OF_BIRTH", nullable = false)
     @Type(type = "date")
     private Date dateOfBirth;
 
-    @Column(name = "email", nullable = false)
+    @Column(name = "EMAIl", nullable = false)
     @NotEmpty
     private String email;
 
+    @Column(name = "PHONE", nullable = false)
     private String phone;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "document_type", nullable = false)
+    @Column(name = "DOCUMENT_TYPE", nullable = false)
     private DocumentType documentType;
 
-    @Column(name = "document_number", nullable = false)
+    @Column(name = "DOCUMENT_NUMBER", nullable = false)
     private String documentNumber;
-
-    @Column(name = "date_of", nullable = true)
 
     public boolean isDeleted() {
         return deleted;
@@ -52,6 +57,14 @@ public class Doctor extends BaseEntity {
 
     public void setDeleted(boolean deleted) {
         this.deleted = deleted;
+    }
+
+    public ProfessionalCategory getCategory() {
+        return category;
+    }
+
+    public void setCategory(ProfessionalCategory category) {
+        this.category = category;
     }
 
     public String getFirstName() {

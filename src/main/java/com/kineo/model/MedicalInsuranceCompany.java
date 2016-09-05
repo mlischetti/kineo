@@ -10,14 +10,15 @@ import javax.persistence.Table;
  * Created by mlischetti on 12/8/15.
  */
 @Entity
-@Table(name = "Medical_Company")
+@Table(name = "MEDICAL_COMPANY")
 public class MedicalInsuranceCompany extends BaseEntity {
 
-    public static final String ENTITY = "Medical_Company";
+    public static final String ENTITY = "MEDICAL_COMPANY";
 
+    @Column(name = "DELETED", nullable = false)
     private boolean deleted = false;
 
-    @Column(name = "name", nullable = false)
+    @Column(name = "NAME", nullable = false)
     @NotEmpty
     private String name;
 

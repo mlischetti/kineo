@@ -1,6 +1,6 @@
-app.controller('MedicalCompaniesController', function ($scope, $route, $window, MedicalCompanies, MedicalCompany) {
+app.controller('MedicalCompaniesController', function ($scope, $route, $window, MedicalCompany) {
     $scope.companies = [];
-    MedicalCompanies.get({limit: 100, offset: 0}, function (response) {
+    MedicalCompany.get({limit: 100, offset: 0}, function (response) {
         console.log("Getting medical insurances companies - Offset: " + response.paging.offset + ", limit: " + response.paging.limit
             + ", total:" + response.paging.total);
         $scope.companies = response.items;

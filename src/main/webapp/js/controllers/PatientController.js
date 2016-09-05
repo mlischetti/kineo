@@ -1,10 +1,10 @@
-app.controller('PatientController', function ($scope, $window, Patients, Patient, MedicalInsurancePlans, DocumentTypes) {
+app.controller('PatientController', function ($scope, $window, Patient, MedicalInsurancePlan, DocumentTypes) {
     $scope.$on('$viewContentLoaded', function (event) {
         $('html, body').animate({scrollTop: $("#patients").offset().top}, 1000);
     });
 
     $scope.patients = [];
-    Patients.get({limit: 20, offset: 0}, function (response) {
+    Patient.get({limit: 20, offset: 0}, function (response) {
         console.log("Getting patients - Offset: " + response.paging.offset + ", limit: "
             + response.paging.limit + ", total:" + response.paging.total);
         $scope.patients = response.items;
@@ -14,7 +14,7 @@ app.controller('PatientController', function ($scope, $window, Patients, Patient
     });
 
     $scope.plans = [];
-    MedicalInsurancePlans.get({limit: 100, offset: 0}, function (response) {
+    MedicalInsurancePlan.get({limit: 100, offset: 0}, function (response) {
         console.log("Getting medical insurances plans - Offset: " + response.paging.offset + ", limit: " + response.paging.limit
             + ", total:" + response.paging.total);
         $scope.plans = response.items;

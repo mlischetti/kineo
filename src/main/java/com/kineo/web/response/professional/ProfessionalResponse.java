@@ -1,13 +1,13 @@
-package com.kineo.web.response.doctor;
+package com.kineo.web.response.professional;
 
 /**
  * Created by mlischetti on 12/7/15.
  */
-public class DoctorResponse {
+public class ProfessionalResponse {
 
     private Long id;
 
-    public DoctorResponse(Long id) {
+    public ProfessionalResponse(Long id) {
         this.id = id;
     }
 

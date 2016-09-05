@@ -124,8 +124,8 @@ public class GoogleCalendarService implements CalendarService {
 
         //Attendees
         List<EventAttendee> attendees = new ArrayList<>();
-        if (StringUtils.isNotBlank(appointment.getDoctor().getEmail())) {
-            attendees.add(new EventAttendee().setEmail(appointment.getDoctor().getEmail()));
+        if (StringUtils.isNotBlank(appointment.getProfessional().getEmail())) {
+            attendees.add(new EventAttendee().setEmail(appointment.getProfessional().getEmail()));
         }
         if (StringUtils.isNotBlank(appointment.getPatient().getEmail())) {
             attendees.add(new EventAttendee().setEmail(appointment.getPatient().getEmail()));
@@ -149,7 +149,7 @@ public class GoogleCalendarService implements CalendarService {
         builder.append("\n\n");
         builder.append("Recuerde concurir el dia " + appointmentTime[0] + " a las " + appointmentTime[1] + " hs. a su cita con:");
         builder.append("\n\n");
-        builder.append("Dr/a. " + appointment.getDoctor().getFullName().toUpperCase());
+        builder.append(appointment.getProfessional().getCategory().getDescription() + " " + appointment.getProfessional().getFullName().toUpperCase());
         builder.append("\n\n");
         builder.append("Servicio: Kinesiologia");
         builder.append("\n\n");

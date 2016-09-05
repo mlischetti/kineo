@@ -1,11 +1,11 @@
 package com.kineo.web.controller;
 
 import com.kineo.model.Appointment;
-import com.kineo.model.Doctor;
 import com.kineo.model.Patient;
+import com.kineo.model.Professional;
 import com.kineo.service.internal.AppointmentService;
-import com.kineo.service.internal.DoctorService;
 import com.kineo.service.internal.PatientService;
+import com.kineo.service.internal.ProfessionalService;
 import com.kineo.util.MediaType;
 import com.kineo.web.dto.AppointmentDto;
 import com.kineo.web.exception.EntityNotFoundException;
@@ -28,13 +28,13 @@ public class AppointmentController {
     private static final Logger LOGGER = LoggerFactory.getLogger(AppointmentController.class);
 
     private AppointmentService appointmentService;
-    private DoctorService doctorService;
+    private ProfessionalService professionalService;
     private PatientService patientService;
 
     @Autowired
-    public AppointmentController(AppointmentService appointmentService, DoctorService doctorService, PatientService patientService) {
+    public AppointmentController(AppointmentService appointmentService, ProfessionalService professionalService, PatientService patientService) {
         this.appointmentService = appointmentService;
-        this.doctorService = doctorService;
+        this.professionalService = professionalService;
         this.patientService = patientService;
     }
 
@@ -55,11 +55,11 @@ public class AppointmentController {
     public AppointmentResponse createAppointment(@Valid @RequestBody AppointmentRequest appointmentRequest) {
         LOGGER.debug("Creating appointment...");
 
-        Doctor doctor = doctorService.findById(appointmentRequest.getDoctorId());
-        if (doctor == null) {
-            LOGGER.debug("Could not found patient: {}", appointmentRequest.getDoctorId());
-            EntityNotFoundException exception = new EntityNotFoundException(Doctor.ENTITY);
-            exception.setSearchMessage("id = " + appointmentRequest.getDoctorId());
+        Professional professional = professionalService.findById(appointmentRequest.getProfessionalId());
+        if (professional == null) {
+            LOGGER.debug("Could not found professional: {}", appointmentRequest.getProfessionalId());
+            EntityNotFoundException exception = new EntityNotFoundException(Professional.ENTITY);
+            exception.setSearchMessage("id = " + appointmentRequest.getProfessionalId());
             throw exception;
         }
 
@@ -72,7 +72,7 @@ public class AppointmentController {
         }
 
         Appointment appointment = new Appointment();
-        saveOrUpdate(appointment, doctor, patient, appointmentRequest);
+        saveOrUpdate(appointment, professional, patient, appointmentRequest);
         LOGGER.debug("Created appointment: {}", appointment.getId());
         return new AppointmentResponse(appointment.getId());
     }
@@ -90,30 +90,30 @@ public class AppointmentController {
             throw exception;
         }
 
-        Doctor doctor = doctorService.findById(appointmentRequest.getDoctorId());
-        if (doctor == null) {
-            LOGGER.debug("Could not found doctor: {}", id);
-            EntityNotFoundException exception = new EntityNotFoundException(Doctor.ENTITY);
-            exception.setSearchMessage("id = " + id);
+        Professional professional = professionalService.findById(appointmentRequest.getProfessionalId());
+        if (professional == null) {
+            LOGGER.debug("Could not found professional: {}", appointmentRequest.getProfessionalId());
+            EntityNotFoundException exception = new EntityNotFoundException(Professional.ENTITY);
+            exception.setSearchMessage("id = " + appointmentRequest.getProfessionalId());
             throw exception;
         }
 
         Patient patient = patientService.findById(appointmentRequest.getPatientId());
         if (patient == null) {
-            LOGGER.debug("Could not found patient: {}", id);
+            LOGGER.debug("Could not found patient: {}", appointmentRequest.getPatientId());
             EntityNotFoundException exception = new EntityNotFoundException(Patient.ENTITY);
-            exception.setSearchMessage("id = " + id);
+            exception.setSearchMessage("id = " + appointmentRequest.getPatientId());
             throw exception;
         }
-        saveOrUpdate(appointment, doctor, patient, appointmentRequest);
+        saveOrUpdate(appointment, professional, patient, appointmentRequest);
         LOGGER.debug("Updated patient: {}", id);
         return new AppointmentResponse(id);
     }
 
-    private void saveOrUpdate(Appointment appointment, Doctor doctor, Patient patient, AppointmentRequest appointmentRequest) {
+    private void saveOrUpdate(Appointment appointment, Professional professional, Patient patient, AppointmentRequest appointmentRequest) {
         appointment.setSummary(appointmentRequest.getSummary());
         appointment.setStartTime(appointmentRequest.getStartTime());
-        appointment.setDoctor(doctor);
+        appointment.setProfessional(professional);
         appointment.setPatient(patient);
         appointmentService.save(appointment);
         LOGGER.debug("Created appointment: {}", appointment.getId());

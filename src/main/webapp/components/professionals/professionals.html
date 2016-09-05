@@ -1,10 +1,10 @@
-<section id="doctors" class="sections sections-narrow">
+<section id="professionals" class="sections sections-narrow">
     <div class="container">
         <div class="row">
             <div class="col-md-12 ng-scope">
                 <div class="pull-right">
                     <div class="btn-group">
-                        <button class="btn btn-primary pull-right" data-toggle="modal" ng-click="showCreateDoctorModal()">
+                        <button class="btn btn-primary pull-right" data-toggle="modal" ng-click="showCreateProfessionalModal()">
                             <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Nuevo
                         </button>
                     </div>
@@ -34,17 +34,17 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr ng-repeat="doctor in doctors | filter:search">
-                        <td width="30%">{{doctor.last_name}}</td>
-                        <td width="30%">{{doctor.first_name}}</td>
-                        <td width="20%">{{doctor.phone}}</td>
+                    <tr ng-repeat="professional in professionals | filter:search">
+                        <td width="30%">{{professional.last_name}}</td>
+                        <td width="30%">{{professional.first_name}}</td>
+                        <td width="20%">{{professional.phone}}</td>
                         <td>
                             <div class="action-item center-block">
-                                <a href="#/doctors/{{doctor.id}}">
+                                <a href="#/professionals/{{professional.id}}">
                                     <span class="glyphicon glyphicon-eye-open text-success action"></span>
                                 </a>
-                                <span class="glyphicon glyphicon-edit action" ng-click="showEditDoctor(doctor)"></span>
-                                <span class="glyphicon glyphicon-remove text-danger action" ng-click="showDeleteDoctorModal(doctor)"></span>
+                                <span class="glyphicon glyphicon-edit action" ng-click="showEditProfessional(professional)"></span>
+                                <span class="glyphicon glyphicon-remove text-danger action" ng-click="showDeleteProfessionalModal(professional)"></span>
                             </div>
                         </td>
                     </tr>
@@ -56,8 +56,8 @@
 </section>
 
 <!-- Modals -->
-<ng-include src="'components/_partials/_modal_add_doctor.html'"></ng-include>
+<ng-include src="'components/_partials/_modal_add_professional.html'"></ng-include>
 
-<ng-include src="'components/_partials/_modal_edit_doctor.html'"></ng-include>
+<ng-include src="'components/_partials/_modal_edit_professional.html'"></ng-include>
 
-<ng-include src="'components/_partials/_modal_delete_doctor.html'"></ng-include>
+<ng-include src="'components/_partials/_modal_delete_professional.html'"></ng-include>

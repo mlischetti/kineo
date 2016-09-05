@@ -9,19 +9,20 @@ import javax.persistence.*;
  */
 
 @Entity
-@Table(name = "Medical_Insurance_Plan")
+@Table(name = "MEDICAL_INSURANCE_PLAN")
 public class MedicalInsurancePlan extends BaseEntity {
 
-    public static final String ENTITY = "Medical_Insurance_Plan";
+    public static final String ENTITY = "MEDICAL_INSURANCE_PLAN";
 
+    @Column(name = "DELETED", nullable = false)
     private boolean deleted = false;
 
     @ManyToOne
-    @JoinColumn(name = "company_id")
+    @JoinColumn(name = "COMPANY_ID")
     private MedicalInsuranceCompany company;
 
     @NotEmpty
-    @Column(name = "plan", nullable = false)
+    @Column(name = "PLAN", nullable = false)
     private String plan;
 
     public void setPlan(String plan) {

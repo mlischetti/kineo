@@ -9,33 +9,36 @@ import javax.persistence.*;
  * Created by mlischetti on 11/27/15.
  */
 @Entity
-@Table(name = "Appointment")
+@Table(name = "APPOINTMENT")
 public class Appointment extends BaseEntity {
 
-    public static final String ENTITY = "Appointment";
+    public static final String ENTITY = "APPOINTMENT";
     public static final int DEFAULT_DURATION = 30;
 
     @Enumerated(EnumType.STRING)
+    @Column(name = "STATUS")
     private AppointmentStatus status = AppointmentStatus.CONFIRM;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "event_id")
+    @JoinColumn(name = "EVENT_ID")
     private CalendarEvent event = new CalendarEvent();
 
+    @Column(name = "SUMMARY")
     private String summary;
 
-    @Column(name = "start_time")
+    @Column(name = "START_TIME")
     @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime")
     private DateTime startTime;
 
-    public int duration = DEFAULT_DURATION;
+    @Column(name = "DURATION")
+    private int duration = DEFAULT_DURATION;
 
     @ManyToOne
-    @JoinColumn(name = "doctor_id")
-    private Doctor doctor;
+    @JoinColumn(name = "PROFESSIONAL_ID")
+    private Professional professional;
 
     @ManyToOne
-    @JoinColumn(name = "patient_id")
+    @JoinColumn(name = "PATIENT_ID")
     private Patient patient;
 
     public AppointmentStatus getStatus() {
@@ -88,12 +91,13 @@ public class Appointment extends BaseEntity {
         this.duration = duration;
     }
 
-    public Doctor getDoctor() {
-        return doctor;
+
+    public Professional getProfessional() {
+        return professional;
     }
 
-    public void setDoctor(Doctor doctor) {
-        this.doctor = doctor;
+    public void setProfessional(Professional professional) {
+        this.professional = professional;
     }
 
     public Patient getPatient() {

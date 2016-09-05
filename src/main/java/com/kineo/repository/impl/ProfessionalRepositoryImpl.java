@@ -1,8 +1,7 @@
 package com.kineo.repository.impl;
 
-import com.kineo.model.CalendarEventStatus;
-import com.kineo.model.Doctor;
-import com.kineo.repository.DoctorRepository;
+import com.kineo.model.Professional;
+import com.kineo.repository.ProfessionalRepository;
 import org.hibernate.Criteria;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
@@ -15,15 +14,15 @@ import java.util.List;
  * Created by mlischetti on 11/29/15.
  */
 @Repository
-public class DoctorRepositoryImpl extends GenericRepository<Doctor> implements DoctorRepository {
+public class ProfessionalRepositoryImpl extends GenericRepository<Professional> implements ProfessionalRepository {
 
     @Autowired
-    public DoctorRepositoryImpl(SessionFactory sessionFactory) {
+    public ProfessionalRepositoryImpl(SessionFactory sessionFactory) {
         super(sessionFactory);
     }
 
     @Override
-    public List<Doctor> find(int firstResult, int maxResults) {
+    public List<Professional> find(int firstResult, int maxResults) {
         Criteria criteria = getCriteria();
         criteria.setFirstResult(firstResult);
         criteria.setMaxResults(maxResults);

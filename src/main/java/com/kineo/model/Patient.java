@@ -10,41 +10,44 @@ import java.util.Date;
  * Created by mlischetti on 11/27/15.
  */
 @Entity
-@Table(name = "Patient")
+@Table(name = "PATIENT")
 public class Patient extends BaseEntity {
 
-    public static final String ENTITY = "Patient";
+    public static final String ENTITY = "PATIENT";
 
+    @Column(name = "DELETED")
     private boolean deleted = false;
 
-    @Column(name = "first_name")
+    @Column(name = "FIRST_NAME")
     @NotEmpty
     private String firstName;
 
-    @Column(name = "last_name")
+    @Column(name = "LAST_NAME")
     @NotEmpty
     private String lastName;
 
-    @Column(name = "date_of_birth", nullable = false)
+    @Column(name = "DATE_OF_BIRTH", nullable = false)
     @Type(type = "date")
     private Date dateOfBirth;
 
+    @Column(name = "EMAIL")
     private String email;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "document_type")
+    @Column(name = "DOCUMENT_TYPE")
     private DocumentType documentType;
 
-    @Column(name = "document_number")
+    @Column(name = "DOCUMENT_NUMBER")
     private String documentNumber;
 
     @ManyToOne
-    @JoinColumn(name = "medical_insurance_plan_id")
+    @JoinColumn(name = "MEDICAL_INSURANCE_PLAN_ID")
     private MedicalInsurancePlan medicalInsurancePlan;
 
-    @Column(name = "affiliate_id")
+    @Column(name = "AFFILIATE_ID")
     private String affiliateId;
 
+    @Column(name = "PHONE")
     private String phone;
 
     public boolean isDeleted() {

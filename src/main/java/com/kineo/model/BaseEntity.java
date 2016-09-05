@@ -14,7 +14,7 @@ import javax.persistence.MappedSuperclass;
 public abstract class BaseEntity {
     @Id
     @GeneratedValue
-    @Column(name = "id", nullable = false)
+    @Column(name = "ID", nullable = false)
     private Long id;
 
     public Long getId() {

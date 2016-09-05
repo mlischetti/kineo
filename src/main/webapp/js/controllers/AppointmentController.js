@@ -1,14 +1,14 @@
-app.controller('AppointmentController', function ($scope, Doctor, Patient, AppointmentSummaries, Appointment) {
+app.controller('AppointmentController', function ($scope, Professional, Patient, AppointmentSummaries, Appointment) {
     const DATE_FORMAT = "DD/MM/YYYY";
     const TIME_FORMAT = "HH:mm";
 
-    $scope.doctors = [];
-    Doctor.get({limit: 100, offset: 0}, function (response) {
-        console.log("Getting doctors - Offset: " + response.paging.offset + ", limit: " + response.paging.limit + ", total:" + response.paging.total);
-        $scope.doctors = response.items;
+    $scope.professionals = [];
+    Professional.get({limit: 100, offset: 0}, function (response) {
+        console.log("Getting professionals - Offset: " + response.paging.offset + ", limit: " + response.paging.limit + ", total:" + response.paging.total);
+        $scope.professionals = response.items;
     }, function (error) {
         // error callback
-        console.log("Error on retrieve doctors. Error: " + error);
+        console.log("Error on retrieve professionals. Error: " + error);
     });
 
     $scope.patients = [];

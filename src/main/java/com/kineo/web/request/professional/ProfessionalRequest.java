@@ -1,43 +1,44 @@
-package com.kineo.web.dto;
+package com.kineo.web.request.professional;
 
-import com.kineo.model.Doctor;
-import com.kineo.util.date.DateUtils;
+import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.NotBlank;
 
 import java.util.Date;
 
 /**
  * Created by mlischetti on 12/7/15.
  */
-public class DoctorDto {
+public class ProfessionalRequest {
 
-    private Long id;
+    @NotBlank
+    private String category;
+
+    @NotBlank
     private String firstName;
+
+    @NotBlank
     private String lastName;
-    private String dateOfBirth;
+
+    private Date dateOfBirth;
+
+    @NotBlank
+    @Email
     private String email;
+
     private String phone;
+
+    @NotBlank
     private String documentType;
+
+    @NotBlank
     private String documentNumber;
 
-    public DoctorDto(Doctor doctor) {
-        this.id = doctor.getId();
-        this.firstName = doctor.getFirstName();
-        this.lastName = doctor.getLastName();
-        this.dateOfBirth = DateUtils.printAsSimpleDate(doctor.getDateOfBirth());
-        this.email = doctor.getEmail();
-        this.phone = doctor.getPhone();
-        if(doctor.getDocumentType() != null) {
-            this.documentType = doctor.getDocumentType().name();
-        }
-        this.documentNumber = doctor.getDocumentNumber();
+    public String getCategory() {
+        return category;
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
+    public void setCategory(String category) {
+        this.category = category;
     }
 
     public String getFirstName() {
@@ -56,11 +57,11 @@ public class DoctorDto {
         this.lastName = lastName;
     }
 
-    public String getDateOfBirth() {
+    public Date getDateOfBirth() {
         return dateOfBirth;
     }
 
-    public void setDateOfBirth(String dateOfBirth) {
+    public void setDateOfBirth(Date dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
     }
 

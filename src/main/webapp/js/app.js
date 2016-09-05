@@ -11,15 +11,15 @@ app.config(function ($routeProvider) {
             templateUrl: "components/appointments/appointments.html",
             controller: "AppointmentController"
         })
-        .when("/doctors", {
-            name: "doctors",
-            templateUrl: "components/doctors/doctors.html",
-            controller: "DoctorController"
+        .when("/professionals", {
+            name: "professionals",
+            templateUrl: "components/professionals/professionals.html",
+            controller: "ProfessionalController"
         })
-        .when("/doctors/:id", {
-            name: "doctorDetails",
-            templateUrl: "components/doctors/doctor_details.html",
-            controller: "DoctorDetailsController"
+        .when("/professionals/:id", {
+            name: "professionalDetails",
+            templateUrl: "components/professionals/professional_details.html",
+            controller: "ProfessionalDetailsController"
         })
         .when("/medical-insurances/companies", {
             name: "medical-companies",
@@ -64,4 +64,10 @@ app.directive('scrollToTarget', function () {
             return false;
         });
     };
+});
+
+app.filter('capitalize', function() {
+    return function(input) {
+        return (!!input) ? input.charAt(0).toUpperCase() + input.substr(1).toLowerCase() : '';
+    }
 });

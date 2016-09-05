@@ -14,7 +14,8 @@ public class AppointmentDto {
     private String summary;
     private DateTime startTime;
     private DateTime endTime;
-    private Long doctorId;
+    private Long professionalId;
+    private Long patientId;
 
     public AppointmentDto(Appointment appointment) {
         this.id = appointment.getId();
@@ -23,7 +24,8 @@ public class AppointmentDto {
         this.summary = appointment.getSummary();
         this.startTime = appointment.getStartTime();
         this.endTime = appointment.getEndTime();
-        this.doctorId = appointment.getDoctor().getId();
+        this.professionalId = appointment.getProfessional().getId();
+        this.patientId = appointment.getPatient().getId();
     }
 
     public Long getId() {
@@ -74,11 +76,19 @@ public class AppointmentDto {
         this.endTime = endTime;
     }
 
-    public Long getDoctorId() {
-        return doctorId;
+    public Long getProfessionalId() {
+        return professionalId;
     }
 
-    public void setDoctorId(Long doctorId) {
-        this.doctorId = doctorId;
+    public void setProfessionalId(Long professionalId) {
+        this.professionalId = professionalId;
+    }
+
+    public Long getPatientId() {
+        return patientId;
+    }
+
+    public void setPatientId(Long patientId) {
+        this.patientId = patientId;
     }
 }

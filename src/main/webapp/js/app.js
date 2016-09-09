@@ -1,5 +1,4 @@
-var app = angular.module('kineo', ['ngRoute', 'ngResource']);
-
+var app = angular.module('kineo', ['ngRoute', 'ngResource', 'angucomplete-alt']);
 
 /** Start of Configurable constants **/
 app.constant('context', '/kineo');

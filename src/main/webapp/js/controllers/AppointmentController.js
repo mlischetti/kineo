@@ -32,8 +32,9 @@ app.controller('AppointmentController', function ($scope, Professional, Patient,
     $scope.appointment = {};
     $scope.time_string = '';
 
-    $scope.showAddAppointmentModal = function() {
+    $scope.showAddAppointmentModal = function () {
         $scope.appointment = {};
+        $scope.$broadcast('angucomplete-alt:clearInput');
         var now = moment().utcOffset("-03:00");
 
         $scope.date_string = now.format(DATE_FORMAT);
@@ -66,5 +67,23 @@ app.controller('AppointmentController', function ($scope, Professional, Patient,
     };
     $scope.closeAppointmentsSuccessModal = function () {
         $('#addAppointmentSuccessModal').modal('hide');
+    };
+
+    $scope.selectedProfessional = function (selected) {
+        if (selected) {
+            console.log("Selected professional_id: " + selected.originalObject.id);
+            $scope.appointment.professional_id = selected.originalObject.id;
+        } else {
+            console.log('cleared professional_id');
+        }
+    };
+
+    $scope.selectedPatient = function (selected) {
+        if (selected) {
+            console.log("Selected patient_id: " + selected.originalObject.id);
+            $scope.appointment.patient_id = selected.originalObject.id;
+        } else {
+            console.log('cleared patient_id');
+        }
     };
 });

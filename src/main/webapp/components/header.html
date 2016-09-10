@@ -11,7 +11,8 @@
                 <li ng-class="{'active': route.current.$$route.name == 'appointments'}">
                     <a href="#/appointments">Turnos</a>
                 </li>
-                <li ng-class="{'active': route.current.$$route.name == 'patients'}">
+                <li ng-class="{'active': route.current.$$route.name == 'patients' || route.current.$$route.name == 'patient-new'
+                || route.current.$$route.name == 'patient-edit' || route.current.$$route.name == 'patient-view'}">
                     <a href="#/patients">Pacientes</a>
                 </li>
                 <li ng-class="{'active': route.current.$$route.name == 'professionals'}">

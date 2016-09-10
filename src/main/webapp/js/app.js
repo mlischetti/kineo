@@ -43,12 +43,22 @@ app.config(function ($routeProvider) {
         .when("/patients", {
             name: "patients",
             templateUrl: "components/patients/patients.html",
-            controller: "PatientController"
+            controller: "PatientsController"
+        })
+        .when("/patient-new", {
+            name: "patient-new",
+            templateUrl: "components/patients/add_patient.html",
+            controller: "AddPatientController"
+        })
+        .when("/patient-edit/:id", {
+            name: "patient-edit",
+            templateUrl: "components/patients/edit_patient.html",
+            controller: "EditPatientController"
         })
         .when("/patients/:id", {
-            name: "patientDetails",
+            name: "patient-view",
             templateUrl: "components/patients/patient_details.html",
-            controller: "PatientDetailsController"
+            controller: "ViewPatientController"
         })
         .otherwise({redirectTo:'/appointments'});
 });

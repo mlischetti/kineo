@@ -1,0 +1,76 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <form class="form-horizontal">
+                <div class="form-group">
+                    <label for="last_name" class="control-label col-md-2">Apellido</label>
+                    <div class="col-md-4">
+                        <input type="text" class="form-control" id="last_name" ng-model="patient.last_name">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="first_name" class="control-label col-md-2">Nombre</label>
+                    <div class="col-md-4">
+                        <input type="text" class="form-control" id="first_name" ng-model="patient.first_name">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="date_of_birth" class="control-label col-md-2">Fecha de nacimiento</label>
+                    <div class="col-md-4">
+                        <multi-select-date id="date_of_birth" name="date_of_birth" ng-model="patient.date_of_birth"
+                                           year-order="desc" required/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="email" class="control-label col-md-2">Email</label>
+                    <div class="col-md-4">
+                        <input type="text" class="form-control" id="email" ng-model="patient.email">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="phone" class="control-label col-md-2">T&eacute;lefono</label>
+                    <div class="col-md-4">
+                        <input type="text" class="form-control" id="phone" ng-model="patient.phone">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="document_type" class="control-label col-md-2">Tipo de documento</label>
+                    <div class="col-md-2">
+                        <select class="form-control" id="document_type" ng-model="patient.document_type">
+                            <option ng-repeat="documentType in documentTypes" value="{{documentType.name}}">
+                                {{documentType.name}}
+                            </option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="document_number" class="control-label col-md-2">N&uacute;mero de documento</label>
+                    <div class="col-md-4">
+                        <input type="text" class="form-control" id="document_number" ng-model="patient.document_number">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="medical_insurance_plan_id" class="control-label col-md-2">Obra social</label>
+                    <div class="col-md-2">
+                        <select class="form-control" id="medical_insurance_plan_id" ng-model="patient.medical_insurance_plan_id">
+                            <option ng-repeat="plan in plans" value="{{plan.id}}">{{plan.company.name +' ' + plan.plan}}
+                            </option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="affiliate_id" class="control-label col-sm-2">Nro de afiliado</label>
+                    <div class="col-md-4">
+                        <input type="text" class="form-control" id="affiliate_id" ng-model="patient.affiliate_id">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-4">
+                        <a href="#/patients" class="btn btn-default">Cancelar</a>
+                        <button type="submit" class="btn btn-primary" aria-label="Close" ng-click="addPatient()">Guardar</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

@@ -89,6 +89,7 @@ app.controller('AddEditProfessionalController', function ($scope, $route, $windo
             Professional.save(professional, function (response) {
                 console.log("New professional: " + response.id + " created");
                 $scope.professional = {};
+                toastr.success('Profesional exitosamente creado!');
                 $window.location.href = '#/professionals/' + response.id;
             }, function (error) {
                 console.log("Error on creating new professional. Error: " + error);

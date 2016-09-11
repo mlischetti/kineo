@@ -7,8 +7,15 @@ app.config(function ($routeProvider) {
     $routeProvider
         .when("/appointments", {
             name: "appointments",
+            state: "appointments",
             templateUrl: "components/appointments/appointments.html",
             controller: "AppointmentController"
+        })
+        .when("/appointment-new", {
+            name: "appointment-new",
+            state: "appointments",
+            templateUrl: "components/appointments/add_appointment.html",
+            controller: "AddAppointmentController"
         })
         .when("/professionals", {
             name: "professionals",

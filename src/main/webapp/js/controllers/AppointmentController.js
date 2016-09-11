@@ -1,4 +1,7 @@
-app.controller('AppointmentController', function ($scope, Professional, Patient, AppointmentSummaries, Appointment) {
+app.controller('AppointmentController', function ($scope) {
+});
+
+app.controller('AddAppointmentController', function ($scope, $window, Professional, Patient, AppointmentSummaries, Appointment) {
     const DATE_FORMAT = "DD/MM/YYYY";
     const TIME_FORMAT = "HH:mm";
 
@@ -29,45 +32,28 @@ app.controller('AppointmentController', function ($scope, Professional, Patient,
         console.log("Error on retrieve document types. Error: " + error);
     });
 
+    $scope.$broadcast('angucomplete-alt:clearInput');
+    var now = moment().utcOffset("-03:00");
+
+    $scope.date_string = now.format(DATE_FORMAT);
+
+    $('#datepicker').datepicker({
+        format: 'dd/mm/yyyy',
+        todayHighlight: true,
+        todayBtn: 'linked',
+        autoclose: true,
+        keyboardNavigation:true
+    });
+
+    $('#datepicker').datepicker('update', $scope.date_string);
+
+    $scope.time_string = now.format(TIME_FORMAT);
+    $('#clockpicker').clockpicker({
+        'default': 'now',
+        'autoclose': true
+    });
+
     $scope.appointment = {};
-    $scope.time_string = '';
-
-    $scope.showAddAppointmentModal = function () {
-        $scope.appointment = {};
-        $scope.$broadcast('angucomplete-alt:clearInput');
-        var now = moment().utcOffset("-03:00");
-
-        $scope.date_string = now.format(DATE_FORMAT);
-        $('#datepicker').datepicker('update', $scope.date_string);
-
-        $scope.time_string = now.format(TIME_FORMAT);
-        console.log("$scope.time_string: " + $scope.time_string);
-        //$('#clockpicker').clockpicker({
-        //    'default': 'now'
-        //});
-        //ver:https://eonasdan.github.io/bootstrap-datetimepicker/
-        $('#addAppointmentModal').modal('show');
-    };
-
-    $scope.addAppointment = function () {
-        console.log("Creating new appointment");
-        var appointment = $scope.appointment;
-        var now = new Date();
-        appointment.start_time = moment.utc(now).format(API_DATETIME_FORMAT);
-        Appointment.save(appointment, function (response) {
-            //success callback
-            console.log("New appointment: " + response.id + " created");
-            $scope.appointment = {};
-            $('#addAppointmentSuccessModal').modal('show');
-        }, function (error) {
-            // error callback
-            console.log("Error on creating new appointment. Error: " + error);
-            $scope.appointment = {};
-        });
-    };
-    $scope.closeAppointmentsSuccessModal = function () {
-        $('#addAppointmentSuccessModal').modal('hide');
-    };
 
     $scope.selectedProfessional = function (selected) {
         if (selected) {
@@ -85,5 +71,22 @@ app.controller('AppointmentController', function ($scope, Professional, Patient,
         } else {
             console.log('cleared patient_id');
         }
+    };
+
+    $scope.saveAppointment = function () {
+        console.log("Creating new appointment");
+        var appointment = $scope.appointment;
+        var now = new Date();
+        appointment.start_time = moment.utc(now).format(API_DATETIME_FORMAT);
+        Appointment.save(appointment, function (response) {
+            console.log("New appointment: " + response.id + " created");
+            $scope.appointment = {};
+            toastr.success('Turno exitosamente creado!');
+            $window.location.href = '#/appointments/';
+        }, function (error) {
+            console.log("Error on creating new appointment. Error: " + error);
+            $scope.appointment = {};
+            toastr.error('Error al crear el turno.', 'Error');
+        });
     };
 });

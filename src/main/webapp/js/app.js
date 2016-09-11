@@ -12,13 +12,29 @@ app.config(function ($routeProvider) {
         })
         .when("/professionals", {
             name: "professionals",
+            state: "professionals",
             templateUrl: "components/professionals/professionals.html",
             controller: "ProfessionalController"
         })
+        .when("/professional-new", {
+            name: "professional-new",
+            state: "professionals",
+            mode: "add",
+            templateUrl: "components/professionals/add_edit_professional.html",
+            controller: "AddEditProfessionalController"
+        })
+        .when("/professional-edit/:id", {
+            name: "professional-edit",
+            state: "professionals",
+            mode: "edit",
+            templateUrl: "components/professionals/add_edit_professional.html",
+            controller: "AddEditProfessionalController"
+        })
         .when("/professionals/:id", {
             name: "professionalDetails",
-            templateUrl: "components/professionals/professional_details.html",
-            controller: "ProfessionalDetailsController"
+            state: "professionals",
+            templateUrl: "components/professionals/professional.html",
+            controller: "ViewProfessionalController"
         })
         .when("/medical-insurances/companies", {
             name: "medical-companies",

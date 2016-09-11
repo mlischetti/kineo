@@ -1,0 +1,44 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <form class="form-horizontal">
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-4">
+                        <h2 class="h2 sub-header">{{professional.category | capitalize}}. {{professional.last_name + ' ' + professional.first_name}}</h2>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="date_of_birth" class="col-md-2 control-label">Fecha de nacimiento</label>
+                    <div class="col-md-4">
+                        <multi-select-date id="date_of_birth" name="date_of_birth" ng-model="professional.date_of_birth"
+                                           year-order="desc" readonly="true" required/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="email" class="col-md-2 control-label">Email</label>
+                    <div class="col-md-4">
+                        <p id="email" class="form-control">{{professional.email}}<p/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="phone" class="col-md-2 control-label">Tel&eacute;feno</label>
+                    <div class="col-md-4">
+                        <p id="phone" class="form-control">{{professional.phone}}<p/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="document" class="col-md-2 control-label">Documento</label>
+                    <div class="col-md-3">
+                        <p id="document" class="form-control">{{professional.document_type  + ' ' + professional.document_number}}</p>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-4">
+                        <a href="#/professionals" class="btn btn-default">Volver</a>
+                        <a href="#/professional-edit/{{professional.id}}" class="btn btn-primary">Editar</a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

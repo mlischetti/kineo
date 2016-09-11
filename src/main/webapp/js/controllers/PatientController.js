@@ -79,7 +79,7 @@ app.controller('AddEditPatientController', function ($scope, $route, $window, Pa
             }, function (error) {
                 $scope.patient = {};
                 console.log("Error on updating patient: " + patient.id + ". Error: " + error);
-                toastr.error('Error al editar el paciente.', 'Error');
+                toastr.error('Error al modificar el paciente.', 'Error');
             });
         } else {
             console.log("Creating patient");

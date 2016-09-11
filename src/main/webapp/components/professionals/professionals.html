@@ -4,9 +4,9 @@
             <div class="col-md-12 ng-scope">
                 <div class="pull-right">
                     <div class="btn-group">
-                        <button class="btn btn-primary pull-right" data-toggle="modal" ng-click="showCreateProfessionalModal()">
+                        <a href="#/professional-new" class="btn btn-primary pull-right">
                             <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Nuevo
-                        </button>
+                        </a>
                     </div>
                 </div>
                 <div class="form-horizontal">
@@ -43,7 +43,11 @@
                                 <a href="#/professionals/{{professional.id}}">
                                     <span class="glyphicon glyphicon-eye-open text-success action"></span>
                                 </a>
-                                <span class="glyphicon glyphicon-edit action" ng-click="showEditProfessional(professional)"></span>
+
+                                <a href="#/professional-edit/{{professional.id}}">
+                                    <span class="glyphicon glyphicon-edit action"></span>
+                                </a>
+
                                 <span class="glyphicon glyphicon-remove text-danger action" ng-click="showDeleteProfessionalModal(professional)"></span>
                             </div>
                         </td>
@@ -56,8 +60,4 @@
 </section>
 
 <!-- Modals -->
-<ng-include src="'components/_partials/_modal_add_professional.html'"></ng-include>
-
-<ng-include src="'components/_partials/_modal_edit_professional.html'"></ng-include>
-
 <ng-include src="'components/_partials/_modal_delete_professional.html'"></ng-include>

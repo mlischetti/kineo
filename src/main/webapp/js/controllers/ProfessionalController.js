@@ -1,6 +1,6 @@
 const API_DATETIME_FORMAT = "YYYY-MM-DD";
 
-app.controller('ProfessionalController', function ($scope, $window, Professional, DocumentTypes, ProfessionalCategories) {
+app.controller('ProfessionalController', function ($scope, $window, Professional) {
     $scope.$on('$viewContentLoaded', function (event) {
         $('html, body').animate({scrollTop: $("#professionals").offset().top}, 1000);
     });
@@ -14,6 +14,34 @@ app.controller('ProfessionalController', function ($scope, $window, Professional
         console.log("Error on retrieve professionals. Error: " + error);
     });
 
+    //Create
+    $scope.professional = {};
+
+    //Delete
+    $scope.showDeleteProfessionalModal = function (professional) {
+        $scope.professional = professional;
+        $('#deleteProfessionalModal').modal('show');
+    };
+    $scope.deleteProfessional = function (professionalId) {
+        console.log("Trying to delete professional: " + professionalId);
+        Professional.delete({id: professionalId}, function (response) {
+            console.log("Deleted professional: " + professionalId);
+            $scope.professional = {};
+            toastr.success('Profesional exitosamente eliminado!');
+            $window.location.href = '#/professionals/';
+        }, function (error) {
+            console.log("Error on professional: " + professionalId + ". Error: " + error);
+            $scope.professional = {};
+            toastr.error('Error al eliminar el profesional.', 'Error');
+        });
+    };
+
+    $scope.clearSearch = function () {
+        $scope.search = {};
+    };
+});
+
+app.controller('AddEditProfessionalController', function ($scope, $route, $window, Professional, DocumentTypes, ProfessionalCategories) {
     $scope.categories = [];
     ProfessionalCategories.get({}, function (response) {
         console.log("Getting professional categories");
@@ -32,84 +60,46 @@ app.controller('ProfessionalController', function ($scope, $window, Professional
         console.log("Error on retrieve document types. Error: " + error);
     });
 
-    //Create
+    console.log($route.current.mode + " Professional");
+    $scope.mode = $route.current.mode;
+
     $scope.professional = {};
-    $scope.professionalId = -1;
+    if($scope.mode == 'edit') {
+        $scope.professional = Professional.get({id: $route.current.params.id});
+    }
 
-    $scope.showCreateProfessionalModal = function () {
-        $scope.professional = {};
-        $('#addProfessionalModal').modal('show');
-    };
-    $scope.addProfessional = function () {
-        console.log("Creating new professional");
-        var professional = $scope.professional;
-        professional.date_of_birth = moment(professional.date_of_birth).format(API_DATETIME_FORMAT);
-        Professional.save(professional, function (response) {
-            //success callback
-            console.log("New professional: " + response.id + " created");
-            $scope.professionalId = response.id;
-            $scope.professional = {};
-            $('#addProfessionalSuccessModal').modal('show');
-        }, function (error) {
-            // error callback
-            console.log("Error on creating new professional. Error: " + error);
-            $scope.professional = {};
-        });
-    };
-    $scope.closeAddProfessionalSuccessModal = function(professionalId) {
-        $('#addProfessionalSuccessModal').modal('hide');
-        if(professionalId != null) {
-            $window.location.href = '#/professionals/' + professionalId;
-        } else {
-            $window.location.reload();
-        }
-    };
-
-    //Delete
-    $scope.showDeleteProfessionalModal = function (professional) {
-        $scope.professional = professional;
-        $('#deleteProfessionalModal').modal('show');
-    };
-    $scope.deleteProfessional = function (professionalId) {
-        console.log("Trying to delete professional: " + professionalId);
-        Professional.delete({id: professionalId}, function (response) {
-            console.log("Deleted professional: " + professionalId);
-            $scope.professional = {};
-            $window.location.reload();
-        }, function (error) {
-            console.log("Error on professional: " + professionalId + ". Error: " + error);
-            $scope.professional = {};
-        });
-    };
-
-    //Edit
-    $scope.showEditProfessional = function (professional) {
-        $scope.professional = {};
-        angular.copy(professional, $scope.professional);
-        $('#editProfessionalModal').modal('show');
-    };
     $scope.saveProfessional = function () {
         var professional = $scope.professional;
-        console.log("Updating professional: " + professional.id);
-        professional.date_of_birth = moment(professional.date_of_birth).format(API_DATETIME_FORMAT);
-        Professional.update(professional, function (response) {
-            //success callback
-            console.log("Updated professional: " + professional.id);
-            $scope.professional = {};
-            $window.location.reload();
-        }, function (error) {
-            // error callback
-            console.log("Error on updating professional: " + professional.id + ". Error: " + error);
-            $scope.professional = {};
-        });
-    };
-
-    $scope.clearSearch = function () {
-        $scope.search = {};
+        if($scope.mode == 'edit') {
+            console.log("Updating professional: " + professional.id);
+            professional.date_of_birth = moment(professional.date_of_birth).format(API_DATETIME_FORMAT);
+            Professional.update(professional, function (response) {
+                console.log("Updated professional: " + professional.id);
+                $scope.professional = {};
+                toastr.success('Profesional exitosamente modificado!');
+                $window.location.href = '#/professionals/' + professional.id;
+            }, function (error) {
+                console.log("Error on updating professional: " + professional.id + ". Error: " + error);
+                $scope.professional = {};
+                toastr.error('Error al modificar el profesional.', 'Error');
+            });
+        } else {
+            console.log("Creating new professional");
+            professional.date_of_birth = moment(professional.date_of_birth).format(API_DATETIME_FORMAT);
+            Professional.save(professional, function (response) {
+                console.log("New professional: " + response.id + " created");
+                $scope.professional = {};
+                $window.location.href = '#/professionals/' + response.id;
+            }, function (error) {
+                console.log("Error on creating new professional. Error: " + error);
+                $scope.professional = {};
+                toastr.error('Error al crear el profesional.', 'Error');
+            });
+        }
     };
 });
 
-app.controller('ProfessionalDetailsController', function ($scope, $route, Professional) {
+app.controller('ViewProfessionalController', function ($scope, $route, Professional) {
     console.log("Current professional: " + $route.current.params.id);
     $scope.professional = Professional.get({id: $route.current.params.id});
 });

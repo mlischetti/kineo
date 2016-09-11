@@ -6,9 +6,9 @@
             <div class="col-md-12 ng-scope">
                 <div class="pull-right">
                     <div class="btn-group">
-                        <button class="btn btn-primary pull-right" data-toggle="modal" ng-click="showCreateMedicalCompanyModal()">
+                        <a href="#/medical-insurances/company-new" class="btn btn-primary pull-right">
                             <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Nuevo
-                        </button>
+                        </a>
                     </div>
                 </div>
                 <div class="form-horizontal">
@@ -37,7 +37,11 @@
                                 <a href="#/medical-insurances/companies/{{company.id}}">
                                     <span class="glyphicon glyphicon-eye-open text-success action"></span>
                                 </a>
-                                <span class="glyphicon glyphicon-edit action" ng-click="showEditMedicalCompanyModal(company)"></span>
+
+                                <a href="#/medical-insurances/company-edit/{{company.id}}">
+                                    <span class="glyphicon glyphicon-edit action"/>
+                                </a>
+
                                 <span class="glyphicon glyphicon-remove text-danger action" ng-click="showDeleteMedicalCompanyModal(company)"></span>
                             </div>
                         </td>
@@ -50,8 +54,4 @@
 </section>
 
 <!-- Modals -->
-<ng-include src="'components/_partials/_modal_add_medical_company.html'"></ng-include>
-
-<ng-include src="'components/_partials/_modal_edit_medical_company.html'"></ng-include>
-
 <ng-include src="'components/_partials/_modal_delete_medical_company.html'"></ng-include>

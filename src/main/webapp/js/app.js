@@ -22,42 +22,80 @@ app.config(function ($routeProvider) {
         })
         .when("/medical-insurances/companies", {
             name: "medical-companies",
+            state: 'medical-companies',
             templateUrl: "components/medical_insurances/medical_companies.html",
             controller: "MedicalCompaniesController"
         })
+        .when("/medical-insurances/company-new", {
+            name: "medical-company-new",
+            state: 'medical-companies',
+            mode: "add",
+            templateUrl: "components/medical_insurances/add_edit_medical_company.html",
+            controller: "AddEditMedicalCompanyController"
+        })
+        .when("/medical-insurances/company-edit/:id", {
+            name: "medical-company-edit",
+            state: 'medical-companies',
+            mode: "edit",
+            templateUrl: "components/medical_insurances/add_edit_medical_company.html",
+            controller: "AddEditMedicalCompanyController"
+        })
+        .when("/medical-insurances/companies/:id", {
+            name: "medical-company-view",
+            state: 'medical-companies',
+            templateUrl: "components/medical_insurances/medical_company.html",
+            controller: "ViewMedicalCompanyController"
+        })
         .when("/medical-insurances/plans", {
-            name: "medical-insurances-plans",
+            name: "medical-plans",
+            state: 'medical-plans',
             templateUrl: "components/medical_insurances/medical_insurances_plans.html",
             controller: "MedicalInsurancesPlansController"
         })
-        .when("/medical-insurances/companies/:id", {
-            name: "appointments",
-            templateUrl: "components/medical_insurances/medical_company_details.html",
-            controller: "MedicalCompanyDetailsController"
+        .when("/medical-insurances/plan-new", {
+            name: "medical-plan-new",
+            state: 'medical-plans',
+            mode: "add",
+            templateUrl: "components/medical_insurances/add_edit_medical_insurance_plan.html",
+            controller: "AddEditMedicalInsurancePlanController"
+        })
+        .when("/medical-insurances/plan-edit/:id", {
+            name: "medical-plan-edit",
+            state: 'medical-plans',
+            mode: "edit",
+            templateUrl: "components/medical_insurances/add_edit_medical_insurance_plan.html",
+            controller: "AddEditMedicalInsurancePlanController"
         })
         .when("/medical-insurances/plans/:id", {
-            name: "appointments",
-            templateUrl: "components/medical_insurances/medical_insurance_plan_details.html",
-            controller: "MedicalInsurancePlanDetailsController"
+            name: "medical-plan-view",
+            state: 'medical-plans',
+            templateUrl: "components/medical_insurances/medical_insurance_plan.html",
+            controller: "ViewMedicalInsurancePlanController"
         })
         .when("/patients", {
             name: "patients",
+            state: 'patients',
             templateUrl: "components/patients/patients.html",
             controller: "PatientsController"
         })
         .when("/patient-new", {
             name: "patient-new",
-            templateUrl: "components/patients/add_patient.html",
-            controller: "AddPatientController"
+            state: 'patients',
+            mode: "add",
+            templateUrl: "components/patients/add_edit_patient.html",
+            controller: "AddEditPatientController"
         })
         .when("/patient-edit/:id", {
             name: "patient-edit",
-            templateUrl: "components/patients/edit_patient.html",
-            controller: "EditPatientController"
+            state: 'patients',
+            mode: "edit",
+            templateUrl: "components/patients/add_edit_patient.html",
+            controller: "AddEditPatientController"
         })
         .when("/patients/:id", {
             name: "patient-view",
-            templateUrl: "components/patients/patient_details.html",
+            state: 'patients',
+            templateUrl: "components/patients/patient.html",
             controller: "ViewPatientController"
         })
         .otherwise({redirectTo:'/appointments'});

@@ -1,0 +1,23 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <form name="form" class="form-horizontal" novalidate>
+                <div class="form-group" ng-class="{'has-error': form.name.$invalid && !form.name.$pristine}">
+                    <label for="name" class="control-label col-md-2">Nombre *</label>
+                    <div class="col-md-4">
+                        <input type="text" class="form-control" id="name" name="name" ng-model="company.name"
+                               required ng-maxlength="100">
+                        <p ng-show="form.name.$error.maxlength" class="help-block">El Nombre es demasiado largo.</p>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-4">
+                        <a href="#/medical-insurances/companies" class="btn btn-default">Cancelar</a>
+
+                        <button type="submit" ng-disabled="form.$invalid" class="btn btn-primary" ng-click="saveCompany()">Guardar</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

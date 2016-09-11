@@ -1,14 +1,4 @@
-app.controller('MedicalInsurancesPlansController', function ($scope, $window, MedicalCompany, MedicalInsurancePlan) {
-    $scope.companies = [];
-    MedicalCompany.get({limit: 100, offset: 0}, function (response) {
-        console.log("Getting medical insurances companies - Offset: " + response.paging.offset + ", limit: " + response.paging.limit
-            + ", total:" + response.paging.total);
-        $scope.companies = response.items;
-    }, function (error) {
-        // error callback
-        console.log("Error on retrieve medical insurances companies. Error: " + error);
-    });
-
+app.controller('MedicalInsurancesPlansController', function ($scope, $window, MedicalInsurancePlan) {
     $scope.plans = [];
     MedicalInsurancePlan.get({limit: 100, offset: 0}, function (response) {
         console.log("Getting medical insurances plans - Offset: " + response.paging.offset + ", limit: " + response.paging.limit
@@ -20,36 +10,6 @@ app.controller('MedicalInsurancesPlansController', function ($scope, $window, Me
     });
 
     $scope.plan = {};
-    $scope.planId = -1;
-
-    $scope.showCreateMedicalInsurancePlanModal = function () {
-        $scope.plan = {};
-        $('#addMedicalInsurancePlanModal').modal('show');
-    };
-    $scope.addPlan = function () {
-        var planToCreate = {plan: $scope.plan.plan, company_id: $scope.plan.company.id};
-        console.log("Creating new plan");
-        MedicalInsurancePlan.save(planToCreate, function (response) {
-            //success callback
-            console.log("New plan: " + response.id + " created");
-            $scope.planId = response.id;
-            $scope.plan = {};
-            $('#addMedicalInsurancePlanSuccessModal').modal('show');
-        }, function (error) {
-            // error callback
-            console.log("Error on creating new plan. Error: " + error);
-            $scope.plan = {};
-        });
-    };
-
-    $scope.closeAddMedicalInsurancePlanSuccessModal = function(planId) {
-        $('#addMedicalInsurancePlanSuccessModal').modal('hide');
-        if(planId != null) {
-            $window.location.href = '#/medical-insurances/plans/' + planId;
-        } else {
-            $window.location.reload();
-        }
-    };
 
     //Delete
     $scope.showDeleteMedicalInsurancePlanModal = function (plan) {
@@ -61,32 +21,12 @@ app.controller('MedicalInsurancesPlansController', function ($scope, $window, Me
         MedicalInsurancePlan.delete({id: planId}, function (response) {
             console.log("Deleted plan: " + planId);
             $scope.plan = {};
-            $window.location.reload();
+            toastr.success('Plan exitosamente eliminado!');
+            $window.location.href = '#/medical-insurances/plans/';
         }, function (error) {
             console.log("Error on delete plan: " + planId + ". Error: " + error);
             $scope.plan = {};
-        });
-    };
-
-    //Edit
-    $scope.showEditMedicalInsurancePlanModal = function (plan) {
-        $scope.plan = {};
-        angular.copy(plan, $scope.plan);
-        $('#editMedicalInsurancePlanModal').modal('show');
-    };
-    $scope.savePlan = function () {
-        var plan = $scope.plan;
-        var planToUpdate = {id: plan.id, plan: plan.plan, company_id: plan.company.id};
-        console.log("Updating plan: " + planToUpdate.id);
-        MedicalInsurancePlan.update(planToUpdate, function (response) {
-            //success callback
-            console.log("Updated plan: " + planToUpdate.id);
-            $scope.plan = {};
-            $window.location.reload();
-        }, function (error) {
-            // error callback
-            console.log("Error on updating plan: " + planToUpdate.id + ". Error: " + error);
-            $scope.plan = {};
+            toastr.error('Error al eliminar el plan.', 'Error');
         });
     };
 
@@ -96,7 +36,57 @@ app.controller('MedicalInsurancesPlansController', function ($scope, $window, Me
     };
 });
 
-app.controller('MedicalInsurancePlanDetailsController', function ($scope, $route, MedicalCompanies, MedicalInsurancePlan) {
+app.controller('AddEditMedicalInsurancePlanController', function ($scope, $route, $window, MedicalCompany, MedicalInsurancePlan) {
+    $scope.companies = [];
+    MedicalCompany.get({limit: 100, offset: 0}, function (response) {
+        console.log("Getting medical insurances companies - Offset: " + response.paging.offset + ", limit: " + response.paging.limit
+            + ", total:" + response.paging.total);
+        $scope.companies = response.items;
+    }, function (error) {
+        // error callback
+        console.log("Error on retrieve medical insurances companies. Error: " + error);
+    });
+
+    console.log($route.current.mode + " Plan");
+    $scope.mode = $route.current.mode;
+
+    $scope.plan = {};
+    if($scope.mode == 'edit') {
+        $scope.plan = MedicalInsurancePlan.get({id: $route.current.params.id});
+    }
+
+    $scope.savePlan = function () {
+        var plan = {id: $scope.plan.id, plan: $scope.plan.plan, company_id: $scope.plan.company.id};
+
+        if($scope.mode == 'edit') {
+            console.log("Updating plan: " + plan.id);
+            MedicalInsurancePlan.update(plan, function (response) {
+                console.log("Updated plan: " + plan.id);
+                $scope.plan = {};
+                toastr.success('Plan exitosamente modificado!');
+                $window.location.href = '#/medical-insurances/plans/' + plan.id;
+            }, function (error) {
+                console.log("Error on updating plan: " + plan.id + ". Error: " + error);
+                $scope.plan = {};
+                toastr.error('Error al editar el plan.', 'Error');
+            });
+        } else {
+            console.log("Creating new plan");
+            MedicalInsurancePlan.save(plan, function (response) {
+                $scope.plan = {};
+                console.log("New plan: " + response.id + " created");
+                toastr.success('Plan exitosamente creado!');
+                $window.location.href = '#/medical-insurances/plans/' + response.id;
+            }, function (error) {
+                console.log("Error on creating new plan. Error: " + error);
+                $scope.plan = {};
+                toastr.error('Error al crear el plan.', 'Error');
+            });
+        }
+    };
+});
+
+app.controller('ViewMedicalInsurancePlanController', function ($scope, $route, MedicalInsurancePlan) {
     console.log("Current plan: " + $route.current.params.id);
     $scope.plan = MedicalInsurancePlan.get({id: $route.current.params.id});
 });

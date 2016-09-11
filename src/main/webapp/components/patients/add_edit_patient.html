@@ -59,7 +59,8 @@
                     <label for="medical_insurance_plan_id" class="control-label col-md-2">Obra social</label>
                     <div class="col-md-2">
                         <select class="form-control" id="medical_insurance_plan_id" ng-model="patient.medical_insurance_plan_id">
-                            <option ng-repeat="plan in plans" value="{{plan.id}}">{{plan.company.name +' ' + plan.plan}}</option>
+                            <option ng-repeat="plan in plans" value="{{plan.id}}" ng-selected="plan.id == patient.medical_insurance_plan.id">
+                                {{plan.company.name +' ' + plan.plan}}</option>
                         </select>
                     </div>
                 </div>
@@ -73,7 +74,7 @@
                     <div class="col-md-offset-2 col-md-4">
                         <a href="#/patients" class="btn btn-default">Cancelar</a>
 
-                        <button type="submit" ng-disabled="form.$invalid" class="btn btn-primary" ng-click="addPatient()">Guardar</button>
+                        <button type="submit" ng-disabled="form.$invalid" class="btn btn-primary" ng-click="savePatient()">Guardar</button>
                     </div>
                 </div>
             </form>

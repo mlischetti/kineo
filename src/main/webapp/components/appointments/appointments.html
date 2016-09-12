@@ -1,17 +1,76 @@
 <section id="appointments" class="sections sections-narrow">
     <div class="container">
         <div class="row">
-            <div class="col-md-12 ng-scope">
-                <div class="pull-right">
-                    <div class="btn-group">
-                        <a href="#/appointment-new" class="btn btn-primary pull-right" >
-                            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Turno
-                        </a>
-                    </div>
-                </div>
+            <div class="col-md-12">
+                <form class="form-horizontal">
+                    <fieldset>
+                        <div class="form-group">
+                            <label for="since" class="col-md-1 control-label">Desde</label>
+                            <div class="col-md-2">
+                                <date-picker class="input-group date" id="since">
+                                    <input type="text" class="form-control" ng-model="since"/>
+                                    <div class="input-group-addon">
+                                        <span class="glyphicon glyphicon-th"></span>
+                                    </div>
+                                </date-picker>
+                            </div>
+                            <label for="until" class="col-md-1 control-label">Hasta</label>
+                            <div class="col-md-2">
+                                <date-picker class="input-group date" id="until">
+                                    <input type="text" class="form-control" ng-model="until"/>
+                                    <div class="input-group-addon">
+                                        <span class="glyphicon glyphicon-th"></span>
+                                    </div>
+                                </date-picker>
+                            </div>
+                            <div class="col-md-2">
+                                <input type="text" class="form-control" id="professional" placeholder="Profesional ...">
+                            </div>
+                            <div class="col-md-2">
+                                <input type="email" class="form-control" id="patient" placeholder="Paciente ...">
+                            </div>
+                            <div class="col-md-2">
+                                <button type="submit" class="btn btn-default" ng-click="search()">
+                                    <span class="glyphicon glyphicon-search"></span>
+                                </button>
+                                <a href="#/appointment-new" class="btn btn-primary pull-right">
+                                    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Turno
+                                </a>
+                            </div>
+                        </div>
+                    </fieldset>
+                </form>
             </div>
-            </br>
-            </br>
+        </div>
+        <div class="row">
+            <div class="col-md-12 ng-scope">
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th>Profesional</th>
+                        <th>Paciente</th>
+                        <th>Servicio</th>
+                        <th>Fecha</th>
+                        <th>Acciones</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="appointment in appointments">
+                        <td width="20%">{{patient.last_name}}</td>
+                        <td width="20%">{{patient.first_name}}</td>
+                        <td width="20%">{{patient.email}}</td>
+                        <td width="20%">{{patient.phone}}</td>
+                        <td>
+                            <a href="#/patient-edit/{{patient.id}}">
+                                <span class="glyphicon glyphicon-edit action"/>
+                            </a>
+
+                            <span class="glyphicon glyphicon-remove text-danger action" ng-click="showDeleteAppointmentModal(appointment)"></span>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 </section>

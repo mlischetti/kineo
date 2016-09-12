@@ -2,7 +2,7 @@ package com.kineo.web.dto;
 
 import com.kineo.model.Appointment;
 import com.kineo.model.AppointmentStatus;
-import org.joda.time.DateTime;
+import com.kineo.util.date.DateUtils;
 
 /**
  * Created by Mariano on 1/24/2016.
@@ -12,20 +12,20 @@ public class AppointmentDto {
     private AppointmentStatus status;
     private CalendarEventDto event;
     private String summary;
-    private DateTime startTime;
-    private DateTime endTime;
-    private Long professionalId;
-    private Long patientId;
+    private String startTime;
+    private String endTime;
+    private ProfessionalDto professional;
+    private PatientDto patient;
 
     public AppointmentDto(Appointment appointment) {
         this.id = appointment.getId();
         this.status = appointment.getStatus();
         this.event = new CalendarEventDto(appointment.getEvent());
         this.summary = appointment.getSummary();
-        this.startTime = appointment.getStartTime();
-        this.endTime = appointment.getEndTime();
-        this.professionalId = appointment.getProfessional().getId();
-        this.patientId = appointment.getPatient().getId();
+        this.startTime = DateUtils.printDateTime(appointment.getStartTime());
+        this.endTime = DateUtils.printDateTime(appointment.getEndTime());
+        this.professional = new ProfessionalDto(appointment.getProfessional());
+        this.patient = new PatientDto(appointment.getPatient());
     }
 
     public Long getId() {
@@ -60,35 +60,35 @@ public class AppointmentDto {
         this.summary = summary;
     }
 
-    public DateTime getStartTime() {
+    public String getStartTime() {
         return startTime;
     }
 
-    public void setStartTime(DateTime startTime) {
+    public void setStartTime(String startTime) {
         this.startTime = startTime;
     }
 
-    public DateTime getEndTime() {
+    public String getEndTime() {
         return endTime;
     }
 
-    public void setEndTime(DateTime endTime) {
+    public void setEndTime(String endTime) {
         this.endTime = endTime;
     }
 
-    public Long getProfessionalId() {
-        return professionalId;
+    public ProfessionalDto getProfessional() {
+        return professional;
     }
 
-    public void setProfessionalId(Long professionalId) {
-        this.professionalId = professionalId;
+    public void setProfessional(ProfessionalDto professional) {
+        this.professional = professional;
     }
 
-    public Long getPatientId() {
-        return patientId;
+    public PatientDto getPatient() {
+        return patient;
     }
 
-    public void setPatientId(Long patientId) {
-        this.patientId = patientId;
+    public void setPatient(PatientDto patient) {
+        this.patient = patient;
     }
 }

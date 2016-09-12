@@ -1,4 +1,16 @@
-app.controller('AppointmentController', function ($scope) {
+app.controller('AppointmentController', function ($scope, Appointment) {
+    const DATE_FORMAT = "DD/MM/YYYY";
+    var now = moment().utcOffset("-03:00");
+
+    $scope.since = now.format(DATE_FORMAT);
+    $scope.until = now.format(DATE_FORMAT);
+    $scope.search = function() {
+        console.log('since:' + $scope.since);
+        console.log('until:' + $scope.until);
+    };
+    $scope.appointments = [];
+
+
 });
 
 app.controller('AddAppointmentController', function ($scope, $window, Professional, Patient, AppointmentSummaries, Appointment) {
@@ -32,7 +44,7 @@ app.controller('AddAppointmentController', function ($scope, $window, Profession
         console.log("Error on retrieve document types. Error: " + error);
     });
 
-    $scope.$broadcast('angucomplete-alt:clearInput');
+    //$scope.$broadcast('angucomplete-alt:clearInput');
     var now = moment().utcOffset("-03:00");
 
     $scope.date_string = now.format(DATE_FORMAT);

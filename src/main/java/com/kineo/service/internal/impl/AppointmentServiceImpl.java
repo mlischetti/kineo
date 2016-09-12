@@ -4,11 +4,13 @@ import com.kineo.model.Appointment;
 import com.kineo.model.AppointmentStatus;
 import com.kineo.repository.AppointmentRepository;
 import com.kineo.service.internal.AppointmentService;
+import org.joda.time.DateTime;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -16,6 +18,7 @@ import java.util.List;
  */
 @Service
 public class AppointmentServiceImpl implements AppointmentService {
+    private static final Logger LOGGER = LoggerFactory.getLogger(AppointmentServiceImpl.class);
 
     private AppointmentRepository repository;
 
@@ -44,16 +47,9 @@ public class AppointmentServiceImpl implements AppointmentService {
 
     @Override
     @Transactional
-    public List<Appointment> find(Date startTime, Date endTime, int firstResult, int maxResults) {
-        //TODO: Implement me!
-        return null;
-    }
-
-    @Override
-    @Transactional
-    public Long count(Date startTime, Date endTime) {
-        //TODO: Implement me!
-        return null;
+    public List<Appointment> find(DateTime since, DateTime until, String professional, String patient) {
+        LOGGER.info("Searching appointments, since: {}, until: {}, professional: {}, patient: {}", since, until, professional, patient);
+        return repository.find(since, until, professional, patient);
     }
 
     @Override

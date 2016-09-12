@@ -7,10 +7,12 @@ import com.kineo.service.internal.AppointmentService;
 import com.kineo.service.internal.PatientService;
 import com.kineo.service.internal.ProfessionalService;
 import com.kineo.util.MediaType;
+import com.kineo.util.date.DateUtils;
 import com.kineo.web.dto.AppointmentDto;
 import com.kineo.web.exception.EntityNotFoundException;
 import com.kineo.web.request.appointment.AppointmentRequest;
 import com.kineo.web.response.appointment.AppointmentResponse;
+import org.joda.time.DateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +20,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Created by mlischetti on 12/7/15.
@@ -117,6 +121,20 @@ public class AppointmentController {
         appointment.setPatient(patient);
         appointmentService.save(appointment);
         LOGGER.debug("Created appointment: {}", appointment.getId());
+    }
+
+    @RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF_8)
+    public List<AppointmentDto> getAppointments(@RequestParam(value = "since", required = false) String since,
+                                                @RequestParam(value = "until", required = false) String until,
+                                                @RequestParam(value = "professional", required = false) String professional,
+                                                @RequestParam(value = "patient", required = false) String patient) {
+
+        DateTime sinceDateTime = DateUtils.parseAsSimpleDateTime(since);
+        DateTime untilDateTime = DateUtils.parseAsSimpleDateTime(until);
+
+        List<Appointment> appointments = appointmentService.find(sinceDateTime, untilDateTime, professional, patient);
+        List<AppointmentDto> response = appointments.stream().map((Appointment appointment) -> new AppointmentDto(appointment)).collect(Collectors.toList());
+        return response;
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)

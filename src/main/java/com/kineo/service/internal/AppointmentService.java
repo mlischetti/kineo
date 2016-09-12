@@ -1,6 +1,7 @@
 package com.kineo.service.internal;
 
 import com.kineo.model.Appointment;
+import org.joda.time.DateTime;
 
 import java.util.Date;
 import java.util.List;
@@ -16,9 +17,7 @@ public interface AppointmentService {
 
     List<Appointment> getAppointmentsToSync();
 
-    List<Appointment> find(Date startTime, Date endTime, int firstResult, int maxResults);
-
-    Long count(Date startTime, Date endTime);
+    List<Appointment> find(DateTime since, DateTime until, String professional, String patient);
 
     void delete(Appointment appointment);
 }

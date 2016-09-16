@@ -23,8 +23,8 @@ public class Appointment extends BaseEntity {
     @JoinColumn(name = "EVENT_ID")
     private CalendarEvent event = new CalendarEvent();
 
-    @Column(name = "SUMMARY")
-    private String summary;
+    @Column(name = "SERVICE")
+    private String service;
 
     @Column(name = "START_TIME")
     @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime")
@@ -60,12 +60,12 @@ public class Appointment extends BaseEntity {
         this.event = event;
     }
 
-    public String getSummary() {
-        return summary;
+    public String getService() {
+        return service;
     }
 
-    public void setSummary(String summary) {
-        this.summary = summary;
+    public void setService(String service) {
+        this.service = service;
     }
 
     public DateTime getStartTime() {

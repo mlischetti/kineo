@@ -9,7 +9,7 @@ import org.joda.time.DateTime;
 public class AppointmentRequest {
 
     @NotBlank
-    private String summary;
+    private String service;
 
     private DateTime startTime;
 
@@ -17,12 +17,12 @@ public class AppointmentRequest {
 
     private Long patientId;
 
-    public String getSummary() {
-        return summary;
+    public String getService() {
+        return service;
     }
 
-    public void setSummary(String summary) {
-        this.summary = summary;
+    public void setService(String service) {
+        this.service = service;
     }
 
     public DateTime getStartTime() {

@@ -1,19 +1,58 @@
-app.controller('AppointmentController', function ($scope, Appointment) {
-    const DATE_FORMAT = "DD/MM/YYYY";
+const DATE_FORMAT = "DD/MM/YYYY";
+app.controller('AppointmentController', function ($scope, Appointment, Professional) {
+
+    $scope.professionals = [];
+    Professional.get({limit: 100, offset: 0}, function (response) {
+        console.log("Getting professionals - Offset: " + response.paging.offset + ", limit: " + response.paging.limit + ", total:" + response.paging.total);
+        $scope.professionals = response.items;
+    }, function (error) {
+        console.log("Error on retrieve professionals. Error: " + error);
+    });
+
     var now = moment().utcOffset("-03:00");
 
-    $scope.since = now.format(DATE_FORMAT);
-    $scope.until = now.format(DATE_FORMAT);
-    $scope.search = function() {
-        console.log('since:' + $scope.since);
-        console.log('until:' + $scope.until);
-    };
+    $scope.searchRequest = {};
+    $scope.searchRequest.since = now.format(DATE_FORMAT);
+    $scope.searchRequest.until = now.add(1, 'day').format(DATE_FORMAT);
     $scope.appointments = [];
 
+    $scope.selectedProfessional = function (selected) {
+        if (selected) {
+            console.log("Selected professional_id: " + selected.originalObject.id);
+            $scope.searchRequest.professionalId = selected.originalObject.id;
+        } else {
+            console.log('cleared professional_id');
+            $scope.searchRequest.professionalId = null;
+        }
+    };
 
+    $scope.search = function() {
+        var params = new Object();
+        if(isNotEmpty($scope.searchRequest.since)) {
+            params.since = moment($scope.searchRequest.since, DATE_FORMAT).format(API_DATETIME_FORMAT);
+        }
+        if(isNotEmpty($scope.searchRequest.until)) {
+            params.until = moment($scope.searchRequest.until, DATE_FORMAT).format(API_DATETIME_FORMAT);
+        }
+        if(isNotEmpty($scope.searchRequest.professionalId)) {
+            params.professionalId = $scope.searchRequest.professionalId;
+        }
+        if(isNotEmpty($scope.searchRequest.patient)) {
+            params.patient = $scope.searchRequest.patient;
+        }
+        Appointment.get(params, function (response) {
+            $scope.appointments = response.items;
+        }, function (error) {
+            console.log("Error on retrieve appointments. Error: " + error);
+        });
+    };
+
+    function isNotEmpty(variable) {
+        return (typeof variable !== 'undefined') && variable !== null;
+    };
 });
 
-app.controller('AddAppointmentController', function ($scope, $window, Professional, Patient, AppointmentSummaries, Appointment) {
+app.controller('AddAppointmentController', function ($scope, $window, Professional, Patient, AppointmentServices, Appointment) {
     const DATE_FORMAT = "DD/MM/YYYY";
     const TIME_FORMAT = "HH:mm";
 
@@ -35,13 +74,13 @@ app.controller('AddAppointmentController', function ($scope, $window, Profession
         console.log("Error on retrieve patients. Error: " + error);
     });
 
-    $scope.summaries = [];
-    AppointmentSummaries.get({}, function (response) {
-        console.log("Getting summaries");
-        $scope.summaries = response;
+    $scope.services = [];
+    AppointmentServices.get({}, function (response) {
+        console.log("Getting services");
+        $scope.services = response;
     }, function (error) {
         // error callback
-        console.log("Error on retrieve document types. Error: " + error);
+        console.log("Error on retrieve services. Error: " + error);
     });
 
     //$scope.$broadcast('angucomplete-alt:clearInput');
@@ -72,6 +111,7 @@ app.controller('AddAppointmentController', function ($scope, $window, Profession
             console.log("Selected professional_id: " + selected.originalObject.id);
             $scope.appointment.professional_id = selected.originalObject.id;
         } else {
+            $scope.appointment.professional_id = null;
             console.log('cleared professional_id');
         }
     };
@@ -81,6 +121,7 @@ app.controller('AddAppointmentController', function ($scope, $window, Profession
             console.log("Selected patient_id: " + selected.originalObject.id);
             $scope.appointment.patient_id = selected.originalObject.id;
         } else {
+            $scope.appointment.patient_id = null;
             console.log('cleared patient_id');
         }
     };

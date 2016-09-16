@@ -47,9 +47,9 @@ public class AppointmentServiceImpl implements AppointmentService {
 
     @Override
     @Transactional
-    public List<Appointment> find(DateTime since, DateTime until, String professional, String patient) {
-        LOGGER.info("Searching appointments, since: {}, until: {}, professional: {}, patient: {}", since, until, professional, patient);
-        return repository.find(since, until, professional, patient);
+    public List<Appointment> find(DateTime since, DateTime until, Long professionalId, String patient) {
+        LOGGER.info("Searching appointments, since: {}, until: {}, professionalId: {}, patient: {}", since, until, professionalId, patient);
+        return repository.find(since, until, professionalId, patient);
     }
 
     @Override

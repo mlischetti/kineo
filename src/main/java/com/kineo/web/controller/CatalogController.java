@@ -28,8 +28,8 @@ public class CatalogController {
         return response;
     }
 
-    @RequestMapping(value = "/appointment-summaries", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF_8)
-    public List<String> getAppointmentSummaries() {
+    @RequestMapping(value = "/appointment-services", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF_8)
+    public List<String> getAppointmentServices() {
         List<String> response = new ArrayList<>();
         response.add("Kinesiologia");
         response.add("Osteopatia");

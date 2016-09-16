@@ -12,6 +12,8 @@ import com.kineo.web.dto.AppointmentDto;
 import com.kineo.web.exception.EntityNotFoundException;
 import com.kineo.web.request.appointment.AppointmentRequest;
 import com.kineo.web.response.appointment.AppointmentResponse;
+import com.kineo.web.response.appointment.Appointments;
+import com.kineo.web.response.appointment.Criteria;
 import org.joda.time.DateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -115,7 +117,7 @@ public class AppointmentController {
     }
 
     private void saveOrUpdate(Appointment appointment, Professional professional, Patient patient, AppointmentRequest appointmentRequest) {
-        appointment.setSummary(appointmentRequest.getSummary());
+        appointment.setService(appointmentRequest.getService());
         appointment.setStartTime(appointmentRequest.getStartTime());
         appointment.setProfessional(professional);
         appointment.setPatient(patient);
@@ -124,16 +126,25 @@ public class AppointmentController {
     }
 
     @RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF_8)
-    public List<AppointmentDto> getAppointments(@RequestParam(value = "since", required = false) String since,
-                                                @RequestParam(value = "until", required = false) String until,
-                                                @RequestParam(value = "professional", required = false) String professional,
-                                                @RequestParam(value = "patient", required = false) String patient) {
+    public Appointments getAppointments(@RequestParam(value = "since", required = false) String since,
+                                        @RequestParam(value = "until", required = false) String until,
+                                        @RequestParam(value = "professionalId", required = false) Long professionalId,
+                                        @RequestParam(value = "patient", required = false) String patient) {
 
+        //Parse dates
         DateTime sinceDateTime = DateUtils.parseAsSimpleDateTime(since);
         DateTime untilDateTime = DateUtils.parseAsSimpleDateTime(until);
 
-        List<Appointment> appointments = appointmentService.find(sinceDateTime, untilDateTime, professional, patient);
-        List<AppointmentDto> response = appointments.stream().map((Appointment appointment) -> new AppointmentDto(appointment)).collect(Collectors.toList());
+        List<Appointment> appointments = appointmentService.find(sinceDateTime, untilDateTime, professionalId, patient);
+        List<AppointmentDto> appointmentsDtos = appointments.stream().map((Appointment appointment) -> new AppointmentDto(appointment)).collect(Collectors.toList());
+        Appointments response = new Appointments();
+        Criteria criteria = new Criteria();
+        criteria.setSince(since);
+        criteria.setUntil(until);
+        criteria.setProfessionalId(professionalId);
+        criteria.setPatient(patient);
+        response.setCriteria(criteria);
+        response.setItems(appointmentsDtos);
         return response;
     }
 

@@ -8,7 +8,7 @@
                             <label for="since" class="col-md-1 control-label">Desde</label>
                             <div class="col-md-2">
                                 <date-picker class="input-group date" id="since">
-                                    <input type="text" class="form-control" ng-model="since"/>
+                                    <input type="text" class="form-control" ng-model="searchRequest.since"/>
                                     <div class="input-group-addon">
                                         <span class="glyphicon glyphicon-th"></span>
                                     </div>
@@ -17,17 +17,25 @@
                             <label for="until" class="col-md-1 control-label">Hasta</label>
                             <div class="col-md-2">
                                 <date-picker class="input-group date" id="until">
-                                    <input type="text" class="form-control" ng-model="until"/>
+                                    <input type="text" class="form-control" ng-model="searchRequest.until"/>
                                     <div class="input-group-addon">
                                         <span class="glyphicon glyphicon-th"></span>
                                     </div>
                                 </date-picker>
                             </div>
                             <div class="col-md-2">
-                                <input type="text" class="form-control" id="professional" placeholder="Profesional ...">
+                                <angucomplete-alt id="professional" name="professional" placeholder="Seleccione un profesional" pause="100"
+                                                  selected-object="selectedProfessional"
+                                                  search-fields="last_name,first_name"
+                                                  local-data="professionals"
+                                                  title-field="last_name,first_name"
+                                                  minlength="1"
+                                                  input-class="form-control"
+                                                  match-class="highlight"
+                                                  required/>
                             </div>
                             <div class="col-md-2">
-                                <input type="email" class="form-control" id="patient" placeholder="Paciente ...">
+                                <input type="text" class="form-control" id="patient" ng-model="searchRequest.patient" placeholder="Paciente ...">
                             </div>
                             <div class="col-md-2">
                                 <button type="submit" class="btn btn-default" ng-click="search()">
@@ -56,16 +64,11 @@
                     </thead>
                     <tbody>
                     <tr ng-repeat="appointment in appointments">
-                        <td width="20%">{{patient.last_name}}</td>
-                        <td width="20%">{{patient.first_name}}</td>
-                        <td width="20%">{{patient.email}}</td>
-                        <td width="20%">{{patient.phone}}</td>
+                        <td width="20%">{{appointment.professional.last_name + ', ' + appointment.professional.first_name}}</td>
+                        <td width="20%">{{appointment.patient.last_name + ', ' + appointment.patient.first_name}}</td>
+                        <td width="20%">{{appointment.service}}</td>
+                        <td width="20%">{{appointment.start_time | date:'dd/MM/yy HH:mm'}}</td>
                         <td>
-                            <a href="#/patient-edit/{{patient.id}}">
-                                <span class="glyphicon glyphicon-edit action"/>
-                            </a>
-
-                            <span class="glyphicon glyphicon-remove text-danger action" ng-click="showDeleteAppointmentModal(appointment)"></span>
                         </td>
                     </tr>
                     </tbody>

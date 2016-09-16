@@ -42,6 +42,7 @@ var Appointment = ['$resource', 'context', function ($resource, context) {
     return $resource(context + '/api/appointments/:id', {id: '@id'},
         {
             'save': {method: 'POST', params: {}, format: 'json', isArray: false},
+            'get': {method: 'GET', params: {}, format: 'json', isArray: false},
             'update': {method: 'PUT', params: {id: '@id'}, format: 'json', isArray: false}
         });
 }];
@@ -53,8 +54,8 @@ var DocumentTypes = ['$resource', 'context', function ($resource, context) {
     });
 }];
 
-var AppointmentSummaries = ['$resource', 'context', function ($resource, context) {
-    return $resource(context + '/api/catalogs/appointment-summaries', {}, {
+var AppointmentServices = ['$resource', 'context', function ($resource, context) {
+    return $resource(context + '/api/catalogs/appointment-services', {}, {
         'get': {method: 'GET', params: {}, isArray: true}
     });
 }];
@@ -72,5 +73,5 @@ app.factory('MedicalInsurancePlan', MedicalInsurancePlan);
 app.factory('Patient', Patient);
 app.factory('Appointment', Appointment);
 app.factory('DocumentTypes', DocumentTypes);
-app.factory('AppointmentSummaries', AppointmentSummaries);
+app.factory('AppointmentServices', AppointmentServices);
 app.factory('ProfessionalCategories', ProfessionalCategories);

@@ -11,7 +11,7 @@ public class AppointmentDto {
     private Long id;
     private AppointmentStatus status;
     private CalendarEventDto event;
-    private String summary;
+    private String service;
     private String startTime;
     private String endTime;
     private ProfessionalDto professional;
@@ -21,7 +21,7 @@ public class AppointmentDto {
         this.id = appointment.getId();
         this.status = appointment.getStatus();
         this.event = new CalendarEventDto(appointment.getEvent());
-        this.summary = appointment.getSummary();
+        this.service = appointment.getService();
         this.startTime = DateUtils.printDateTime(appointment.getStartTime());
         this.endTime = DateUtils.printDateTime(appointment.getEndTime());
         this.professional = new ProfessionalDto(appointment.getProfessional());
@@ -52,12 +52,12 @@ public class AppointmentDto {
         this.event = event;
     }
 
-    public String getSummary() {
-        return summary;
+    public String getService() {
+        return service;
     }
 
-    public void setSummary(String summary) {
-        this.summary = summary;
+    public void setService(String service) {
+        this.service = service;
     }
 
     public String getStartTime() {

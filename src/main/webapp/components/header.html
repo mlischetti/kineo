@@ -6,17 +6,18 @@
         <div id="nav-bar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
                 <li ng-class="{'active': route.current.$$route.state == 'appointments'}">
-                    <a href="#/appointments">Turnos</a>
+                    <a href="#/appointments"><span class="glyphicon glyphicon-calendar"/> Turnos</a>
                 </li>
                 <li ng-class="{'active': route.current.$$route.state == 'patients'}">
-                    <a href="#/patients">Pacientes</a>
+                    <a href="#/patients"><span class="glyphicon glyphicon-user"/> Pacientes</a>
                 </li>
                 <li ng-class="{'active': route.current.$$route.state == 'professionals'}">
-                    <a href="#/professionals">Profesionales</a>
+                    <a href="#/professionals"><span class="glyphicon glyphicon-education"/> Profesionales</a>
                 </li>
                 <li ng-class="{'active': route.current.$$route.state == 'medical-companies' || route.current.$$route.state == 'medical-plans'}">
-                    <a class="dropdown-toggle" data-toggle="dropdown">Obras Sociales
-                        <span class="caret"></span>
+                    <a class="dropdown-toggle" data-toggle="dropdown">
+                        <span class="glyphicon glyphicon-list"/> Obras Sociales
+                        <span class="caret"/>
                     </a>
                     <ul class="dropdown-menu">
                         <li>

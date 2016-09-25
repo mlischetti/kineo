@@ -43,7 +43,8 @@ var Appointment = ['$resource', 'context', function ($resource, context) {
         {
             'save': {method: 'POST', params: {}, format: 'json', isArray: false},
             'get': {method: 'GET', params: {}, format: 'json', isArray: false},
-            'update': {method: 'PUT', params: {id: '@id'}, format: 'json', isArray: false}
+            'update': {method: 'PUT', params: {id: '@id'}, format: 'json', isArray: false},
+            'delete': {method: 'DELETE', params: {id: '@id'}, format: 'json', isArray: false}
         });
 }];
 

@@ -1,6 +1,7 @@
 package com.kineo.repository;
 
 import com.kineo.model.Appointment;
+import com.kineo.model.AppointmentStatus;
 import org.joda.time.DateTime;
 
 import java.util.List;
@@ -10,7 +11,7 @@ import java.util.List;
  */
 public interface AppointmentRepository extends BaseRepository<Appointment> {
 
-    List<Appointment> find(DateTime since, DateTime until, String professional, String patient);
+    List<Appointment> find(AppointmentStatus status, DateTime since, DateTime until, String professional, String patient);
 
     List<Appointment> getAppointmentsToSync();
 }

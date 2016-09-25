@@ -1,6 +1,7 @@
 package com.kineo.web.controller;
 
 import com.kineo.model.Appointment;
+import com.kineo.model.AppointmentStatus;
 import com.kineo.model.Patient;
 import com.kineo.model.Professional;
 import com.kineo.service.internal.AppointmentService;
@@ -126,7 +127,8 @@ public class AppointmentController {
     }
 
     @RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF_8)
-    public Appointments getAppointments(@RequestParam(value = "since", required = false) String since,
+    public Appointments getAppointments(@RequestParam(value = "status", required = true) AppointmentStatus status,
+                                        @RequestParam(value = "since", required = false) String since,
                                         @RequestParam(value = "until", required = false) String until,
                                         @RequestParam(value = "professional", required = false) String professional,
                                         @RequestParam(value = "patient", required = false) String patient) {
@@ -135,10 +137,11 @@ public class AppointmentController {
         DateTime sinceDateTime = DateUtils.parseAsSimpleDateTime(since);
         DateTime untilDateTime = DateUtils.parseAsSimpleDateTime(until);
 
-        List<Appointment> appointments = appointmentService.find(sinceDateTime, untilDateTime, professional, patient);
+        List<Appointment> appointments = appointmentService.find(status, sinceDateTime, untilDateTime, professional, patient);
         List<AppointmentDto> appointmentsDtos = appointments.stream().map((Appointment appointment) -> new AppointmentDto(appointment)).collect(Collectors.toList());
         Appointments response = new Appointments();
         Criteria criteria = new Criteria();
+        criteria.setStatus(status);
         criteria.setSince(since);
         criteria.setUntil(until);
         criteria.setProfessional(professional);

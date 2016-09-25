@@ -15,7 +15,7 @@
                             <input type="text" class="form-control" id="last-name-search" placeholder="Apellido" ng-model="search.last_name" >
                             <input type="text" class="form-control" id="first-name-search" placeholder="Nombre" ng-model="search.first_name">
                             <button ng-click="clearSearch()" class="btn btn-default">
-                                <span class="glyphicon glyphicon-remove-sign" aria-hidden="true"></span>
+                                <span class="glyphicon glyphicon-remove-circle" aria-hidden="true"></span>
                             </button>
                         </div>
                     </div>
@@ -42,15 +42,9 @@
                         <td width="20%">{{patient.email}}</td>
                         <td width="20%">{{patient.phone}}</td>
                         <td width="20%" style="text-align: center">
-                            <a href="#/patients/{{patient.id}}">
-                                <span class="glyphicon glyphicon-eye-open text-success action"></span>
-                            </a>
-
-                            <a href="#/patient-edit/{{patient.id}}">
-                                <span class="glyphicon glyphicon-edit action"/>
-                            </a>
-
-                            <span class="glyphicon glyphicon-remove text-danger action" ng-click="showDeletePatientModal(patient)"></span>
+                            <a href="#/patients/{{patient.id}}"><span class="glyphicon glyphicon-zoom-in text-success action"/></a>
+                            <a href="#/patient-edit/{{patient.id}}"><span class="glyphicon glyphicon-edit action"/></a>
+                            <span class="glyphicon glyphicon-trash text-danger action" ng-click="showDeletePatientModal(patient)"/>
                         </td>
                     </tr>
                     </tbody>

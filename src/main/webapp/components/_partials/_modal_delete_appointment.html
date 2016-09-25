@@ -1,0 +1,19 @@
+<div class="modal modal-appointment fade" id="deleteAppointmentModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content panel-warning">
+            <div class="modal-header panel-heading">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span></button>
+                <h3 class="modal-title">{{appointment.professional.category | capitalize}}. {{appointment.professional.last_name + ', '+ appointment.professional.first_name}} - {{appointment.patient.last_name + ', '+ appointment.patient.first_name}}</h3>
+            </div>
+            <div class="modal-body panel-body">
+                ¿Esta seguro que turno el turno del paciente: {{appointment.patient.last_name + ', ' + appointment.patient.first_name}} - {{appointment.start_time | date:'dd/MM/yy HH:mm'}} ?
+            </div>
+            <div class="modal-footer panel-footer">
+                <button type="button" class="btn btn-default" data-toggle="modal" data-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-danger" data-toggle="modal" data-dismiss="modal"
+                        ng-click="deleteAppointment(appointment.id)">Eliminar</button>
+            </div>
+        </div>
+    </div>
+</div>

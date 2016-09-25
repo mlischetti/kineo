@@ -1,6 +1,7 @@
 package com.kineo.repository.impl;
 
 import com.kineo.model.Appointment;
+import com.kineo.model.AppointmentStatus;
 import com.kineo.model.CalendarEventStatus;
 import com.kineo.repository.AppointmentRepository;
 import org.apache.commons.lang.StringUtils;
@@ -26,8 +27,11 @@ public class AppointmentRepositoryImpl extends GenericRepository<Appointment> im
     }
 
     @Override
-    public List<Appointment> find(DateTime since, DateTime until, String professional, String patient) {
+    public List<Appointment> find(AppointmentStatus status, DateTime since, DateTime until, String professional, String patient) {
         Criteria appointmentCriteria = getCriteria();
+        if (status != null) {
+            appointmentCriteria.add(Restrictions.eq("status", status));
+        }
         if (since != null) {
             appointmentCriteria.add(Restrictions.gt("startTime", since));
         }

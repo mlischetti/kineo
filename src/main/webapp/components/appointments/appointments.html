@@ -50,11 +50,13 @@
                     </thead>
                     <tbody>
                     <tr ng-repeat="appointment in appointments">
-                        <td width="20%">{{appointment.professional.last_name + ', ' + appointment.professional.first_name}}</td>
+                        <td width="20%">{{appointment.professional.category | capitalize}}. {{appointment.professional.last_name + ', ' + appointment.professional.first_name}}</td>
                         <td width="20%">{{appointment.patient.last_name + ', ' + appointment.patient.first_name}}</td>
                         <td width="20%">{{appointment.service}}</td>
                         <td width="20%">{{appointment.start_time | date:'dd/MM/yy HH:mm'}}</td>
                         <td width="20%" style="text-align: center">
+                            <a href="#/appointment-edit/{{appointment.id}}"><span class="glyphicon glyphicon-edit action"/></a>
+                            <span class="glyphicon glyphicon-trash text-danger action" ng-click="showDeleteAppointmentModal(appointment)"/>
                         </td>
                     </tr>
                     </tbody>
@@ -63,3 +65,6 @@
         </div>
     </div>
 </section>
+
+<!-- Modals -->
+<ng-include src="'components/_partials/_modal_delete_appointment.html'"></ng-include>

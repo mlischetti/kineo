@@ -14,8 +14,16 @@ app.config(function ($routeProvider) {
         .when("/appointment-new", {
             name: "appointment-new",
             state: "appointments",
-            templateUrl: "components/appointments/add_appointment.html",
-            controller: "AddAppointmentController"
+            mode: "new",
+            templateUrl: "components/appointments/add_edit_appointment.html",
+            controller: "AddEditAppointmentController"
+        })
+        .when("/appointment-edit/:id", {
+            name: "appointment-edit",
+            state: 'appointments',
+            mode: "edit",
+            templateUrl: "components/appointments/add_edit_appointment.html",
+            controller: "AddEditAppointmentController"
         })
         .when("/professionals", {
             name: "professionals",

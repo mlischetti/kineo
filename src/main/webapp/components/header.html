@@ -1,13 +1,10 @@
-<nav ng-controller="NavController" class="navbar navbar-default navbar-static-top">
+<nav ng-controller="NavController" class="navbar navbar-default navbar-fixed-top">
     <div class="container-fluid">
         <div class="navbar-header">
-            <button class="navbar-toggle navbar-toggle-left collapsed" type="button" data-toggle="collapse" data-target="#nav-menu">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="glyphicon glyphicon-triangle-bottom"></span>
-            </button>
+            <a class="navbar-brand">KINEO</a>
         </div>
-        <div id="nav-menu" class="navbar-collapse navbar-left collapse">
-            <ul class="nav navbar-nav navbar-menu">
+        <div id="nav-bar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
                 <li ng-class="{'active': route.current.$$route.state == 'appointments'}">
                     <a href="#/appointments">Turnos</a>
                 </li>
@@ -31,6 +28,15 @@
                     </ul>
                 </li>
             </ul>
+            <div class="text-right" style="padding-top: 10px;">
+                <a class="btn btn-social-icon btn-facebook" href="https://www.facebook.com/Kineo-centro-de-Kinesiologia-y-Osteopatia-453509258184765/"
+                   target="_blank">
+                    <span class="fa fa-facebook"></span>
+                </a>
+                <a class="btn btn-social-icon btn-google" href="https://calendar.google.com/calendar/" target="_blank">
+                    <span class="fa fa-google"></span>
+                </a>
+            </div>
         </div>
     </div>
 </nav>

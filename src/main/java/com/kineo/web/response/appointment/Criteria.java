@@ -7,7 +7,7 @@ public class Criteria {
 
     private String since;
     private String until;
-    private Long professionalId;
+    private String professional;
     private String patient;
 
     public String getSince() {
@@ -26,12 +26,12 @@ public class Criteria {
         this.until = until;
     }
 
-    public Long getProfessionalId() {
-        return professionalId;
+    public String getProfessional() {
+        return professional;
     }
 
-    public void setProfessionalId(Long professionalId) {
-        this.professionalId = professionalId;
+    public void setProfessional(String professional) {
+        this.professional = professional;
     }
 
     public String getPatient() {

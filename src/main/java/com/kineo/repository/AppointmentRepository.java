@@ -10,7 +10,7 @@ import java.util.List;
  */
 public interface AppointmentRepository extends BaseRepository<Appointment> {
 
-    List<Appointment> find(DateTime since, DateTime until, Long professionalId, String patient);
+    List<Appointment> find(DateTime since, DateTime until, String professional, String patient);
 
     List<Appointment> getAppointmentsToSync();
 }

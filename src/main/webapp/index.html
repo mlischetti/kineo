@@ -11,6 +11,8 @@
     <link rel="stylesheet" href="styles/bootstrap/bootstrap.min.css">
     <link rel="stylesheet" href="styles/bootstrap/bootstrap-datepicker3.min.css">
     <link rel="stylesheet" href="styles/bootstrap/bootstrap-clockpicker.min.css">
+    <link rel="stylesheet" href="styles/bootstrap/bootstrap-social.css">
+    <link rel="stylesheet" href="styles/font-awesome/font-awesome.css">
     <link rel="stylesheet" href="styles/toastr/toastr.min.css">
 
     <!-- jquery -->
@@ -56,14 +58,11 @@
 <body>
 
 <div>
-    <!--[if lt IE 10]>
-    <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade
-        your browser</a> to improve your experience.</p>
-    <![endif]-->
-
     <ng-include src="'components/header.html'"></ng-include>
 
-    <ng-view></ng-view>
+    <div class="container">
+        <ng-view></ng-view>
+    </div>
 </div>
 </body>
 </html>

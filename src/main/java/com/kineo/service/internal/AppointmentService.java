@@ -17,7 +17,7 @@ public interface AppointmentService {
 
     List<Appointment> getAppointmentsToSync();
 
-    List<Appointment> find(DateTime since, DateTime until, Long professionalId, String patient);
+    List<Appointment> find(DateTime since, DateTime until, String professional, String patient);
 
     void delete(Appointment appointment);
 }

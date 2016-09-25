@@ -26,7 +26,7 @@ public class AppointmentRepositoryImpl extends GenericRepository<Appointment> im
     }
 
     @Override
-    public List<Appointment> find(DateTime since, DateTime until, Long professionalId, String patient) {
+    public List<Appointment> find(DateTime since, DateTime until, String professional, String patient) {
         Criteria appointmentCriteria = getCriteria();
         if (since != null) {
             appointmentCriteria.add(Restrictions.gt("startTime", since));
@@ -34,9 +34,9 @@ public class AppointmentRepositoryImpl extends GenericRepository<Appointment> im
         if (until != null) {
             appointmentCriteria.add(Restrictions.le("startTime", until));
         }
-        if (professionalId != null) {
+        if (StringUtils.isNotEmpty(professional)) {
             Criteria professionalCriteria = appointmentCriteria.createCriteria("professional");
-            professionalCriteria.add(Restrictions.eq("id", professionalId));
+            professionalCriteria.add(Restrictions.like("lastName", professional, MatchMode.START));
         }
         if (StringUtils.isNotEmpty(patient)) {
             Criteria patientCriteria = appointmentCriteria.createCriteria("patient");

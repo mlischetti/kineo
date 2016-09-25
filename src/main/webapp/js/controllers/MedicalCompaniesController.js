@@ -1,17 +1,13 @@
 app.controller('MedicalCompaniesController', function ($scope, $window, MedicalCompany) {
     $scope.companies = [];
+    $scope.company = {};
+
     MedicalCompany.get({limit: 100, offset: 0}, function (response) {
-        console.log("Getting medical insurances companies - Offset: " + response.paging.offset + ", limit: " + response.paging.limit
-            + ", total:" + response.paging.total);
         $scope.companies = response.items;
     }, function (error) {
-        // error callback
         console.log("Error on retrieve medical insurances companies. Error: " + error);
     });
 
-    $scope.company = {};
-
-    //Delete
     $scope.showDeleteMedicalCompanyModal = function (company) {
         $scope.company = company;
         $('#deleteCompanyModal').modal('show');
@@ -20,7 +16,7 @@ app.controller('MedicalCompaniesController', function ($scope, $window, MedicalC
         console.log("Trying to delete company: " + companyId);
 
         MedicalCompany.delete({id: companyId}, function (response) {
-            console.log("Deleted company: " + companyId);
+            console.log("Deleted company: " + companyId + ". Response: " + response);
             $scope.company = {};
             toastr.success('Compan&iacute;a exitosamente eliminado!');
             $window.location.href = '#/medical-insurances/companies/';
@@ -33,19 +29,19 @@ app.controller('MedicalCompaniesController', function ($scope, $window, MedicalC
 });
 
 app.controller('AddEditMedicalCompanyController', function ($scope, $route, $window, MedicalCompany) {
-    console.log($route.current.mode + " MedicalCompany");
-    $scope.mode = $route.current.mode;
     $scope.company = {};
+
+    $scope.mode = $route.current.mode;
     if($scope.mode == 'edit') {
         $scope.company = MedicalCompany.get({id: $route.current.params.id});
     }
 
     $scope.saveCompany = function () {
-        var company = $scope.company;
+        const company = $scope.company;
         if($scope.mode == 'edit') {
             console.log("Updating company: " + company.id);
             MedicalCompany.update(company, function (response) {
-                console.log("Updated company: " + company.id);
+                console.log("Updated company: " + company.id + ". Response: " + response);
                 $scope.company = {};
                 toastr.success('Compan&iacute;a exitosamente modificado!');
                 $window.location.href = '#/medical-insurances/companies/' + company.id;

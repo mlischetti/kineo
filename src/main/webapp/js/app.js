@@ -125,17 +125,6 @@ app.config(function ($routeProvider) {
 });
 
 /** Directives **/
-app.directive('scrollToTarget', function () {
-    return function (scope, element) {
-        element.bind('click', function () {
-            angular.element('html, body').stop().animate({
-                scrollTop: angular.element(angular.element(element).attr('href')).offset().top - 20
-            }, 1500);
-            return false;
-        });
-    };
-});
-
 app.filter('capitalize', function() {
     return function(input) {
         return (!!input) ? input.charAt(0).toUpperCase() + input.substr(1).toLowerCase() : '';

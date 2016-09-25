@@ -1,13 +1,12 @@
 <section id="medical-companies" class="sections sections-narrow">
-    <div class="container">
+    <div class="container" style="margin-top: 70px">
         <h2>Compan&iacute;as</h2>
-        <br>
         <div class="row">
             <div class="col-md-12 ng-scope">
                 <div class="pull-right">
                     <div class="btn-group">
                         <a href="#/medical-insurances/company-new" class="btn btn-primary pull-right">
-                            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Nuevo
+                            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
                         </a>
                     </div>
                 </div>
@@ -19,20 +18,22 @@
                     </div>
                 </div>
             </div>
-            </br>
-            </br>
+        </div>
+
+        <br>
+        <div class="row">
             <div class="col-md-12 ng-scope">
                 <table class="table table-striped">
                     <thead>
                     <tr>
                         <th>Nombre</th>
-                        <th>Acciones</th>
+                        <th style="text-align: center">Acciones</th>
                     </tr>
                     </thead>
                     <tbody>
                     <tr ng-repeat="company in companies | filter:search">
                         <td width="70%">{{company.name}}</td>
-                        <td>
+                        <td width="30%" style="text-align: center">
                             <div class="action-item center-block">
                                 <a href="#/medical-insurances/companies/{{company.id}}">
                                     <span class="glyphicon glyphicon-eye-open text-success action"></span>

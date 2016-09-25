@@ -128,20 +128,20 @@ public class AppointmentController {
     @RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF_8)
     public Appointments getAppointments(@RequestParam(value = "since", required = false) String since,
                                         @RequestParam(value = "until", required = false) String until,
-                                        @RequestParam(value = "professionalId", required = false) Long professionalId,
+                                        @RequestParam(value = "professional", required = false) String professional,
                                         @RequestParam(value = "patient", required = false) String patient) {
 
         //Parse dates
         DateTime sinceDateTime = DateUtils.parseAsSimpleDateTime(since);
         DateTime untilDateTime = DateUtils.parseAsSimpleDateTime(until);
 
-        List<Appointment> appointments = appointmentService.find(sinceDateTime, untilDateTime, professionalId, patient);
+        List<Appointment> appointments = appointmentService.find(sinceDateTime, untilDateTime, professional, patient);
         List<AppointmentDto> appointmentsDtos = appointments.stream().map((Appointment appointment) -> new AppointmentDto(appointment)).collect(Collectors.toList());
         Appointments response = new Appointments();
         Criteria criteria = new Criteria();
         criteria.setSince(since);
         criteria.setUntil(until);
-        criteria.setProfessionalId(professionalId);
+        criteria.setProfessional(professional);
         criteria.setPatient(patient);
         response.setCriteria(criteria);
         response.setItems(appointmentsDtos);

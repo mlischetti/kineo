@@ -1,11 +1,11 @@
 <section id="patients" class="sections sections-narrow">
-    <div class="container">
+    <div class="container" style="margin-top: 70px">
         <div class="row">
             <div class="col-md-12 ng-scope">
                 <div class="pull-right">
                     <div class="btn-group">
                         <a href="#/patient-new" class="btn btn-primary pull-right">
-                            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Nuevo
+                            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
                         </a>
                     </div>
                 </div>
@@ -14,15 +14,16 @@
                         <div class="controls form-inline">
                             <input type="text" class="form-control" id="last-name-search" placeholder="Apellido" ng-model="search.last_name" >
                             <input type="text" class="form-control" id="first-name-search" placeholder="Nombre" ng-model="search.first_name">
-                            <button data-toggle="modal" ng-click="clearSearch()" class="btn btn-default">
+                            <button ng-click="clearSearch()" class="btn btn-default">
                                 <span class="glyphicon glyphicon-remove-sign" aria-hidden="true"></span>
                             </button>
                         </div>
                     </div>
                 </div>
             </div>
-            </br>
-            </br>
+        </div>
+        <br>
+        <div class="row">
             <div class="col-md-12 ng-scope">
                 <table class="table table-striped">
                     <thead>
@@ -31,7 +32,7 @@
                         <th>Nombre</th>
                         <th>Email</th>
                         <th>T&eacute;lefono</th>
-                        <th>Acciones</th>
+                        <th style="text-align: center">Acciones</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -40,7 +41,7 @@
                         <td width="20%">{{patient.first_name}}</td>
                         <td width="20%">{{patient.email}}</td>
                         <td width="20%">{{patient.phone}}</td>
-                        <td>
+                        <td width="20%" style="text-align: center">
                             <a href="#/patients/{{patient.id}}">
                                 <span class="glyphicon glyphicon-eye-open text-success action"></span>
                             </a>

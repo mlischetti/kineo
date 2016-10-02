@@ -4,19 +4,17 @@
             <form class="form-horizontal">
                 <div class="form-group">
                     <div class="col-md-offset-2 col-md-4">
-                        <h2 class="h2 sub-header">{{plan.plan}}</h2>
+                        <label class="h2 sub-header">{{plan.company.name}} - {{plan.plan}}</label>
+                        <a style="padding-bottom: 10px" href="#/medical-insurances/plan-edit/{{plan.id}}" class="btn btn-link"
+                           data-toggle="tooltip" data-placement="top" title="Editar">
+                            <span class="glyphicon glyphicon-pencil text-success action"/>
+                        </a>
                     </div>
                 </div>
-                <div class="form-group">
-                    <label for="company" class="col-md-2 control-label">Compan&iacute;a</label>
-                    <div class="col-md-4">
-                        <p id="company" class="form-control">{{plan.company.name}}</p>
-                    </div>
-                </div>
+                <br>
                 <div class="form-group">
                     <div class="col-md-offset-2 col-md-4">
                         <a href="#/medical-insurances/plans" class="btn btn-default">Volver</a>
-                        <a href="#/medical-insurances/plan-edit/{{plan.id}}" class="btn btn-primary">Editar</a>
                     </div>
                 </div>
             </form>

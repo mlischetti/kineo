@@ -4,7 +4,11 @@
             <form class="form-horizontal">
                 <div class="form-group">
                     <div class="col-md-offset-2 col-md-4">
-                        <h2 class="h2 sub-header">{{professional.category | capitalize}}. {{professional.last_name + ' ' + professional.first_name}}</h2>
+                        <label class="h2 sub-header">{{professional.category | capitalize}}. {{professional.last_name + ' ' + professional.first_name}}</label>
+                        <a style="padding-bottom: 10px" href="#/professional-edit/{{professional.id}}" class="btn btn-link"
+                           data-toggle="tooltip" data-placement="top" title="Editar">
+                            <span class="glyphicon glyphicon-pencil text-success action"/>
+                        </a>
                     </div>
                 </div>
                 <div class="form-group">
@@ -32,10 +36,10 @@
                         <p id="document" class="form-control">{{professional.document_type  + ' ' + professional.document_number}}</p>
                     </div>
                 </div>
+                <br>
                 <div class="form-group">
                     <div class="col-md-offset-2 col-md-4">
                         <a href="#/professionals" class="btn btn-default">Volver</a>
-                        <a href="#/professional-edit/{{professional.id}}" class="btn btn-primary">Editar</a>
                     </div>
                 </div>
             </form>

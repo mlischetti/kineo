@@ -4,7 +4,11 @@
             <form class="form-horizontal">
                 <div class="form-group">
                     <div class="col-md-offset-2 col-md-4">
-                        <h2 class="h2 sub-header">{{patient.last_name + ' ' + patient.first_name}}</h2>
+                        <label class="h2 sub-header">{{patient.last_name}} {{patient.first_name}}</label>
+                        <a style="padding-bottom: 10px" href="#/patient-edit/{{patient.id}}" class="btn btn-link"
+                           data-toggle="tooltip" data-placement="top" title="Editar">
+                            <span class="glyphicon glyphicon-pencil text-success action"/>
+                        </a>
                     </div>
                 </div>
                 <div class="form-group">
@@ -44,10 +48,10 @@
                         <p id="affiliate_id" class="form-control">{{patient.affiliate_id}}<p/>
                     </div>
                 </div>
+                <br>
                 <div class="form-group">
                     <div class="col-md-offset-2 col-md-4">
                         <a href="#/patients" class="btn btn-default">Volver</a>
-                        <a href="#/patient-edit/{{patient.id}}" class="btn btn-primary">Editar</a>
                     </div>
                 </div>
             </form>

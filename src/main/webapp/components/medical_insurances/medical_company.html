@@ -4,13 +4,19 @@
             <form class="form-horizontal">
                 <div class="form-group">
                     <div class="col-md-offset-2 col-md-4">
-                        <h2 class="h2 sub-header">{{company.name}}</h2>
+                        <label class="h2 sub-header">{{company.name}}</label>
+                        <a style="padding-bottom: 10px" href="#/medical-insurances/company-edit/{{company.id}}" class="btn btn-link"
+                           data-toggle="tooltip" data-placement="top" title="Editar">
+                            <span class="glyphicon glyphicon-pencil text-success action"/>
+                        </a>
                     </div>
                 </div>
+                <br>
                 <div class="form-group">
                     <div class="col-md-offset-2 col-md-4">
-                        <a href="#/medical-insurances/companies" class="btn btn-default">Volver</a>
-                        <a href="#/medical-insurances/company-edit/{{company.id}}" class="btn btn-primary">Editar</a>
+                        <a href="#/medical-insurances/companies" class="btn btn-default">
+                            Volver
+                        </a>
                     </div>
                 </div>
             </form>

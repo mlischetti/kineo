@@ -37,7 +37,17 @@ app.controller('ProfessionalController', function ($scope, $window, Professional
 app.controller('AddEditProfessionalController', function ($scope, $route, $window, Professional, DocumentTypes, ProfessionalCategories) {
     $scope.categories = [];
     $scope.documentTypes = [];
-    $scope.professional = {};
+    $scope.professional = {
+        id: null,
+        category: null,
+        last_name: null,
+        first_name: null,
+        date_of_birth: null,
+        email: null,
+        phone: null,
+        document_type: null,
+        document_number: null
+    };
 
     ProfessionalCategories.get({}, function (response) {
         console.log("Getting professional categories");
@@ -45,7 +55,6 @@ app.controller('AddEditProfessionalController', function ($scope, $route, $windo
     }, function (error) {
         console.log("Error on retrieve professional categories. Error: " + error);
     });
-
 
     DocumentTypes.get({}, function (response) {
         console.log("Getting document types");
@@ -57,33 +66,41 @@ app.controller('AddEditProfessionalController', function ($scope, $route, $windo
     $scope.mode = $route.current.mode;
 
     if($scope.mode == 'edit') {
-        $scope.professional = Professional.get({id: $route.current.params.id});
+        Professional.get({id: $route.current.params.id}, function (response) {
+            $scope.professional.id = response.id;
+            $scope.professional.category = response.category;
+            $scope.professional.last_name = response.last_name;
+            $scope.professional.first_name = response.first_name;
+            $scope.professional.date_of_birth = response.date_of_birth;
+            $scope.professional.email = response.email;
+            $scope.professional.phone = response.phone;
+            $scope.professional.document_type = response.document_type;
+            $scope.professional.document_number = response.document_number;
+        }, function (error) {
+            console.log("Error on retrieve professional. Error: " + error);
+        });
     }
 
     $scope.saveProfessional = function () {
-        const professional = $scope.professional;
+        $scope.professional.date_of_birth = moment($scope.professional.date_of_birth).format(API_DATE_FORMAT);
         if($scope.mode == 'edit') {
-            console.log("Updating professional: " + professional.id);
-            professional.date_of_birth = moment(professional.date_of_birth).format(API_DATE_FORMAT);
-            Professional.update(professional, function (response) {
-                console.log("Updated professional: " + professional.id + ". Response: " + response);
+            console.log("Updating professional: " + $scope.professional.id);
+            Professional.update($scope.professional, function (response) {
+                console.log("Updated professional: " + $scope.professional.id + ". Response: " + response);
                 $scope.professional = {};
                 toastr.success('Profesional exitosamente modificado!');
-                //$window.location.href = '#/professionals/' + professional.id;
                 $window.location.href = '#/professionals/';
             }, function (error) {
-                console.log("Error on updating professional: " + professional.id + ". Error: " + error);
+                console.log("Error on updating professional: " + $scope.professional.id + ". Error: " + error);
                 $scope.professional = {};
                 toastr.error('Error al modificar el profesional.', 'Error');
             });
         } else {
             console.log("Creating new professional");
-            professional.date_of_birth = moment(professional.date_of_birth).format(API_DATE_FORMAT);
-            Professional.save(professional, function (response) {
+            Professional.save($scope.professional, function (response) {
                 console.log("New professional: " + response.id + " created");
                 $scope.professional = {};
                 toastr.success('Profesional exitosamente creado!');
-                //$window.location.href = '#/professionals/' + response.id;
                 $window.location.href = '#/professionals/';
             }, function (error) {
                 console.log("Error on creating new professional. Error: " + error);
@@ -96,5 +113,10 @@ app.controller('AddEditProfessionalController', function ($scope, $route, $windo
 
 app.controller('ViewProfessionalController', function ($scope, $route, Professional) {
     console.log("Current professional: " + $route.current.params.id);
-    $scope.professional = Professional.get({id: $route.current.params.id});
+    $scope.professional = {};
+    Professional.get({id: $route.current.params.id}, function (response){
+        $scope.professional = response;
+    }, function (error) {
+        console.log("Error on retrieve professional. Error: " + error);
+    });
 });

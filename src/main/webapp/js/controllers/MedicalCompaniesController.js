@@ -29,35 +29,42 @@ app.controller('MedicalCompaniesController', function ($scope, $window, MedicalC
 });
 
 app.controller('AddEditMedicalCompanyController', function ($scope, $route, $window, MedicalCompany) {
-    $scope.company = {};
-
+    $scope.company = {
+        id: null,
+        name: null
+    };
     $scope.mode = $route.current.mode;
+
     if($scope.mode == 'edit') {
         $scope.company = MedicalCompany.get({id: $route.current.params.id});
+
+        MedicalCompany.get({id: $route.current.params.id}, function(response) {
+            $scope.company.id = response.id;
+            $scope.name = response.name;
+        }, function (error) {
+            console.log("Error on retrieve medical insurances company. Error: " + error);
+        });
     }
 
     $scope.saveCompany = function () {
-        const company = $scope.company;
         if($scope.mode == 'edit') {
-            console.log("Updating company: " + company.id);
-            MedicalCompany.update(company, function (response) {
-                console.log("Updated company: " + company.id + ". Response: " + response);
+            console.log("Updating company: " + $scope.company.id);
+            MedicalCompany.update($scope.company, function (response) {
+                console.log("Updated company: " + $scope.company.id + ". Response: " + response);
                 $scope.company = {};
                 toastr.success('Compan&iacute;a exitosamente modificado!');
-                //$window.location.href = '#/medical-insurances/companies/' + company.id;
                 $window.location.href = '#/medical-insurances/companies/';
             }, function (error) {
                 $scope.company = {};
-                console.log("Error on updating company: " + company.id + ". Error: " + error);
+                console.log("Error on updating company: " + $scope.company.id + ". Error: " + error);
                 toastr.error('Error al modificar la Compan&iacute;a.', 'Error');
             });
         } else {
             console.log("Creating new company");
-            MedicalCompany.save(company, function (response) {
+            MedicalCompany.save($scope.company, function (response) {
                 $scope.company = {};
                 console.log("New company: " + response.id + " created");
                 toastr.success('Compan&iacute;a exitosamente creada!');
-                //$window.location.href = '#/medical-insurances/companies/' + response.id;
                 $window.location.href = '#/medical-insurances/companies/';
             }, function (error) {
                 $scope.company = {};
@@ -69,6 +76,10 @@ app.controller('AddEditMedicalCompanyController', function ($scope, $route, $win
 });
 
 app.controller('ViewMedicalCompanyController', function ($scope, $route, MedicalCompany) {
-    console.log("Current company: " + $route.current.params.id);
-    $scope.company = MedicalCompany.get({id: $route.current.params.id});
+    $scope.company = {};
+    MedicalCompany.get({id: $route.current.params.id}, function(response) {
+       $scope.company = response;
+    }, function (error) {
+        console.log("Error on retrieve medical insurances company. Error: " + error);
+    });
 });

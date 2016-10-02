@@ -67,7 +67,8 @@ app.controller('AddEditPatientController', function ($scope, $route, $window, Pa
                 console.log("Updated patient: " + patient.id + ". Response:" + response);
                 $scope.patient = {};
                 toastr.success('Paciente exitosamente modificado!');
-                $window.location.href = '#/patients/' + patient.id;
+                //$window.location.href = '#/patients/' + patient.id;
+                $window.location.href = '#/patients/';
             }, function (error) {
                 $scope.patient = {};
                 console.log("Error on updating patient: " + patient.id + ". Error: " + error);
@@ -79,7 +80,8 @@ app.controller('AddEditPatientController', function ($scope, $route, $window, Pa
                 console.log("New patient: " + response.id + " created");
                 $scope.patient = {};
                 toastr.success('Paciente exitosamente creado!');
-                $window.location.href = '#/patients/' + response.id;
+                //$window.location.href = '#/patients/' + response.id;
+                $window.location.href = '#/patients/';
             }, function (error) {
                 $scope.patient = {};
                 console.log("Error on creating new patient. Error: " + error);

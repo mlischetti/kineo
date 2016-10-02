@@ -22,7 +22,9 @@
         <logback.version>1.1.2</logback.version>
         <com.fasterxml.jackson-version>2.3.1</com.fasterxml.jackson-version>
         <jodatime.version>2.9.4</jodatime.version>
+        <usertype.core.version>5.0.0.GA</usertype.core.version>
         <google-api-services-calendar.version>v3-rev156-1.21.0</google-api-services-calendar.version>
+        <freemarker.version>2.3.22</freemarker.version>
         <junit.version>4.11</junit.version>
     </properties>
 
@@ -247,7 +249,7 @@
         <dependency>
             <groupId>org.jadira.usertype</groupId>
             <artifactId>usertype.core</artifactId>
-            <version>5.0.0.GA</version>
+            <version>${usertype.core.version}</version>
         </dependency>
         <!-- /Date and Time -->
 
@@ -258,6 +260,14 @@
                 <version>${google-api-services-calendar.version}</version>
             </dependency>
         <!--/ Google APIs -->
+
+        <!-- Freemarker -->
+        <dependency>
+            <groupId>org.freemarker</groupId>
+            <artifactId>freemarker</artifactId>
+            <version>${freemarker.version}</version>
+        </dependency>
+        <!--/ Freemarker -->
 
         <!-- jUnit-->
         <dependency>

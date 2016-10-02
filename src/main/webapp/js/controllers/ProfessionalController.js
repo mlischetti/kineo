@@ -69,7 +69,8 @@ app.controller('AddEditProfessionalController', function ($scope, $route, $windo
                 console.log("Updated professional: " + professional.id + ". Response: " + response);
                 $scope.professional = {};
                 toastr.success('Profesional exitosamente modificado!');
-                $window.location.href = '#/professionals/' + professional.id;
+                //$window.location.href = '#/professionals/' + professional.id;
+                $window.location.href = '#/professionals/';
             }, function (error) {
                 console.log("Error on updating professional: " + professional.id + ". Error: " + error);
                 $scope.professional = {};
@@ -82,7 +83,8 @@ app.controller('AddEditProfessionalController', function ($scope, $route, $windo
                 console.log("New professional: " + response.id + " created");
                 $scope.professional = {};
                 toastr.success('Profesional exitosamente creado!');
-                $window.location.href = '#/professionals/' + response.id;
+                //$window.location.href = '#/professionals/' + response.id;
+                $window.location.href = '#/professionals/';
             }, function (error) {
                 console.log("Error on creating new professional. Error: " + error);
                 $scope.professional = {};

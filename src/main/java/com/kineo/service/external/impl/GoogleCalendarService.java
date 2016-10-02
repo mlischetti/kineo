@@ -13,28 +13,33 @@ import com.google.api.services.calendar.model.EventDateTime;
 import com.kineo.model.Appointment;
 import com.kineo.service.external.CalendarService;
 import com.kineo.util.date.DateUtils;
+import freemarker.template.Template;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.freemarker.FreeMarkerTemplateUtils;
+import org.springframework.web.servlet.view.freemarker.FreeMarkerConfig;
 
 import javax.annotation.PostConstruct;
 import java.io.File;
 import java.io.IOException;
 import java.security.GeneralSecurityException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.TimeZone;
+import java.util.*;
 
 @Service
 public class GoogleCalendarService implements CalendarService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(GoogleCalendarService.class);
-    private static final String SUMMARY = "Kineo: Confirmacion de turno solicitado";
+
+    //    private static final String TEMPLATE = "appointment-message.ftl";
+//    private static final String SUMMARY = "Kineo: Confirmacion de turno solicitado";
+    private static final String TEMPLATE = "appointment-to-professional-description.ftl";
     private static final String LOCATION = "Av. Bernardo de Yrigoyen 220 Chivilcoy";
+    private static final String TELEPHONE = "02346 42-0640";
+    private static final TimeZone APPOINTMENT_TZ = TimeZone.getTimeZone("America/Argentina/Buenos_Aires");
 
     @Value("${kineo.calendar.calendarId}")
     private String calendarId;
@@ -49,6 +54,9 @@ public class GoogleCalendarService implements CalendarService {
     private String applicationName;
 
     private com.google.api.services.calendar.Calendar calendarService = null;
+
+    @Autowired
+    protected FreeMarkerConfig config;
 
     @PostConstruct
     public void setup() {
@@ -92,7 +100,7 @@ public class GoogleCalendarService implements CalendarService {
         String eventId = null;
         try {
             LOGGER.info("Insert new event based on appointment: {} into calendar", appointment.getId());
-            Event event = calendarService.events().insert(calendarId, build(appointment)).execute();
+            Event event = calendarService.events().insert(calendarId, build(appointment)).setSendNotifications(true).execute();
             eventId = event.getId();
             LOGGER.info("Inserted event: {} based on appointment: {} into calendar", eventId, appointment.getId());
         } catch (IOException e) {
@@ -105,7 +113,7 @@ public class GoogleCalendarService implements CalendarService {
         String eventId = appointment.getEvent().getEventId();
         try {
             LOGGER.info("Updating event: {} based on appointment: {}", eventId, appointment.getId());
-            calendarService.events().update(calendarId, eventId, build(appointment)).execute();
+            calendarService.events().update(calendarId, eventId, build(appointment)).setSendNotifications(true).execute();
             LOGGER.info("Updated event: {} based on appointment: {}", eventId, appointment.getId());
         } catch (IOException e) {
             LOGGER.error("Could not update event:{}", eventId, e);
@@ -113,7 +121,12 @@ public class GoogleCalendarService implements CalendarService {
     }
 
     private Event build(Appointment appointment) {
-        Event event = new Event().setSummary(SUMMARY).setDescription(getDescription(appointment)).setLocation(LOCATION);
+        Event event = new Event().setSummary(getSummary(appointment));
+        event.setLocation(LOCATION);
+        String description = getDescription(appointment);
+        if (StringUtils.isNotBlank(description)) {
+            event.setDescription(description);
+        }
 
         //Guests access
         event.setGuestsCanModify(false);
@@ -126,38 +139,74 @@ public class GoogleCalendarService implements CalendarService {
             attendees.add(new EventAttendee().setEmail(appointment.getProfessional().getEmail()));
         }
 
-//        if (StringUtils.isNotBlank(appointment.getPatient().getEmail())) {
-//            attendees.add(new EventAttendee().setEmail(appointment.getPatient().getEmail()));
-//        }
+        /*
+        if (StringUtils.isNotBlank(appointment.getPatient().getEmail())) {
+            attendees.add(new EventAttendee().setEmail(appointment.getPatient().getEmail()));
+        }
+        */
         event.setAttendees(attendees);
 
         //Dates
-        DateTime start = new DateTime(appointment.getStartTime().toDate(), TimeZone.getTimeZone("America/Argentina/Buenos_Aires"));
+        DateTime start = new DateTime(appointment.getStartTime().toDate(), APPOINTMENT_TZ);
         event.setStart(new EventDateTime().setDateTime(start));
 
-        DateTime end = new DateTime(appointment.getEndTime().toDate(), TimeZone.getTimeZone("America/Argentina/Buenos_Aires"));
+        DateTime end = new DateTime(appointment.getEndTime().toDate(), APPOINTMENT_TZ);
         event.setEnd(new EventDateTime().setDateTime(end));
         return event;
     }
 
-    private String getDescription(Appointment appointment) {
-        String[] appointmentTime = DateUtils.printAsArgDateTime(appointment.getStartTime()).split(" ");
-        StringBuilder builder = new StringBuilder(400);
-        builder.append("Sr/Sra. " + appointment.getPatient().getFullName().toUpperCase());
-        builder.append("\n\n");
-        builder.append("Recuerde concurir el dia " + appointmentTime[0] + " a las " + appointmentTime[1] + " hs. a su cita con:");
-        builder.append("\n\n");
-        builder.append(appointment.getProfessional().getCategory().getDescription() + " " + appointment.getProfessional().getFullName().toUpperCase());
-        builder.append("\n\n");
-        builder.append("Servicio: Kinesiologia");
-        builder.append("\n\n");
-        builder.append(LOCATION);
-        builder.append("\n\n");
-        builder.append("Se ruega puntualidad.");
-        builder.append("\n\n");
-        builder.append("En caso de no poder concurrir, comunicarse al tel: 02346 42-0640");
+    private String getSummary(Appointment appointment) {
+        StringBuilder builder = new StringBuilder(300);
+        builder.append(appointment.getService());
+        builder.append(": ");
+        builder.append(appointment.getProfessional().getFullName());
+        builder.append(" - ");
+        builder.append(appointment.getPatient().getFullName());
         return builder.toString();
     }
+
+    private String getDescription(Appointment appointment) {
+        String description = null;
+        try {
+            Template template = config.getConfiguration().getTemplate(TEMPLATE, "UTF-8");
+            String appointmentDateTime = DateUtils.printAsArgDateTime(appointment.getStartTime());
+
+            Map<String, String> data = new HashMap<>();
+            data.put("professionalCategory", appointment.getProfessional().getCategory().getShortDescription());
+            data.put("professionalFullname", appointment.getProfessional().getFullName());
+            data.put("appointmentDateTime", appointmentDateTime);
+            data.put("patientFullname", appointment.getPatient().getFullName());
+            data.put("service", appointment.getService());
+            description = FreeMarkerTemplateUtils.processTemplateIntoString(template, data);
+        } catch (Throwable t) {
+            LOGGER.error("Fail on getDescription.", t);
+        }
+
+        return description;
+    }
+
+//    private String getDescription(Appointment appointment) {
+//        String description = null;
+//        try {
+//            Template template = config.getConfiguration().getTemplate(TEMPLATE, "UTF-8");
+//            String[] appointmentDateTime = DateUtils.printAsArgDateTime(appointment.getStartTime()).split(" ");
+//
+//            Map<String, String> data = new HashMap<>();
+//            data.put("patientFullname", appointment.getPatient().getFullName().toUpperCase());
+//            data.put("appointmentDate", appointmentDateTime[0]);
+//            data.put("appointmentTime", appointmentDateTime[1]);
+//            data.put("professionalCategory", appointment.getProfessional().getCategory().getShortDescription());
+//            data.put("professionalFullname", appointment.getProfessional().getFullName().toUpperCase());
+//            data.put("service", appointment.getService());
+//            data.put("location", LOCATION);
+//            data.put("telephone", TELEPHONE);
+//            description = FreeMarkerTemplateUtils.processTemplateIntoString(template, data);
+//        } catch (Throwable t) {
+//            LOGGER.error("Fail on getDescription.", t);
+//        }
+//
+//        return description;
+//    }
 
     @Override
     public boolean delete(Appointment appointment) {
@@ -165,7 +214,7 @@ public class GoogleCalendarService implements CalendarService {
         if (StringUtils.isNotBlank(eventId)) {
             try {
                 LOGGER.info("Deleting event: {} based on appointment: {}", eventId, appointment.getId());
-                calendarService.events().delete(calendarId, eventId).setSendNotifications(false).execute();
+                calendarService.events().delete(calendarId, eventId).setSendNotifications(true).execute();
                 LOGGER.info("Deleted event: {} based on appointment: {}", eventId, appointment.getId());
                 return true;
             } catch (IOException e) {

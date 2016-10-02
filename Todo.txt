@@ -1,21 +1,8 @@
 Calendar
 --------
-- Calendar must be read only --> DONE
-- Include map into calendar --> DONE
-- Move conf to properties files --> DONE
-- Sent to google calendar async --> DONE
-- Enable/disable calendar as config --> DONE
-- String template
 - Accent mark
 - Date Time zone
 - Session expired???
-
-Model
------
-- Support delete appointment  --> DONE
-- Patient and doctor add document number (Create catalog) --> DONE
-- Patient birth day --> DONE
-- Doctor birth day --> DONE
 
 Service
 -------
@@ -28,11 +15,6 @@ Controller
 Persistence
 -----------
 - Lazy object without transaction.
-- Appointment summary and description are necessary? --> DONE
-
-TimeZone
-----------
-GMT 0? o GMT-3
 
 Controller
 -----------
@@ -46,8 +28,6 @@ Views
 - Commons error catching
 - Load catalogs on startup
 - Patient advance search, replace filter by search form (Could be a lot of patients)
-- Links to google calendar and facebook page
-- Js min
 
 Bugs
 -----

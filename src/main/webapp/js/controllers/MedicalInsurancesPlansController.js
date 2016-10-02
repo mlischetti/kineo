@@ -62,7 +62,8 @@ app.controller('AddEditMedicalInsurancePlanController', function ($scope, $route
                 console.log("Updated plan: " + plan.id + ". Response: " + response);
                 $scope.plan = {};
                 toastr.success('Plan exitosamente modificado!');
-                $window.location.href = '#/medical-insurances/plans/' + plan.id;
+                //$window.location.href = '#/medical-insurances/plans/' + plan.id;
+                $window.location.href = '#/medical-insurances/plans/';
             }, function (error) {
                 console.log("Error on updating plan: " + plan.id + ". Error: " + error);
                 $scope.plan = {};
@@ -74,7 +75,8 @@ app.controller('AddEditMedicalInsurancePlanController', function ($scope, $route
                 $scope.plan = {};
                 console.log("New plan: " + response.id + " created");
                 toastr.success('Plan exitosamente creado!');
-                $window.location.href = '#/medical-insurances/plans/' + response.id;
+                //$window.location.href = '#/medical-insurances/plans/' + response.id;
+                $window.location.href = '#/medical-insurances/plans/';
             }, function (error) {
                 console.log("Error on creating new plan. Error: " + error);
                 $scope.plan = {};

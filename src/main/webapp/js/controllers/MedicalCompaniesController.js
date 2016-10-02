@@ -44,7 +44,8 @@ app.controller('AddEditMedicalCompanyController', function ($scope, $route, $win
                 console.log("Updated company: " + company.id + ". Response: " + response);
                 $scope.company = {};
                 toastr.success('Compan&iacute;a exitosamente modificado!');
-                $window.location.href = '#/medical-insurances/companies/' + company.id;
+                //$window.location.href = '#/medical-insurances/companies/' + company.id;
+                $window.location.href = '#/medical-insurances/companies/';
             }, function (error) {
                 $scope.company = {};
                 console.log("Error on updating company: " + company.id + ". Error: " + error);
@@ -56,7 +57,8 @@ app.controller('AddEditMedicalCompanyController', function ($scope, $route, $win
                 $scope.company = {};
                 console.log("New company: " + response.id + " created");
                 toastr.success('Compan&iacute;a exitosamente creada!');
-                $window.location.href = '#/medical-insurances/companies/' + response.id;
+                //$window.location.href = '#/medical-insurances/companies/' + response.id;
+                $window.location.href = '#/medical-insurances/companies/';
             }, function (error) {
                 $scope.company = {};
                 console.log("Error on creating new company. Error: " + error);

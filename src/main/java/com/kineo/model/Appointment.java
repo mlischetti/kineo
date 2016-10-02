@@ -5,9 +5,6 @@ import org.joda.time.DateTime;
 
 import javax.persistence.*;
 
-/**
- * Created by mlischetti on 11/27/15.
- */
 @Entity
 @Table(name = "APPOINTMENT")
 public class Appointment extends BaseEntity {
@@ -46,9 +43,6 @@ public class Appointment extends BaseEntity {
     }
 
     public void setStatus(AppointmentStatus status) {
-        if (this.status != status) {
-            getEvent().setStatus(CalendarEventStatus.PENDING);
-        }
         this.status = status;
     }
 
@@ -77,7 +71,7 @@ public class Appointment extends BaseEntity {
     }
 
     public DateTime getEndTime() {
-        if(startTime == null) {
+        if (startTime == null) {
             return null;
         }
         return startTime.plusMinutes(getDuration());
@@ -106,5 +100,21 @@ public class Appointment extends BaseEntity {
 
     public void setPatient(Patient patient) {
         this.patient = patient;
+    }
+
+    public void markAsConfirmed() {
+        this.status = AppointmentStatus.CONFIRM;
+        setEventAsPending();
+    }
+
+    public void markAsDeleted() {
+        this.status = AppointmentStatus.DELETE;
+        setEventAsPending();
+    }
+
+    private void setEventAsPending() {
+        if (this.event != null) {
+            this.event.setStatus(CalendarEventStatus.PENDING);
+        }
     }
 }

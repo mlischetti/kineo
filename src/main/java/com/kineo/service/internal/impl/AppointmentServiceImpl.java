@@ -13,9 +13,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-/**
- * Created by Mariano on 1/24/2016.
- */
 @Service
 public class AppointmentServiceImpl implements AppointmentService {
     private static final Logger LOGGER = LoggerFactory.getLogger(AppointmentServiceImpl.class);
@@ -55,7 +52,7 @@ public class AppointmentServiceImpl implements AppointmentService {
     @Override
     @Transactional
     public void delete(Appointment appointment) {
-        appointment.setStatus(AppointmentStatus.DELETE);
+        appointment.markAsDeleted();
         repository.save(appointment);
     }
 }

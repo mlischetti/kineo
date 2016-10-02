@@ -2,9 +2,6 @@ package com.kineo.model;
 
 import javax.persistence.*;
 
-/**
- * Created by Mariano on 1/31/2016.
- */
 @Entity
 @Table(name = "CALENDAR_EVENT")
 public class CalendarEvent extends BaseEntity {

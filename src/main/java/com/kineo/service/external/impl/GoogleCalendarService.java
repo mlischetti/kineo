@@ -12,6 +12,7 @@ import com.google.api.services.calendar.model.EventAttendee;
 import com.google.api.services.calendar.model.EventDateTime;
 import com.kineo.model.Appointment;
 import com.kineo.service.external.CalendarService;
+import com.kineo.util.date.DateUtils;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,9 +29,6 @@ import java.util.Collections;
 import java.util.List;
 import java.util.TimeZone;
 
-/**
- * Created by mlischetti on 12/10/15.
- */
 @Service
 public class GoogleCalendarService implements CalendarService {
 
@@ -57,7 +55,7 @@ public class GoogleCalendarService implements CalendarService {
         GoogleCredential credentials;
         HttpTransport httpTransport;
         File keyFile;
-        LOGGER.debug("Creating google calendar service instance");
+        LOGGER.info("Creating google calendar service instance");
         JsonFactory jsonFactory = JacksonFactory.getDefaultInstance();
         try {
             httpTransport = GoogleNetHttpTransport.newTrustedTransport();
@@ -73,12 +71,12 @@ public class GoogleCalendarService implements CalendarService {
             return;
         }
         calendarService = new com.google.api.services.calendar.Calendar.Builder(httpTransport, jsonFactory, credentials).setApplicationName(applicationName).build();
-        LOGGER.debug("Created google calendar service instance");
+        LOGGER.info("Created google calendar service instance");
     }
 
     @Override
     public String submit(Appointment appointment) {
-        LOGGER.debug("Submit appointment: {}", appointment.getId());
+        LOGGER.info("Submit appointment: {}", appointment.getId());
         String eventId;
         if (StringUtils.isNotBlank(appointment.getEvent().getEventId())) {
             updateEvent(appointment);
@@ -86,17 +84,17 @@ public class GoogleCalendarService implements CalendarService {
         } else {
             eventId = insertEvent(appointment);
         }
-        LOGGER.debug("Appointment: {} was submitted, event: {}.", appointment.getId(), eventId);
+        LOGGER.info("Appointment: {} was submitted, event: {}.", appointment.getId(), eventId);
         return eventId;
     }
 
     private String insertEvent(Appointment appointment) {
         String eventId = null;
         try {
-            LOGGER.debug("Insert new event based on appointment: {} into calendar", appointment.getId());
+            LOGGER.info("Insert new event based on appointment: {} into calendar", appointment.getId());
             Event event = calendarService.events().insert(calendarId, build(appointment)).execute();
             eventId = event.getId();
-            LOGGER.debug("Inserted event: {} based on appointment: {} into calendar", eventId, appointment.getId());
+            LOGGER.info("Inserted event: {} based on appointment: {} into calendar", eventId, appointment.getId());
         } catch (IOException e) {
             LOGGER.error("Could not insert event based on appointment: {}", appointment.getId(), e);
         }
@@ -106,9 +104,9 @@ public class GoogleCalendarService implements CalendarService {
     private void updateEvent(Appointment appointment) {
         String eventId = appointment.getEvent().getEventId();
         try {
-            LOGGER.debug("Updating event: {} based on appointment: {}", eventId, appointment.getId());
+            LOGGER.info("Updating event: {} based on appointment: {}", eventId, appointment.getId());
             calendarService.events().update(calendarId, eventId, build(appointment)).execute();
-            LOGGER.debug("Updated event: {} based on appointment: {}", eventId, appointment.getId());
+            LOGGER.info("Updated event: {} based on appointment: {}", eventId, appointment.getId());
         } catch (IOException e) {
             LOGGER.error("Could not update event:{}", eventId, e);
         }
@@ -127,9 +125,10 @@ public class GoogleCalendarService implements CalendarService {
         if (StringUtils.isNotBlank(appointment.getProfessional().getEmail())) {
             attendees.add(new EventAttendee().setEmail(appointment.getProfessional().getEmail()));
         }
-        if (StringUtils.isNotBlank(appointment.getPatient().getEmail())) {
-            attendees.add(new EventAttendee().setEmail(appointment.getPatient().getEmail()));
-        }
+
+//        if (StringUtils.isNotBlank(appointment.getPatient().getEmail())) {
+//            attendees.add(new EventAttendee().setEmail(appointment.getPatient().getEmail()));
+//        }
         event.setAttendees(attendees);
 
         //Dates
@@ -142,8 +141,7 @@ public class GoogleCalendarService implements CalendarService {
     }
 
     private String getDescription(Appointment appointment) {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm");
-        String[] appointmentTime = dateFormat.format(appointment.getStartTime()).split(" ");
+        String[] appointmentTime = DateUtils.printAsArgDateTime(appointment.getStartTime()).split(" ");
         StringBuilder builder = new StringBuilder(400);
         builder.append("Sr/Sra. " + appointment.getPatient().getFullName().toUpperCase());
         builder.append("\n\n");
@@ -166,9 +164,9 @@ public class GoogleCalendarService implements CalendarService {
         String eventId = appointment.getEvent().getEventId();
         if (StringUtils.isNotBlank(eventId)) {
             try {
-                LOGGER.debug("Deleting event: {} based on appointment: {}", eventId, appointment.getId());
+                LOGGER.info("Deleting event: {} based on appointment: {}", eventId, appointment.getId());
                 calendarService.events().delete(calendarId, eventId).setSendNotifications(false).execute();
-                LOGGER.debug("Deleted event: {} based on appointment: {}", eventId, appointment.getId());
+                LOGGER.info("Deleted event: {} based on appointment: {}", eventId, appointment.getId());
                 return true;
             } catch (IOException e) {
                 LOGGER.error("Could not delete event: {}", eventId, e);

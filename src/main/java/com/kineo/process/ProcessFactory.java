@@ -5,9 +5,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
 
-/**
- * Created by Mariano on 1/31/2016.
- */
 @Component
 public class ProcessFactory {
 

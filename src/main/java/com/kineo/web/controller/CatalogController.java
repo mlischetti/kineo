@@ -14,9 +14,6 @@ import java.util.EnumSet;
 import java.util.List;
 import java.util.stream.Collectors;
 
-/**
- * Created by mlischetti on 30/04/16.
- */
 @RestController
 @RequestMapping("/api/catalogs")
 public class CatalogController {
@@ -24,7 +21,7 @@ public class CatalogController {
     @RequestMapping(value = "/document-types", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF_8)
     public List<DocumentTypeDto> getDocumentTypes() {
         List<DocumentTypeDto> response = EnumSet.allOf(DocumentType.class).stream().map(
-                (DocumentType documentType) -> new DocumentTypeDto(documentType)).collect(Collectors.toList());
+                documentType -> new DocumentTypeDto(documentType)).collect(Collectors.toList());
         return response;
     }
 
@@ -40,7 +37,7 @@ public class CatalogController {
     @RequestMapping(value = "/professional-categories", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF_8)
     public List<ProfessionalCategoryDto> getProfessionalCategories() {
         List<ProfessionalCategoryDto> response = EnumSet.allOf(ProfessionalCategory.class).stream().map(
-                (ProfessionalCategory professionalCategory) -> new ProfessionalCategoryDto(professionalCategory)).collect(Collectors.toList());
+                professionalCategory -> new ProfessionalCategoryDto(professionalCategory)).collect(Collectors.toList());
         return response;
     }
 }

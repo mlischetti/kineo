@@ -23,9 +23,6 @@ import javax.validation.Valid;
 import java.util.List;
 import java.util.stream.Collectors;
 
-/**
- * Created by mlischetti on 12/7/15.
- */
 @RestController
 @RequestMapping("/api/patients")
 public class PatientController {
@@ -76,7 +73,7 @@ public class PatientController {
         LOGGER.debug("Retrieve medical insurance patients from:{}, limit:{}", fistResult, maxResult);
         PaginationResponse<PatientDto> response = new PaginationResponse<>();
         List<Patient> patients = patientService.find(fistResult, maxResult);
-        response.setItems(patients.stream().map((Patient patient) -> new PatientDto(patient)).collect(Collectors.toList()));
+        response.setItems(patients.stream().map(patient -> new PatientDto(patient)).collect(Collectors.toList()));
         Paging paging = new Paging();
         paging.setLimit(maxResult);
         paging.setOffset(fistResult);

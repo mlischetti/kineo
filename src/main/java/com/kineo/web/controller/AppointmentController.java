@@ -26,9 +26,6 @@ import javax.validation.Valid;
 import java.util.List;
 import java.util.stream.Collectors;
 
-/**
- * Created by mlischetti on 12/7/15.
- */
 @RestController
 @RequestMapping("/api/appointments")
 public class AppointmentController {
@@ -122,6 +119,7 @@ public class AppointmentController {
         appointment.setStartTime(appointmentRequest.getStartTime());
         appointment.setProfessional(professional);
         appointment.setPatient(patient);
+        appointment.markAsConfirmed();
         appointmentService.save(appointment);
         LOGGER.debug("Created appointment: {}", appointment.getId());
     }
@@ -138,7 +136,7 @@ public class AppointmentController {
         DateTime untilDateTime = DateUtils.parseAsSimpleDateTime(until);
 
         List<Appointment> appointments = appointmentService.find(status, sinceDateTime, untilDateTime, professional, patient);
-        List<AppointmentDto> appointmentsDtos = appointments.stream().map((Appointment appointment) -> new AppointmentDto(appointment)).collect(Collectors.toList());
+        List<AppointmentDto> appointmentsDtos = appointments.stream().map(appointment -> new AppointmentDto(appointment)).collect(Collectors.toList());
         Appointments response = new Appointments();
         Criteria criteria = new Criteria();
         criteria.setStatus(status);

@@ -10,7 +10,7 @@ app.controller('AppointmentController', function ($scope, $window, Appointment) 
     $scope.searchRequest = {
         status: 'CONFIRM',
         since: now.format(DATE_FORMAT),
-        until: now.add(1, 'day').format(DATE_FORMAT),
+        until: now.add(7, 'day').format(DATE_FORMAT),
         professional: null,
         patient: null
     };
@@ -59,6 +59,8 @@ app.controller('AppointmentController', function ($scope, $window, Appointment) 
             toastr.error('Error al eliminar el turno.', 'Error');
         });
     };
+
+    $scope.search();
 });
 
 app.controller('AddEditAppointmentController', function ($scope, $route, $window, Professional, Patient, AppointmentServices, Appointment) {

@@ -22,9 +22,6 @@ import javax.validation.Valid;
 import java.util.List;
 import java.util.stream.Collectors;
 
-/**
- * Created by mlischetti on 11/29/15.
- */
 @RestController
 @RequestMapping("/api/professionals")
 public class ProfessionalController {
@@ -73,7 +70,7 @@ public class ProfessionalController {
         LOGGER.debug("Retrieve professionals from:{}, limit:{}", fistResult, maxResult);
         PaginationResponse<ProfessionalDto> response = new PaginationResponse<>();
         List<Professional> professionals = professionalService.find(fistResult, maxResult);
-        response.setItems(professionals.stream().map((Professional professional) -> new ProfessionalDto(professional)).collect(Collectors.toList()));
+        response.setItems(professionals.stream().map(professional -> new ProfessionalDto(professional)).collect(Collectors.toList()));
         Paging paging = new Paging();
         paging.setLimit(maxResult);
         paging.setOffset(fistResult);

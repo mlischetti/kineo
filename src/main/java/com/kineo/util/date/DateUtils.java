@@ -6,42 +6,48 @@ import org.joda.time.format.DateTimeFormatter;
 
 import java.util.Date;
 
-/**
- * Created by mlischetti on 06/05/16.
- */
 public class DateUtils {
 
     private static final DateTimeFormatter DATE_FORMAT = DateTimeFormat.forPattern("yyyy-MM-dd");
+    private static final DateTimeFormatter ARG_DATE_TIME_FORMAT = DateTimeFormat.forPattern("dd-MM-yyyy HH:mm");
 
     public static DateTime parseAsSimpleDateTime(String date) {
-        DateTime dateTime = null;
+        DateTime output = null;
         if (date != null) {
-            dateTime = DATE_FORMAT.parseDateTime(date);
+            output = DATE_FORMAT.parseDateTime(date);
         }
-        return dateTime;
+        return output;
     }
 
     public static String printDateTime(DateTime dateTime) {
-        String date = null;
+        String output = null;
         if (dateTime != null) {
-            date = dateTime.toString();
+            output = dateTime.toString();
         }
-        return date;
+        return output;
     }
 
-
     public static String printAsSimpleDate(DateTime dateTime) {
-        String date = null;
+        String output = null;
         if (dateTime != null) {
-            date = DATE_FORMAT.print(dateTime);
+            output = DATE_FORMAT.print(dateTime);
         }
-        return date;
+        return output;
     }
 
     public static String printAsSimpleDate(Date date) {
+        String output = null;
         if (date != null) {
-            return printAsSimpleDate(new DateTime(date));
+            output =  printAsSimpleDate(new DateTime(date));
         }
-        return null;
+        return output;
+    }
+
+    public static String printAsArgDateTime(DateTime dateTime) {
+        String output = null;
+        if (dateTime != null) {
+            output = ARG_DATE_TIME_FORMAT.print(dateTime);
+        }
+        return output;
     }
 }

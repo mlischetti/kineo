@@ -25,9 +25,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 
-/**
- * Created by mlischetti on 12/8/15.
- */
 @RestController
 @RequestMapping(value = "/api")
 public class MedicalInsuranceController {
@@ -60,7 +57,7 @@ public class MedicalInsuranceController {
 
     @RequestMapping(value = "/medical-insurances/companies", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF_8)
     public PaginationResponse<MedicalInsuranceCompanyDto> getCompanies(@RequestParam(value = "limit", required = false) Integer limit,
-                                                                     @RequestParam(value = "offset", required = false) Integer offset) {
+                                                                       @RequestParam(value = "offset", required = false) Integer offset) {
         LOGGER.debug("Retrieving medical insurance companies...");
         int fistResult = FIRST_RESULT;
         if (offset != null) {
@@ -78,7 +75,7 @@ public class MedicalInsuranceController {
         LOGGER.debug("Retrieve medical insurance companies from:{}, limit:{}", fistResult, maxResult);
         PaginationResponse<MedicalInsuranceCompanyDto> response = new PaginationResponse<>();
         List<MedicalInsuranceCompany> companies = medicalInsuranceService.findCompanies(fistResult, maxResult);
-        response.setItems(companies.stream().map((MedicalInsuranceCompany company) -> new MedicalInsuranceCompanyDto(company)).collect(Collectors.toList()));
+        response.setItems(companies.stream().map(company -> new MedicalInsuranceCompanyDto(company)).collect(Collectors.toList()));
         Paging paging = new Paging();
         paging.setLimit(maxResult);
         paging.setOffset(fistResult);
@@ -166,7 +163,7 @@ public class MedicalInsuranceController {
         LOGGER.debug("Retrieve medical insurance plans from:{}, limit:{}", fistResult, maxResult);
         PaginationResponse<MedicalInsurancePlanDto> response = new PaginationResponse<>();
         List<MedicalInsurancePlan> plans = medicalInsuranceService.findPlans(fistResult, maxResult);
-        response.setItems(plans.stream().map((MedicalInsurancePlan plan) -> new MedicalInsurancePlanDto(plan)).collect(Collectors.toList()));
+        response.setItems(plans.stream().map(plan -> new MedicalInsurancePlanDto(plan)).collect(Collectors.toList()));
         Paging paging = new Paging();
         paging.setLimit(maxResult);
         paging.setOffset(fistResult);

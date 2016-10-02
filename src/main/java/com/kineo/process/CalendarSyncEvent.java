@@ -11,10 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
-/**
- * Created by Mariano on 1/31/2016.
- */
-
 @Component("calendar-sync-event")
 @Scope(value = "prototype")
 public class CalendarSyncEvent implements Process {
@@ -42,7 +38,7 @@ public class CalendarSyncEvent implements Process {
     @Override
     public void run() {
         if (appointment != null && CalendarEventStatus.PENDING.equals(appointment.getEvent().getStatus())) {
-            LOGGER.debug("Sync appointment: {}, status: {}", appointment.getId(), appointment.getStatus());
+            LOGGER.info("Sync appointment: {}, status: {}", appointment.getId(), appointment.getStatus());
             boolean sync = false;
             switch (appointment.getStatus()) {
                 case CONFIRM: {
@@ -62,7 +58,7 @@ public class CalendarSyncEvent implements Process {
                 }
             }
             if (sync) {
-                LOGGER.debug("Appointment: {} synchronized", appointment.getId());
+                LOGGER.info("Appointment: {} synchronized", appointment.getId());
                 appointment.getEvent().setStatus(CalendarEventStatus.SYNC);
                 appointmentService.save(appointment);
             } else {

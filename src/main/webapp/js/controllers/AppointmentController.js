@@ -4,6 +4,7 @@ const TIME_FORMAT = "HH:mm";
 app.controller('AppointmentController', function ($scope, $window, Appointment) {
     const now = moment();
 
+    $scope.mode = "calendar";
     $scope.appointments = [];
     $scope.appointment = {};
 
@@ -15,19 +16,24 @@ app.controller('AppointmentController', function ($scope, $window, Appointment) 
         patient: null
     };
 
-    $scope.search = function() {
+
+    $scope.changeMode = function (mode) {
+        $scope.mode = mode;
+    };
+
+    $scope.search = function () {
         const params = {};
         params.status = $scope.searchRequest.status;
-        if(isNotEmpty($scope.searchRequest.since)) {
+        if (isNotEmpty($scope.searchRequest.since)) {
             params.since = moment($scope.searchRequest.since, DATE_FORMAT).format(API_DATE_FORMAT);
         }
-        if(isNotEmpty($scope.searchRequest.until)) {
+        if (isNotEmpty($scope.searchRequest.until)) {
             params.until = moment($scope.searchRequest.until, DATE_FORMAT).format(API_DATE_FORMAT);
         }
-        if(isNotEmpty($scope.searchRequest.professional)) {
+        if (isNotEmpty($scope.searchRequest.professional)) {
             params.professional = $scope.searchRequest.professional;
         }
-        if(isNotEmpty($scope.searchRequest.patient)) {
+        if (isNotEmpty($scope.searchRequest.patient)) {
             params.patient = $scope.searchRequest.patient;
         }
         Appointment.get(params, function (response) {
@@ -66,6 +72,7 @@ app.controller('AppointmentController', function ($scope, $window, Appointment) 
 app.controller('AddEditAppointmentController', function ($scope, $route, $window, Professional, Patient, AppointmentServices, Appointment) {
     const now = moment();
 
+    $scope.appointmentMode = "simple";
     $scope.professionals = [];
     $scope.patients = [];
     $scope.services = [];
@@ -99,8 +106,8 @@ app.controller('AddEditAppointmentController', function ($scope, $route, $window
 
     $scope.mode = $route.current.mode;
 
-    if($scope.mode == 'edit') {
-        Appointment.get({id: $route.current.params.id}, function(response) {
+    if ($scope.mode == 'edit') {
+        Appointment.get({id: $route.current.params.id}, function (response) {
             const startTime = moment(response.start_time);
             $scope.appointment.id = response.id;
             $scope.appointment.date = startTime.format(DATE_FORMAT);
@@ -111,7 +118,7 @@ app.controller('AddEditAppointmentController', function ($scope, $route, $window
 
             $scope.$broadcast('angucomplete-alt:changeInput', 'professional', response.professional);
             $scope.$broadcast('angucomplete-alt:changeInput', 'patient', response.patient);
-        }, function(error) {
+        }, function (error) {
             console.log("Error on retrieve appointment. Error: " + error);
         });
     }
@@ -135,8 +142,8 @@ app.controller('AddEditAppointmentController', function ($scope, $route, $window
     };
 
     $scope.saveAppointment = function () {
-        $scope.appointment.start_time =  moment($scope.appointment.date + ' ' + $scope.appointment.time, DATE_FORMAT + ' ' + TIME_FORMAT).format();
-        if($scope.mode == 'edit') {
+        $scope.appointment.start_time = moment($scope.appointment.date + ' ' + $scope.appointment.time, DATE_FORMAT + ' ' + TIME_FORMAT).format();
+        if ($scope.mode == 'edit') {
             console.log("Updating appointment: " + $scope.appointment.id);
             Appointment.update($scope.appointment, function (response) {
                 console.log("Updated appointment: " + $scope.appointment.id + ". Response:" + response);

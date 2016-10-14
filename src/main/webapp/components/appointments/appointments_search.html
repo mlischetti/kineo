@@ -1,0 +1,60 @@
+<div ng-show="mode == 'search'">
+    <div class="row" ng-show="mode == 'search'">
+        <div class="col-md-2">
+            <date-picker class="input-group date" id="since">
+                <input type="text" class="form-control" ng-model="searchRequest.since"/>
+                <div class="input-group-addon">
+                    <span class="glyphicon glyphicon-th"></span>
+                </div>
+            </date-picker>
+        </div>
+        <div class="col-md-2">
+            <date-picker class="input-group date" id="until">
+                <input type="text" class="form-control" ng-model="searchRequest.until"/>
+                <div class="input-group-addon">
+                    <span class="glyphicon glyphicon-th"></span>
+                </div>
+            </date-picker>
+        </div>
+        <div class="col-md-2">
+            <input type="text" class="form-control" id="professional" ng-model="searchRequest.professional" placeholder="Profesional...">
+        </div>
+        <div class="col-md-2">
+            <input type="text" class="form-control" id="patient" ng-model="searchRequest.patient" placeholder="Paciente...">
+        </div>
+
+        <div class="col-md-1">
+            <button type="submit" class="btn btn-default" ng-click="search()">
+                <span class="glyphicon glyphicon-search"></span>
+            </button>
+        </div>
+    </div>
+    </br>
+    <div class="row">
+        <div class="col-md-12 ng-scope">
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>Profesional</th>
+                    <th>Paciente</th>
+                    <th>Servicio</th>
+                    <th>Fecha</th>
+                    <th style="text-align: center">Acciones</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="appointment in appointments">
+                    <td width="20%">{{appointment.professional.category | capitalize}}. {{appointment.professional.last_name + ', ' + appointment.professional.first_name}}</td>
+                    <td width="20%">{{appointment.patient.last_name + ', ' + appointment.patient.first_name}}</td>
+                    <td width="20%">{{appointment.service}}</td>
+                    <td width="20%">{{appointment.start_time | date:'dd/MM/yy HH:mm'}}</td>
+                    <td width="20%" style="text-align: center">
+                        <a href="#/appointment-edit/{{appointment.id}}"><span class="glyphicon glyphicon-edit action"/></a>
+                        <span class="glyphicon glyphicon-trash text-danger action" ng-click="showDeleteAppointmentModal(appointment)"/>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

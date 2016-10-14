@@ -1,70 +1,54 @@
 <section id="appointments" class="sections sections-narrow">
     <div class="container" style="margin-top: 70px">
         <div class="row">
-            <div class="col-md-2">
-                <date-picker class="input-group date" id="since">
-                    <input type="text" class="form-control" ng-model="searchRequest.since"/>
-                    <div class="input-group-addon">
-                        <span class="glyphicon glyphicon-th"></span>
+            <div class="col-md-11">
+                <div class="row">
+                    <div class="col-md-3">
+                        <ul class="nav nav-pills pull-left">
+                            <li class="action" ng-class="{'active': mode == 'calendar'}" ng-click="changeMode('calendar')">
+                                <a>Calendario</a>
+                            </li>
+                            <li class="action" ng-class="{'active': mode == 'search'}" ng-click="changeMode('search')">
+                                <a>Buscar</a>
+                            </li>
+                        </ul>
                     </div>
-                </date-picker>
-            </div>
-            <div class="col-md-2">
-                <date-picker class="input-group date" id="until">
-                    <input type="text" class="form-control" ng-model="searchRequest.until"/>
-                    <div class="input-group-addon">
-                        <span class="glyphicon glyphicon-th"></span>
+                    <div class="col-lg-offset-1 col-md-8">
+                        <a href="#/appointment-new" class="btn btn-primary pull-left" data-toggle="tooltip" data-placement="top" title="Nuevo turno">
+                            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                        </a>
                     </div>
-                </date-picker>
+                </div>
             </div>
-            <div class="col-md-2">
-                <input type="text" class="form-control" id="professional" ng-model="searchRequest.professional" placeholder="Profesional...">
-            </div>
-            <div class="col-md-2">
-                <input type="text" class="form-control" id="patient" ng-model="searchRequest.patient" placeholder="Paciente...">
-            </div>
-
             <div class="col-md-1">
-                <button type="submit" class="btn btn-default" ng-click="search()">
-                    <span class="glyphicon glyphicon-search"></span>
+                <button type="submit" class="btn btn-default pull-right" data-toggle="modal" data-target="#helpModal">
+                    <span class="glyphicon glyphicon-question-sign"></span>
                 </button>
             </div>
-            <div class="col-md-3">
-                <a href="#/appointment-new" class="btn btn-primary pull-right">
-                    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-                </a>
-            </div>
         </div>
-        </br>
-        <div class="row">
-            <div class="col-md-12 ng-scope">
-                <table class="table table-striped">
-                    <thead>
-                    <tr>
-                        <th>Profesional</th>
-                        <th>Paciente</th>
-                        <th>Servicio</th>
-                        <th>Fecha</th>
-                        <th style="text-align: center">Acciones</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr ng-repeat="appointment in appointments">
-                        <td width="20%">{{appointment.professional.category | capitalize}}. {{appointment.professional.last_name + ', ' + appointment.professional.first_name}}</td>
-                        <td width="20%">{{appointment.patient.last_name + ', ' + appointment.patient.first_name}}</td>
-                        <td width="20%">{{appointment.service}}</td>
-                        <td width="20%">{{appointment.start_time | date:'dd/MM/yy HH:mm'}}</td>
-                        <td width="20%" style="text-align: center">
-                            <a href="#/appointment-edit/{{appointment.id}}"><span class="glyphicon glyphicon-edit action"/></a>
-                            <span class="glyphicon glyphicon-trash text-danger action" ng-click="showDeleteAppointmentModal(appointment)"/>
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
+        <br>
+        <ng-include src="'components/appointments/appointments_search.html'"></ng-include>
+        <ng-include src="'components/appointments/appointments_calendar.html'"></ng-include>
     </div>
 </section>
 
 <!-- Modals -->
 <ng-include src="'components/_partials/_modal_delete_appointment.html'"></ng-include>
+
+<div class="modal fade" id="helpModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h2 class="modal-title">Referencias</h2>
+            </div>
+            <div class="modal-body">
+                <ul class="help">
+                    <li><span style="background-color: #dff0d8"></span>Kinesiologia</li>
+                    <li><span style="background-color: #fcf8e3"></span>Osteopatia</li>
+                    <li><span style="background-color: #f2dede"></span>RPG</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
